@@ -11,6 +11,10 @@
 
     <textdomain>firstboot</textdomain>
 
+    <custom>
+        <license_action>abort</license_action>
+        <license_file>/usr/lib/YaST2/info.txt</license_action>
+    </custom>
     <proposals config:type="list">
         <proposal>
             <name>firstboot_hardware</name>
@@ -44,11 +48,11 @@
             <modules  config:type="list">
                 <module>
                     <label>Welcome</label>
-                    <name>firstboot_welcome</name>
+                    <name>inst_welcome</name>
                 </module>
                 <module>
                     <label>License Agreement</label>
-                    <name>firstboot_license</name>
+                    <name>inst_license</name>
                 </module>
                 <module>
                     <label>Network</label>

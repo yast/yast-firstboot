@@ -86,36 +86,6 @@ global boolean ExecuteScripts()
 
 
 
-/**
- * Parse provided text and see if it contains richtext
- * @param sysconfig_file sysconfig variable with path to file
- * @param richtext default text
- * @return term
- */
-global term DetectRichText(string sysconfig_file, string richtext )
-{
-    string text = "";
-    path p = add(.sysconfig.firstboot, sysconfig_file );
-    string file = (string)Misc::SysconfigRead(p, "");
-
-    if (SCR::Read(.target.size, file) > 0)
-    {
-        text = (string)SCR::Read(.target.string,  file );
-    }
-    else 
-    {
-        text = richtext;
-    }
-    if (text == "")
-        text = no_text;
-
-
-    if (regexpmatch(text, "</.*>")) {
-        return (`RichText(`id(`text), text));
-    } else {
-        return (`RichText(`id(`text), `opt(`plainText),  text));
-    }
-}
 
 /* EOF */
 }
