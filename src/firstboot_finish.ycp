@@ -19,7 +19,6 @@
     import "Firstboot";
     import "GetInstArgs";
 
-
     map display = UI::GetDisplayInfo();
 
     if (!display["TextMode"]:true)

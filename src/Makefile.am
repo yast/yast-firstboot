@@ -4,8 +4,6 @@ yncludedir = @yncludedir@/firstboot
 SUBDIRS = data control
 
 client_DATA =			\
-	firstboot_finish.ycp	\
-	firstboot_finish.ycp	\
 	firstboot_write.ycp	\
 	firstboot_desktop.ycp	\
 	firstboot_language.ycp	\
