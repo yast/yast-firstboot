@@ -69,6 +69,12 @@ textdomain="firstboot"
                     <arguments>true,true</arguments>
                 </module>
                 <module>
+		    <label>Desktop</label>
+                    <enabled config:type="boolean">false</enabled>
+                    <name>firstboot_desktop</name>
+                    <arguments>true,true</arguments>
+                </module>
+                <module>
 		    <label>Network</label>
                     <name>inst_proposal</name>
                     <arguments>true,true,`firstboot_network</arguments>
@@ -84,7 +90,7 @@ textdomain="firstboot"
                     <arguments>true,true</arguments>
                 </module>
                 <module>
-			<label>Users</label>
+		    <label>Users</label>
                     <name>inst_user</name>
                     <arguments>true,true</arguments>
                 </module>
@@ -96,7 +102,7 @@ textdomain="firstboot"
                <module>
 		    <label>Finish Setup</label>
                     <name>firstboot_write</name>
-                    <arguments>true,true</arguments>
+                    <arguments>false,false</arguments>
                 </module>
                <module>
 		    <label>Finish Setup</label>
