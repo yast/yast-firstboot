@@ -1,0 +1,86 @@
+
+Intro
+-----
+
+Using firstboot, an administrative user can  configure the system (before creation
+of the install image) such that on first boot after configuration, the
+system owner is prompted for various items to personalize the system.
+
+When the machine boots for the first time after the installation, you will be
+presented with an interface for doing some additional configuration.
+
+The default workflow for such an interface is:
+
+1. The Welcome screen
+2. The License Agreement
+3. Date & Time
+4. Root Password
+5. User Account
+6. Finish
+
+
+During firstboot, 2 additional dialogs are shown for writing the data and
+running SuSEconfig which require no user interaction.
+
+
+Enabling firstboot
+------------------
+
+
+Firstboot is disabled by default. the package yast2-firstboot is not part of
+any software selection and has to be installed individually.
+
+After the package is installed, the following has to be done to activate it
+during the next boot:
+
+1. Touch the file /etc/reconfig_system
+2. Enable the service firstboot using the YaST runlevel editor or
+   directly on the command line with 
+   
+    chkconfig firstboot on
+
+
+The Post Configuration Utility (firstboot) expects the X server to be
+configured. If no X server is configured, then it will start in text mode
+automatically.
+
+
+
+
+Customizing YaST firstboot
+--------------------------
+
+The utility has standard and translated texts in the default setup. If the 
+administrative user wishes to change those texts, it is possible using the
+firstboot configuration file: /etc/sysconfig/firstboot
+
+This file allows changing the text of the following dialogs:
+
+- Welcome Screen
+- License Agreement
+- Finish Dialog
+
+
+Changing the values of the respective variables to a full path of a plain or
+rich text formatted text file, will result in the dialogs with a customized
+text.
+If the referenced files are in plain text, they will be shown as such
+automatically. If they contain any markup language, they will be formatted as
+richtext.
+
+
+
+Scripting
+-----------
+
+
+The administrative user can add scripts to be executed at the end of the
+firstboot configuration to customize the system depending on user input or
+depending on the environment of the machine. Any scripts should go to
+
+    /usr/share/firstboot/scripts
+
+or to a custom location that can be set using /etc/sysconfig/firstboot.
+
+
+

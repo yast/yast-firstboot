@@ -43,7 +43,8 @@ term contents = `VBox (
         `VSpacing (2)
 			   );
 
-string help = _("HELP");
+string help = _("<p>Click <b>Next</b> button to go through the
+basic configuration of the system.</p>");
 
 Wizard::SetContents(caption, contents, help, (boolean)WFM::Args (0),
         (boolean)WFM::Args (1));

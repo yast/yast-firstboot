@@ -42,7 +42,9 @@ term contents = `VBox (
         );
 
 
-string help = _("HELP");
+string help = _("<p>Read the License Agreement carefully and select
+one of the available options. If you do not agree to the License Agreement,
+the configuration will be aborted.</p>");
 
 Wizard::SetContents(caption, contents, help, (boolean)WFM::Args (0),
                 (boolean)WFM::Args (1));

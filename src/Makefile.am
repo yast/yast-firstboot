@@ -7,7 +7,6 @@ client_DATA =			\
 	firstboot_license.ycp	\
 	firstboot_finish.ycp	\
 	firstboot_write.ycp	\
-	firstboot_timezone.ycp	\
 	firstboot_language.ycp
 
 
