@@ -10,8 +10,7 @@
     textdomain "firstboot";
     import "Wizard";
     import "Firstboot";
-
-    map args = (map)WFM::Args (0);
+    import "GetInstArgs";
 
     /**
      * Check if both selections are installed
@@ -92,8 +91,8 @@ the desktop you want to enable as the default desktop.</p>");
 
     // translators: dialog title
     Wizard::SetContents ( _("Select Your Default Desktop"), ask_desktop_dialog,
-            desktop_help_text, args["enable_back"]:false,
-                    args["enable_next"]:false);
+            desktop_help_text, GetInstArgs::enable_back(),
+                    GetInstArgs::enable_next());
 
     any ret = nil;
     repeat

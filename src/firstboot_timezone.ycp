@@ -24,6 +24,7 @@ import "Firstboot";
 
 import "Popup";
 import "Label";
+import "GetInstArgs";
 
     // Memorize the current timezone.
     //
@@ -36,7 +37,7 @@ import "Label";
 
     any result = nil;
 
-    result = WFM::CallFunction( "inst_timezone", [ WFM::Args(0) ] );
+    result = WFM::CallFunction( "inst_timezone", [ GetInstArgs::argmap() ] );
 
     if ( result == `next )
 	{

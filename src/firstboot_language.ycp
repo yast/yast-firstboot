@@ -26,7 +26,7 @@
     import "Label";
     import "Encoding";
     import "Mode";
-    map args = (map)WFM::Args(0);
+    import "GetInstArgs";
 
     // Memozize the current language.
     //
@@ -39,8 +39,7 @@
     while (result == `again)
     {
 	Wizard::SetDesktopIcon("language");
-        map start_args = $[];
-        result = WFM::CallFunction ("inst_language", [ args ] );
+        result = WFM::CallFunction ("inst_language", [ GetInstArgs::argmap() ] );
     }
 
     y2milestone ("result '%1'", result);

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 24 21:17:29 CET 2005 - nashif@suse.de
+
+- Use new workflow arguments and new startup scripts
+
+-------------------------------------------------------------------
 Tue Nov 30 19:49:37 CET 2004 - nashif@suse.de
 
 - Adapted startup scripts to new scheme

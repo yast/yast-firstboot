@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <title>Firstboot Configuration</title>
+    <para>The YaST firstboot utility (YaST Initial System Configuration), which
+      runs after the installation is completed, lets you configure the Novell
+      Linux Desktop system before creation of the install image so that on the
+      first boot after configuration, users are guided through a series of
+      steps that allow for easier configuration of their desktops. YaST
+      firstboot does not run by default and has to be configured to run by the
+      user or the system administrator. It is useful for image deployments
+      where the system in the image is completely configured. However, some
+      final steps such as root password and user logins have to be created to
+      personalize the system.
+    </para>
+    
+    <para>The default workflow for the interface is as follows: </para>
+    <orderedlist>
+      <listitem>
+        <para>The Welcome screen </para>
+      </listitem>
+      <listitem>
+        <para>The License Agreement</para>
+      </listitem>
+      <listitem>
+        <para>Date &amp; Time</para>
+      </listitem>
+      <listitem>
+        <para>Network</para>
+      </listitem>
+      <listitem>
+        <para>Root Password</para>
+      </listitem>
+      <listitem>
+        <para>User Account</para>
+      </listitem>
+      <listitem>
+        <para>Hardware</para>
+      </listitem>
+      <listitem>
+        <para>Finish</para>
+      </listitem>
+    </orderedlist>
+    
+    <para>During firstboot, two additional dialogs are shown for writing the data and running SuSEconfig which require no user interaction.</para>
+    <section>
+      <title>Enabling Firstboot</title>
+      <para>Firstboot is disabled by default. The yast2-firstboot package is not part of any software selection and has to be installed individually. During the Installation, click Software in the Installation Settings screen, then select the yast2-firstboot package in the Rest selection list. </para>
+      <orderedlist>
+        <listitem>
+          <para>Install the product on a master box, making sure that you install the firstboot package.</para>
+        </listitem>
+        <listitem>
+          <para>Create the empty file <filename>/etc/reconfig_system</filename>. This file will be deleted when firstboot configuration is completed. This can be done by issuing the commnd: <command>touch /etc/reconfig_system</command>
+</para>
+        </listitem>
+        <listitem>
+          <para>Enable the firstboot service using the YaST runlevel editor, or
+	    directly on the command line using the following command:
+	    <command>chkconfig firstboot on</command>
+</para>
+        </listitem>
+      </orderedlist>
+      <para>When the system comes up after a shutdown, the firstboot
+	configuration utility will be started and the user will be presented
+	with the configuration screens.</para>
+
+      <para>There are different ways the firstboot configuration utility can be
+	used, one of them for creating installation images. The following step
+	by step description shows how an image can be created after firstboot
+	has been enabled.</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Boot the master box using the rescue boot option.</para>
+        </listitem>
+        <listitem>
+          <para>Configure network in the rescue system.</para>
+        </listitem>
+        <listitem>
+          <para>Mount an NFS exported directory to /mnt.</para>
+        </listitem>
+        <listitem>
+          <para>Run <command>dd if=/dev/hda of=/mnt/image.bin
+	      count=4000000</command> to store the master box's hard disk image
+	    onto the NFS server.</para>
+
+        </listitem>
+      </orderedlist>
+      <para>And to install the image you have just created:</para>
+      <orderedlist>
+        <listitem>
+          <para>Boot a user's machine using the rescue boot option.</para>
+        </listitem>
+        <listitem>
+          <para>Configure network in the rescue system.</para>
+        </listitem>
+        <listitem>
+          <para>Mount the NFS exported directory to /mnt.</para>
+        </listitem>
+        <listitem>
+          <para>Run <command>dd if=/mnt/image.bin of=/dev/hda count=4000000.</command>
+</para>
+        </listitem>
+        <listitem>
+          <para>Remove the boot media and boot the user's machine. </para>
+        </listitem>
+        <listitem>
+          <para>After firstboot comes up, configure the date and time, root password, and user account and any other additional settings. </para>
+        </listitem>
+      </orderedlist>
+      <para>The Post Configuration Utility (firstboot) expects the X server to be configured. If no X server is configured, it will automatically start in text mode.</para>
+    </section>
+    <section>
+      <title>Customizing YaST Firstboot</title>
+      <section>
+        <title>Customizing Messages</title>
+        <para>The utility has standard and translated texts in the default
+	  setup. If you want to change those texts, use the firstboot
+	  configuration file,<filename>/etc/sysconfig/firstboot</filename>.</para>
+
+        <para>This file lets you change the text of the following dialogs:</para>
+        <itemizedlist>
+          <listitem>
+            <para>Welcome screen</para>
+          </listitem>
+          <listitem>
+            <para>License Agreement</para>
+          </listitem>
+          <listitem>
+            <para>Finish dialog </para>
+          </listitem>
+        </itemizedlist>
+        <para>To do this, change the values of the respective variables
+	  (FIRSTBOOT_WELCOME_FILE,FIRSTBOOT_LICENSE_FILE , and
+	  FIRSTBOOT_FINISH_FILE) to the full path of a plain or rich text
+	  formatted text file. This will give you dialogs with customized
+	  text. If the references files are in plain text, they will be shown
+	  as such automatically. If they contain any markup language, they will
+	  be formatted as rich text.</para>
+
+        <para>The default license text shown is taken from the file
+	  <filename>/var/lib/YaST2/info.txt</filename> which is the EULA of the
+	  product being installed.</para>
+
+      </section>
+      <section>
+        <title>License Action</title>
+        <para>The variable LICENSE_REFUSAL_ACTION sets the action to be
+	  executed if the user does not accept the license. The following
+	  options are available:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>halt: system is halted (shut down)</para>
+          </listitem>
+          <listitem>
+            <para>continue: continue with configuration</para>
+          </listitem>
+          <listitem>
+            <para>abort: Abort firstboot configuration utility and continue with the boot process.</para>
+          </listitem>
+        </itemizedlist>
+      </section>
+      <section>
+        <title>Release Notes</title>
+        <para>Use the configuration option FIRSTBOOT_RELEASE_NOTES_PATH to show
+	  release notes in the target language. The value of the option should
+	  be a path to a directory with files using language dependent naming
+	  (<filename>RELEASE-NOTES.{language}.rtf</filename>). For english, the
+	  following file will be needed: RELEASE-NOTES.{language}.rtf.</para>
+
+      <para>
+          The original release notes for the installed product availabe in <filename>/usr/share/doc/release-notes</filename> can be used as an
+          example.
+      </para>
+
+      </section>
+      <section>
+        <title>Customizing Workflow Components</title>
+
+        <para>The default firstboot workflow can be controled using one single
+	  file which is a subset of the control.xml file used to control the
+	  complete installation. The firstboot control file consists of
+	  workflow and proposal configurations and can be used to add or remove
+	  configuration screens depending on the end configuration of the
+	  system. The file firstboot.xml is installed with the yast2-firstboot
+	  package and can be found at the following location:
+	  <filename>/usr/share/YaST2/control/firstboot.xml</filename>.</para>
+
+        <para>This file can be modified to match the post installation
+	  requirements of the product in question. In addition to the default
+	  and pre-installed components, custom screens can be added to enable
+	  maximal flexiblity during post installation. For more information
+	  about the syntax of the control file, see the document titled
+	  “Product Installation Control”.</para>
+
+      </section>
+    </section>
+    <section>
+      <title>Scripting</title>
+      <para>You can add scripts to be executed at the end of the firstboot
+	configuration to customize the system depending on user input or the
+	environment of the machine. Scripts should be placed in
+	<filename>/usr/share/firstboot/scripts</filename> or in a custom
+	location that can be set using the
+	<filename>/etc/sysconfig/firstboot</filename> configuration
+	file.</para>
+
+      
+      
+    </section>
+  </section>
