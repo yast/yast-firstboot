@@ -50,7 +50,7 @@
     string help = _("Help");
 
     Wizard::CreateDialog();
-    string  caption = _("Firstboot Configuration");
+    string  caption = _("First Boot Configuration");
 
     string upButtonLabel = _("&Up");
     string downButtonLabel = _("D&own");

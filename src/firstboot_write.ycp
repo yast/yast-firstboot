@@ -25,9 +25,9 @@
     list progress_descriptions =
 	[
 	 // progress stages
-	 _("Updating configuration.."),
+	 _("Updating configuration..."),
 	 // progress stages
-	 _("Preparing system for first login..")
+	 _("Preparing system for first login...")
              ];
 
 
@@ -41,7 +41,7 @@ Please wait while the system is being configured.
 
     Progress::New(
 		  // Headline for last dialog of first boot workflow
-		  _("Completing system Configuration"),
+		  _("Completing System Configuration"),
 		  "",	// Initial progress bar label - not empty (reserve space!)
 		  2,	// progress bar length
 		  progress_stages,
