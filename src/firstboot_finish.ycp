@@ -17,8 +17,8 @@
     import "Popup";
     import "Label";
     import "Firstboot";
+    import "GetInstArgs";
 
-    map args = (map)WFM::Args (0);
 
     map display = UI::GetDisplayInfo();
 
@@ -102,8 +102,8 @@ return to this installation sequence.</p>
 ");
     }
 
-    Wizard::SetContents (caption, contents, help, args["enable_back"]:false,
-                    args["enable_next"]:false);
+    Wizard::SetContents (caption, contents, help, GetInstArgs::enable_back(),
+                    GetInstArgs::enable_next());
 
     Wizard::SetNextButton(`next, Label::FinishButton() );
     Wizard::SetFocusToNextButton();

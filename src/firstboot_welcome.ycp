@@ -13,8 +13,8 @@ textdomain "firstboot";
 import "Wizard";
 import "Firstboot";
 import "Directory";
+import "GetInstArgs";
 
-map opts = (map)WFM::Args(0);
 
 map display = UI::GetDisplayInfo();
 integer space = display["TextMode"]:true ? 1 : 3;
@@ -52,8 +52,8 @@ basic configuration of the system.</p>
 
 
 
-Wizard::SetContents(caption, contents, help, opts["enable_back"]:false,
-        opts["enable_next"]:false);
+Wizard::SetContents(caption, contents, help, GetInstArgs::enable_back(),
+        GetInstArgs::enable_next());
 //Wizard::HideAbortButton();
 Wizard::SetFocusToNextButton();
 
