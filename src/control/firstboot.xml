@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE productDefines SYSTEM "/usr/share/YaST2/control/control.dtd">
+<productDefines  xmlns="http://www.suse.com/1.0/yast2ns"
+    xmlns:config="http://www.suse.com/1.0/configns">
+
+<!--
+$Id$
+Work around for the text domain
+textdomain="firstboot"
+-->
+
+    <textdomain>firstboot</textdomain>
+
+    <proposals config:type="list">
+        <proposal>
+            <mode>firstboot</mode>
+            <stage>normal</stage>
+            <type>firstboot</type>
+            <proposal_modules config:type="list">
+                <proposal_module>keyboard</proposal_module>
+                <proposal_module>mouse</proposal_module>
+                <proposal_module>timezone</proposal_module>
+                <proposal_module>language</proposal_module>
+            </proposal_modules>
+        </proposal>
+    </proposals>
+    <workflows>
+        <workflow>
+            <defaults>
+                <arguments>false,false</arguments>
+                <archs>all</archs>
+            </defaults>
+            <stage>continue</stage>
+            <label>Configuration</label>
+            <mode>firstboot</mode>
+            <modules  config:type="list">
+                <module>
+		<label>Welcome</label>
+                    <name>firstboot_welcome</name>
+                    <arguments>false,true</arguments>
+                </module>
+                <module>
+		<label>License Agreement</label>
+                    <name>firstboot_license</name>
+                    <arguments>true,true</arguments>
+                </module>
+                <!--
+                <module>
+		<label>Language</label>
+                    <name>firstboot_language</name>
+                    <arguments>true,true</arguments>
+                </module>
+                -->
+                <module>
+		<label>Time and Date</label>
+                    <name>firstboot_timezone</name>
+                    <arguments>true,true</arguments>
+                </module>
+                <module>
+                    <label>Root Password</label>
+                    <name>inst_root</name>
+                    <arguments>true,true</arguments>
+                </module>
+                <module>
+			<label>Users</label>
+                    <name>inst_auth</name>
+                    <arguments>true,true</arguments>
+                </module>
+                <module>
+			<label>Users</label>
+                    <name>inst_user</name>
+                    <arguments>true,true</arguments>
+                </module>
+               <module>
+		    <label>Finish Setup</label>
+                    <name>firstboot_write</name>
+                    <arguments>true,true</arguments>
+                </module>
+               <module>
+		    <label>Finish Setup</label>
+                    <name>inst_suseconfig</name>
+                    <arguments>false,false</arguments>
+                </module>
+               <module>
+		<label>Finish Setup</label>
+                    <name>firstboot_finish</name>
+                    <arguments>true,true</arguments>
+                </module>
+
+<!--
+                <module>
+                    <name>proposal</name>
+                    <arguments>true,true,`firstboot</arguments>
+	            	<label>Settings</label>
+                </module>
+-->
+            </modules>
+        </workflow>
+    </workflows>
+</productDefines>
