@@ -1,0 +1,73 @@
+#!/bin/bash
+#================
+# FILE          : YaST2.Firsboot
+#----------------
+# PROJECT       : YaST (Yet another Setup Tool v2)
+# COPYRIGHT     : (c) 2004 SUSE Linux AG, Germany. All rights reserved
+#               :
+# AUTHORS       : Anas Nashif <nashif@suse.de>
+#               :
+#               :
+# BELONGS TO    : System installation and Administration
+#               :
+# DESCRIPTION   : This is the firstboot stage which is triggered if empty file 
+#               : /etc/reconfig_system exists.
+#               :
+# STATUS        : $Id$
+#----------------
+#set -x
+#
+
+
+#=============================================
+# Functions...
+#---------------------------------------------
+function startYaST2 () {
+	/usr/lib/YaST2/startup/YaST2.call installation firstboot
+}
+
+#=============================================
+# 1) Source common script functions
+#---------------------------------------------
+. /usr/lib/YaST2/startup/common/functions.sh
+
+#=============================================
+# 1.1) turn off splash screen, be verbose
+#---------------------------------------------
+disable_splash
+
+
+#=============================================
+# 1.2) start startup logging <y2start.log>
+#---------------------------------------------
+LOG_PREFIX="Stage [3]"
+log "YaST2 startup level (3) firstboot..."
+log "=========================="
+IFS_SAVE=$IFS
+IFS="
+"
+for i in `export`;do log "\t$i"; done
+IFS=$IFS_SAVE
+
+
+
+#=============================================
+# 1.4) create stage list...
+#---------------------------------------------
+log "\tFirstboot stages:"
+createStageList "S" "/usr/lib/YaST2/startup/Firstboot-Stage"
+for i in ${STAGE_LIST[*]};do
+	BS=`basename $i` && log "\t$BS"
+done
+
+#=============================================
+# 1.5) start level scripts
+#---------------------------------------------
+callStages
+
+
+
+#=============================================
+# Installation finished, yeah :-)
+#---------------------------------------------
+exit

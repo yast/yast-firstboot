@@ -1,0 +1,18 @@
+#!/bin/sh
+log "Starting S04-start..."
+log "====================="
+
+
+#=============================================
+# 12.1) goto run stage, start YaST2 (firstboot)
+#---------------------------------------------
+disable_splash
+log "\tStarting X11/VNC based session..."
+#==================================================
+# We are going to start a VNC or X11 based session
+#--------------------------------------------------
+if [ ! -z "$VNC" ] ; then
+	vnc_message
+fi
+startYaST2
+
