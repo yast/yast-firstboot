@@ -16,7 +16,7 @@
  */
 
 {
-    textdomain "country";
+    textdomain "firstboot";
 
     import "Language";
     import "Wizard";
