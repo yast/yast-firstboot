@@ -37,12 +37,14 @@ global string firstboot_control_file =
         "/usr/share/YaST2/control/firstboot.xml";
 
 global string default_wm = "";
+
 global list<string> installed_desktops = [];
 
 
 global void Firstboot()
 {
-    show_y2cc_checkbox = Misc::SysconfigRead(.sysconfig.firstboot.SHOW_Y2CC_CHECKBOX, "no") == "yes";
+    show_y2cc_checkbox = 
+        Misc::SysconfigRead(.sysconfig.firstboot.SHOW_Y2CC_CHECKBOX, "no") == "yes";
     default_wm =
         Misc::SysconfigRead(.sysconfig.windowmanager.DEFAULT_WM, "kde");
     Progress::off();
@@ -75,8 +77,9 @@ global boolean ExecuteScripts()
     {
         list<string> scripts = (list<string>)SCR::Read(.target.dir, script_dir);
         foreach(string script, scripts, ``{
-                SCR::Execute(.target.bash, script_dir + "/" + script +
-                    " 2&>> /var/log/YaST2/firstboot.log");
+                map ret = (map)SCR::Execute(.target.bash_output, script_dir + "/" + script + " >> /var/log/YaST2/firstboot.log");
+                if (ret["exit"]:-1 != 0)
+                    y2error ("script failed: %1", ret );
                 });
     } else {
         y2error("Script dir empty or not configured");

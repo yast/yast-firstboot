@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb 11 04:24:51 CET 2005 - nashif@suse.de
+
+- Use general dialogs (welcome, license, finish) from installation
+
+-------------------------------------------------------------------
 Thu Feb 10 10:48:19 CET 2005 - visnov@suse.cz
 
 - Merged messages from proofreading 

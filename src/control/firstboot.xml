@@ -54,6 +54,7 @@
                     <label>License Agreement</label>
                     <name>inst_license</name>
                 </module>
+                <!--
                 <module>
                     <label>Network</label>
                     <name>inst_proposal</name>
@@ -79,11 +80,13 @@
                     <name>inst_proposal</name>
                     <proposal>firstboot_network</proposal>
                 </module>
+                -->
                 <module>
                     <label>Root Password</label>
                     <enabled config:type="boolean">false</enabled>
                     <name>inst_root</name>
                 </module>
+                <!--
                 <module>
                     <label>Users</label>
                     <enabled config:type="boolean">false</enabled>
@@ -94,6 +97,7 @@
                     <enabled config:type="boolean">false</enabled>
                     <name>inst_user</name>
                 </module>
+                -->
                 <module>
                     <label>Hardware</label>
                     <name>inst_proposal</name>
@@ -113,7 +117,7 @@
                 </module>
                 <module>
                     <label>Finish Setup</label>
-                    <name>firstboot_finish</name>
+                    <name>inst_congratulate</name>
                 </module>
 
             </modules>
