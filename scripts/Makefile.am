@@ -2,11 +2,13 @@
 # Makefile.am for installation/scripts
 #
 #
+#
+
+SUBDIRS = Firstboot-Stage
 startdir = /etc/init.d
 
 ybin_SCRIPTS = \
-	       YaST2.firstboot2 \
-	       YaST2.reconfig
+	       YaST2.Firstboot 
 
 start_SCRIPTS = firstboot
 

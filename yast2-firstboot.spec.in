@@ -33,6 +33,8 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 
 %files
 %defattr(-,root,root)
+%dir @ystartupdir@/startup/Firstboot-Stage
+@ystartupdir@/startup/Firstboot-Stage/*
 @clientdir@/firstboot_*.ycp
 @clientdir@/firstboot.ycp
 %dir @yncludedir@/firstboot
