@@ -1,11 +1,17 @@
 -------------------------------------------------------------------
-Fri Aug 13 23:02:55 CEST 2004 - nashif@suse.de
+Fri Aug 13 23:06:15 CEST 2004 - nashif@suse.de
 
 - Adde control file specific for firstboot
 - Support more clients
 - 2.10.1
 
 -------------------------------------------------------------------
+Tue Jul 27 15:44:21 CEST 2004 - nashif@suse.de
+
+- Added missing help texts
+- adapted neededforbuild
+
+-------------------------------------------------------------------
 Mon Jul 12 22:14:03 2004 - nashif@suse.de
 
-- initial version
+- initial version. (#43318)
