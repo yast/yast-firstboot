@@ -40,7 +40,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %dir @yncludedir@/firstboot
 @yncludedir@/firstboot/*.ycp
 @moduledir@/Firstboot.*
-@ybindir@/*
+@ystartupdir@/startup/*
 @ydatadir@/*
 @scrconfdir@/*.scr
 /etc/init.d/firstboot
