@@ -47,4 +47,4 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 /var/adm/fillup-templates/sysconfig.firstboot
 /usr/share/firstboot
 %doc @docdir@
-/usr/share/YaST2/control/*.xml
+/etc/YaST2/*.xml
