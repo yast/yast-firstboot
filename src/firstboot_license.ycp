@@ -14,6 +14,7 @@ textdomain "firstboot";
 import "Firstboot";
 import "Wizard";
 import "Popup";
+import "Misc";
 
 map display = UI::GetDisplayInfo();
 integer space = display["TextMode"]:true ? 1 : 3;
@@ -66,7 +67,8 @@ Agreement?")) )
        }
        else
        {
-           string action = (string)Misc::SysconfigRead("LICENSE_REFUSAL_ACTION", "");
+           string action = (string)Misc::SysconfigRead(
+                   .sysconfig.firstboot.LICENSE_REFUSAL_ACTION, "");
            if (action == "continue")
            {
                ret = `next;
@@ -74,7 +76,7 @@ Agreement?")) )
            }
            else if (action == "halt")
            {
-               if (!Popup::TimedOKCancel(_("System is shutting down...")))
+               if (!Popup::TimedOKCancel(_("System is shutting down..."), 10))
                {
                    continue;
                } else {

@@ -8,5 +8,8 @@
 @YAST2-CHECKS-COMMON@
 @YAST2-CHECKS-YCP@
 
+## Nasty hack: xgettext doesn't work for XML files, so let's symlink it
+( cd src/control; ln -sf firstboot.xml firstboot.glade )
+
 ## and generate the output...
 @YAST2-OUTPUT@

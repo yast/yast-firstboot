@@ -9,28 +9,41 @@ Work around for the text domain
 textdomain="firstboot"
 -->
 
-    <textdomain>firstboot</textdomain>
+<textdomain>firstboot</textdomain>
 
     <proposals config:type="list">
         <proposal>
             <mode>firstboot</mode>
             <stage>normal</stage>
-            <type>firstboot</type>
+            <type>firstboot_hardware</type>
+            <label>Hardware Configuration</label>
             <proposal_modules config:type="list">
-                <proposal_module>keyboard</proposal_module>
-                <proposal_module>mouse</proposal_module>
-                <proposal_module>timezone</proposal_module>
-                <proposal_module>language</proposal_module>
+                <proposal_module>printer</proposal_module>
+            </proposal_modules>
+        </proposal>
+        <proposal>
+            <mode>firstboot</mode>
+            <stage>normal</stage>
+            <type>firstboot_network</type>
+            <label>Network Configuration</label>
+            <proposal_modules config:type="list">
+                <proposal_module>lan</proposal_module>
+                <proposal_module>dsl</proposal_module>
+                <proposal_module>isdn</proposal_module>
+                <proposal_module>modem</proposal_module>
+                <proposal_module>proxy</proposal_module>
+                <proposal_module>remote</proposal_module>
+                <proposal_module>firewall</proposal_module>
             </proposal_modules>
         </proposal>
     </proposals>
-    <workflows>
+    <workflows  config:type="list">
         <workflow>
             <defaults>
-                <arguments>false,false</arguments>
+                <arguments>true,true</arguments>
                 <archs>all</archs>
             </defaults>
-            <stage>continue</stage>
+            <stage>normal</stage>
             <label>Configuration</label>
             <mode>firstboot</mode>
             <modules  config:type="list">
@@ -40,21 +53,25 @@ textdomain="firstboot"
                     <arguments>false,true</arguments>
                 </module>
                 <module>
-		<label>License Agreement</label>
+		    <label>License Agreement</label>
                     <name>firstboot_license</name>
                     <arguments>true,true</arguments>
                 </module>
-                <!--
                 <module>
 		<label>Language</label>
+                    <enabled config:type="boolean">false</enabled>
                     <name>firstboot_language</name>
                     <arguments>true,true</arguments>
                 </module>
-                -->
                 <module>
 		<label>Time and Date</label>
                     <name>firstboot_timezone</name>
                     <arguments>true,true</arguments>
+                </module>
+                <module>
+		    <label>Network</label>
+                    <name>inst_proposal</name>
+                    <arguments>true,true,`firstboot_network</arguments>
                 </module>
                 <module>
                     <label>Root Password</label>
@@ -70,6 +87,11 @@ textdomain="firstboot"
 			<label>Users</label>
                     <name>inst_user</name>
                     <arguments>true,true</arguments>
+                </module>
+                <module>
+		    <label>Hardware</label>
+                    <name>inst_proposal</name>
+                    <arguments>true,true,`firstboot_hardware</arguments>
                 </module>
                <module>
 		    <label>Finish Setup</label>

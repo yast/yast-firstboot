@@ -36,3 +36,12 @@ SHOW_Y2CC_CHECKBOX="no"
 #
 # What to do if the user did not accept the license
 LICENSE_REFUSAL_ACTION="halt"
+
+
+## Type:        string
+## Default:     ""
+#
+# Release Notes path. This directory should contain files in the form of
+# RELEASE-NOTES.{language}.rtf, for example /RELEASE-NOTES.en.rtf.
+# See /usr/share/doc/release-notes for examples
+FIRSTBOOT_RELEASE_NOTES_PATH=""

@@ -20,16 +20,21 @@ import "Progress";
 import "Internet";
 import "Misc";
 import "Directory";
+import "ProductControl";
 
 
 global boolean run_suseconfig = false;
 
 string script_dir = "";
 
-
 string no_text = _("No Text Available");
 
 global boolean show_y2cc_checkbox = false;
+
+global boolean language_changed = false;
+
+global string firstboot_control_file =
+        "/usr/share/YaST2/control/firstboot.xml";
 
 global void Firstboot()
 {
@@ -38,6 +43,10 @@ global void Firstboot()
     NetworkDevices::Read();
     Progress::on();
     Internet::do_you = true;
+
+    ProductControl::custom_control_file = firstboot_control_file;
+
+    ProductControl::Init();
 }
 
 

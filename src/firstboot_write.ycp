@@ -27,9 +27,9 @@
     list progress_descriptions =
 	[
 	 // progress stages
-	 _("Updating configuration"),
+	 _("Updating configuration.."),
 	 // progress stages
-	 _("Preparing system for first login")
+	 _("Preparing system for first login..")
              ];
 
 

@@ -20,6 +20,7 @@
 
     import "Language";
     import "Wizard";
+    import "Firstboot";
 
     import "Popup";
     import "Label";
@@ -80,15 +81,16 @@
 	//
 	if( Language::language != language_on_entry || Language::ExpertSettingsChanged )
 	    {
+            Firstboot::language_changed = true;
 	    Language::Save();
 	    y2milestone( "Language changed --> saving" );
 
 	    // popup text
-	    Popup::Message( dgettext("country",  _("Your language setting has been changed.
+	    Popup::Message(  _("Your language setting has been changed.
 
 If necessary, you may want to adapt your keyboard settings to the new
 language. This is possible either in the YaST2 Control Center or by 
-starting \"yast2 keyboard\" directly.")));
+starting \"yast2 keyboard\" directly."));
 	    }
 	else
 	    {
