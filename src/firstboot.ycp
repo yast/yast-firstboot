@@ -1,144 +1,38 @@
 /**
- * File:	clients/firstboot.ycp
- * Package:	Configuration of Firstboot
- * Summary:	Main file
- * Authors:	Anas Nashif <nashif@suse.de>
  *
  * $Id$
- *
- * Main file for firstboot configuration. Uses all other files.
- */
-
-/***
- * <h3>Configuration of firstboot</h3>
  */
 {
     textdomain "firstboot";
+
+    import "Mode";
+    import "Stage";
     import "ProductControl";
-    import "Firstboot";
     import "Wizard";
-    import "XML";
-
-    include "firstboot/routines.ycp";
-
-
-    XmlSetup();
-
-    string empty_label = _("Empty");
-    string enabled = _("Enabled");
-    string disabled = _("Disabled");
-
-    list<map> modules = ProductControl::getModules("normal", "firstboot",
-            `all);
-
-    define void fillTable()
-    {
-        integer i = 0;
-        list<term> workflow_modules = maplist(map m, modules, ``{
-                term item = `item(`id(i),
-                        i,
-                        m["label"]:empty_label,
-                        m["name"]:empty_label,
-                        (m["enabled"]:true) ? enabled : disabled
-                        );
-                i = i + 1;
-                return (item);
-                });
-        UI::ChangeWidget( `id( `table ), `Items, workflow_modules );
-    }
-    list items = [];
-    string help = _("Help");
-
-    Wizard::CreateDialog();
-    string  caption = _("First Boot Configuration");
-
-    string upButtonLabel = _("&Up");
-    string downButtonLabel = _("D&own");
-    string enableButtonLabel = _("Enab&le or Disable");
-
-    term contents =
-        `Top(
-                `VBox(
-                    `Table(`id(`table), `opt( `keepSorting ),
-                        `header( _("Step"), _("Label"), _("Module Name"), _("Status") ),
-                        items
-                        ),
-                    `VBox(
-                        `HBox(
-                            `PushButton( `id(`up), `opt(`hstretch),  upButtonLabel ) ,
-                            `PushButton( `id(`down), `opt(`hstretch),  downButtonLabel )
-                            ),
-                        `PushButton(`id(`enable), `opt(`hstretch, `key_F6),  enableButtonLabel )
-                        )
-                    )
-            );
+    import "Label";
+    import "Popup";
+    import "Report";
+    import "Firstboot";
 
 
-    Wizard::SetContents(caption, contents, help, true, true);
-    Wizard::HideBackButton();
-    Wizard::HideAbortButton();
-    fillTable();
+    Wizard::OpenNextBackStepsDialog();
+
+    string wizard_mode = Mode::test () ? "installation" : Mode::mode ();
+
+    list<map> stage_mode = [$["stage": "firstboot",  "mode": wizard_mode ]];
+    ProductControl::AddWizardSteps(stage_mode);
+
+    // Don't log Report messages by default
+    Report::LogMessages(false);
+    Report::LogErrors(false);
+    Report::LogWarnings(false);
 
 
-    any ret = nil;
-    integer current = -1;
-    while (true)
-    {
-        if ( current >= 0 ) {
-            UI::ChangeWidget( `id( `table ), `CurrentItem, current );
-        }
-        ret = UI::UserInput();
-        current = (integer) UI::QueryWidget( `id( `table ), `CurrentItem );
-        map w = modules[ current ]:$[];
+    symbol ret = ProductControl::Run();
 
-        if (ret == `abort)
-        {
-            break;
-        }
-        else if ( ret == `enable )
-        {
-            boolean state = w[ "enabled" ]:true;
-            state = !state;
-            string newstate = ( state ? enabled : disabled );
-            UI::ChangeWidget( `id( `table ), `Item( current, 3 ), newstate );
-            w[ "enabled" ] = state;
-            modules[ current ] = w;
+    Pkg::SourceFinishAll();
+    Pkg::TargetFinish();
 
-        }
-        else if ( ret == `up )
-        {
-            if ( current > 0 ) {
-                map tmpState = modules[ current ]:$[];
-                modules[ current ] = modules[ current - 1 ]:$[];
-                modules[ current - 1 ] = tmpState;
-                current = current - 1;
-            }
-            fillTable();
-        }
-        else if ( ret == `down )
-        {
-            if ( current < size(modules) - 1 ) {
-                map tmpState = modules[ current ]:$[];
-                modules[ current ] = modules[ current + 1 ]:$[];
-                modules[ current + 1 ] = tmpState;
-                current = current + 1;
-            }
-            fillTable();
-        }
-        else if (ret == `next)
-        {
-            // Test Saving
-            map all = ProductControl::productControl;
-            map orig_workflow = ProductControl::getCompleteWorkflow("normal", "firstboot");
-            orig_workflow["modules"] = modules;
-            all["workflows", 0 ] = orig_workflow;
-            XML::YCPToXMLFile(`firstboot, all,  "/tmp/firstboot.xml");
-            break;
-        }
-
-    }
-    Wizard::CloseDialog();
-
+    UI::CloseDialog();
     return ret;
-
 }

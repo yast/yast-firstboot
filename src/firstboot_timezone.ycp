@@ -36,8 +36,7 @@ import "Label";
 
     any result = nil;
 
-    result = WFM::CallFunction( "inst_timezone", [(boolean)WFM::Args (0)
-            ,(boolean)WFM::Args (1) ] );
+    result = WFM::CallFunction( "inst_timezone", [ WFM::Args(0) ] );
 
     if ( result == `next )
 	{
