@@ -1,0 +1,88 @@
+/**
+ * File:	modules/Firstboot.ycp
+ * Package:	Configuration of firstboot
+ * Summary:	Firstboot settings, input and output functions
+ * Authors:	Anas Nashif <nashif@suse.de>
+ *
+ * $Id$
+ *
+ * Representation of the configuration of firstboot.
+ * Input and output routines.
+ */
+
+{
+
+module "Firstboot";
+textdomain "firstboot";
+
+import "NetworkDevices";
+import "Progress";
+import "Internet";
+import "Misc";
+import "Directory";
+
+
+global boolean run_suseconfig = false;
+
+string script_dir = "";
+
+
+string no_text = _("No Text Available");
+
+global void Firstboot()
+{
+    Progress::off();
+    NetworkDevices::Read();
+    Progress::on();
+    Internet::do_you = true;
+}
+
+
+/*
+ * Execute custom scripts
+ *
+ */
+global boolean ExecuteScripts() {
+
+    script_dir = Misc::SysconfigRead(.sysconfig.firstboot.SCRIPT_DIR,
+            "/usr/share/firstboot/scripts" );
+
+    if (script_dir!="")
+    {
+        list<string> scripts = (list<string>)SCR::Read(.target.dir, script_dir);
+        foreach(string script, scripts, ``{
+                SCR::Execute(.target.bash, script_dir + "/" + script +
+                    " 2&>> /var/log/YaST2/firstboot.log");
+                });
+    } else {
+        y2error("Script dir empty or not configured");
+    }
+    return true;
+}
+
+
+
+global term DetectRichText(string sysconfig_file, string richtext )
+{
+    string text = "";
+    path p = add(.sysconfig.firstboot, sysconfig_file );
+    string file = (string)Misc::SysconfigRead(p, "");
+
+    if (SCR::Read(.target.size, file) > 0)
+    {
+        text = (string)SCR::Read(.target.string,  file );
+    }
+    else {
+        text = richtext;
+    }
+    if (text == "")
+        text = no_text;
+    if (regexpmatch(text, "</.*>")) {
+        return (`RichText(`id(`text), text));
+    } else {
+        return (`RichText(`id(`text), `opt(`plainText),  text));
+    }
+}
+
+/* EOF */
+}

@@ -1,0 +1,29 @@
+## Path:    System/Yast2
+## Description: Firstboot Configuration
+## Type:    string
+## Default: /usr/share/firstboot/scripts
+#
+# Scripts to be executed at first boot
+#
+SCRIPT_DIR="/usr/share/firstboot/scripts"
+
+## Type:        string
+## Default:     ""
+#
+# Welcome text file
+FIRSTBOOT_WELCOME_FILE=""
+
+
+## Type:        string
+## Default:     "/usr/share/YaST2/data/firstboot_license.txt"
+#
+# license text file
+FIRSTBOOT_LICENSE_FILE="/usr/share/YaST2/data/firstboot_license.txt"
+
+
+## Type:        string
+## Default:     ""
+#
+# finish text file
+FIRSTBOOT_FINISH_FILE=""
+

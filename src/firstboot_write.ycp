@@ -1,0 +1,70 @@
+/**
+ * File:	firstboot/src/inst_firstboot_finish.ycp
+ * Module:	Installation
+ * Summary:	Finish Firstboot
+ * Authors:	Anas Nashif <nashif@suse.de>
+ *
+ * Display a nice congratulation message for the user.
+ *
+ * $Id$
+ */
+{
+    textdomain "firstboot";
+    import "Progress";
+    import "Popup";
+    import "Firstboot";
+    import "Wizard";
+
+
+    list<string> progress_stages =
+	[
+	 // progress stages
+	 _("Update configuration"),
+	 // progress stages
+	 _("Prepare system for first login")
+	 ];
+
+    list progress_descriptions =
+	[
+	 // progress stages
+	 _("Updating configuration"),
+	 // progress stages
+	 _("Preparing system for first login")
+             ];
+
+
+    // Help text for last dialog of base installation
+    string help_text = _("<p>
+Please wait while the system is being configured.
+</p>");
+
+
+    Progress::on();
+
+    Progress::New(
+		  // Headline for last dialog of first boot workflow
+		  _("Completing system Configuration"),
+		  "",	// Initial progress bar label - not empty (reserve space!)
+		  2,	// progress bar length
+		  progress_stages,
+		  progress_descriptions,
+		  help_text );
+
+
+    Wizard::EnableNextButton();
+    Wizard::EnableBackButton();
+    Progress::NextStage ();
+
+    SCR::Execute(.target.remove, "/etc/reconfig_system");
+    sleep(100);
+    Progress::NextStage ();
+
+    Firstboot::ExecuteScripts();
+    sleep(100);
+    Progress::Finish ();
+
+    symbol ret = (symbol)UI::UserInput();
+    return ret;
+
+//EOF
+}

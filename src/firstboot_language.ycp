@@ -1,0 +1,100 @@
+/*
+ *
+ * Module:             language.ycp
+ *
+ * Author:             Klaus Kaempf (kkaempf@suse.de)
+ *
+ * Submodules:
+ *
+ *
+ * Purpose:	configure language in running system
+ *
+ * Modify:
+ *
+ *
+ * $Id$
+ */
+
+{
+    textdomain "country";
+
+    import "Language";
+    import "Wizard";
+
+    import "Popup";
+    import "Label";
+    import "Encoding";
+    import "Mode";
+
+    // Memozize the current language.
+    //
+    string language_on_entry = Language::language;
+
+    y2milestone("language_on_entry: <%1>", language_on_entry );
+
+    any result = `again;
+    // create the wizard dialog
+    while (result == `again)
+    {
+	Wizard::SetDesktopIcon("language");
+
+	// Params are:			      `back `next  set_default
+        result = WFM::CallFunction ("inst_language", [(boolean)WFM::Args (0),
+                                (boolean)WFM::Args (1), false]);
+    }
+
+    y2milestone ("result '%1'", result);
+
+    if( result == `cancel || result == `back )
+	{
+	// Back to original values...
+	//
+	y2milestone( "`cancel or `back --> restoring: <%1>", language_on_entry );
+
+	import "Console";
+	import "Installation";
+
+	boolean use_utf8 = true;		// utf8 is default
+
+	if( ! lookup (UI::GetDisplayInfo(), "HasFullUtf8Support", true ) )
+	    {
+	    use_utf8 = false;		// fallback to ascii
+	    }
+
+	// Set it in the Language module.
+	//
+	Language::Set( language_on_entry );
+
+	// Set Console font
+	//
+	Console::SelectFont( language_on_entry );
+
+	Installation::encoding = (use_utf8) ? "UTF-8" : Encoding::console;
+
+	// Set it in YaST2
+	Language::WfmSetLanguage();
+	}
+    else
+	{
+	// User wants to keep his changes --> save to sysconfig.
+	//
+	if( Language::language != language_on_entry || Language::ExpertSettingsChanged )
+	    {
+	    Language::Save();
+	    y2milestone( "Language changed --> saving" );
+
+	    // popup text
+	    Popup::Message( _("Your language setting has been changed.
+
+If necessary, you may want to adapt your keyboard settings to the new
+language. This is possible either in the YaST2 Control Center or by 
+starting \"yast2 keyboard\" directly."));
+	    }
+	else
+	    {
+	    y2milestone( "Language not changed --> doing nothing" );
+	    }
+	}
+
+    return result;
+}
