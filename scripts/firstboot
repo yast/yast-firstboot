@@ -22,7 +22,7 @@
 ### BEGIN INIT INFO
 # Provides:          firstboot
 # Required-Start:    $syslog $remote_fs
-# Should-Start: 
+# Should-Start:      hwscan 
 # Required-Stop:     
 # Should-Stop: 
 # Default-Start:     3 5
