@@ -27,3 +27,8 @@ FIRSTBOOT_LICENSE_FILE="/usr/share/YaST2/data/firstboot_license.txt"
 # finish text file
 FIRSTBOOT_FINISH_FILE=""
 
+## Type:        yesno
+## Default:     "no"
+#
+# Show YaST Control Center Checkbox in finish dialog
+SHOW_Y2CC_CHECKBOX="no"

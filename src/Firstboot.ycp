@@ -29,8 +29,11 @@ string script_dir = "";
 
 string no_text = _("No Text Available");
 
+global boolean show_y2cc_checkbox = false;
+
 global void Firstboot()
 {
+    show_y2cc_checkbox = Misc::SysconfigRead(.sysconfig.firstboot.SHOW_Y2CC_CHECKBOX, "no") == "yes";
     Progress::off();
     NetworkDevices::Read();
     Progress::on();
@@ -40,7 +43,7 @@ global void Firstboot()
 
 /*
  * Execute custom scripts
- *
+ * @return boolean
  */
 global boolean ExecuteScripts() {
 
