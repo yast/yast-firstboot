@@ -70,8 +70,9 @@
 				    `VBox (
                                         `VWeight(30,`VStretch()),
 					// translators: dialog text
-					`Left(`Label (_("Please select the desktop environment which you would like
-to use from the list below."))),
+					`Left(`Label (_("Select the desktop environment 
+to use from the list below.
+"))),
 					`VSpacing(1),
                                         `VWeight(10,`VStretch()),
 					`HBox(
@@ -86,8 +87,9 @@ to use from the list below."))),
 
     // help text fro desktop dialog
     string desktop_help_text = _("<h3>Desktop Selections</h3>
-<p>This system has more than one desktop environment installed, select
-the desktop you want to enable as the default desktop.</p>");
+<p>This system has more than one desktop environment installed. Select
+the desktop to enable as the default desktop.</p>
+");
 
     // translators: dialog title
     Wizard::SetContents ( _("Select Your Default Desktop"), ask_desktop_dialog,
