@@ -18,6 +18,7 @@
     import "Label";
     import "Firstboot";
 
+    map args = (map)WFM::Args (0);
 
     map display = UI::GetDisplayInfo();
 
@@ -101,7 +102,8 @@ return to this installation sequence.</p>
 ");
     }
 
-    Wizard::SetContents (caption, contents, help, (boolean)WFM::Args (0), (boolean)WFM::Args (1));
+    Wizard::SetContents (caption, contents, help, args["enable_back"]:false,
+                    args["enable_next"]:false);
 
     Wizard::SetNextButton(`next, Label::FinishButton() );
     Wizard::SetFocusToNextButton();

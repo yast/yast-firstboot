@@ -11,6 +11,7 @@
     import "Wizard";
     import "Firstboot";
 
+    map args = (map)WFM::Args (0);
 
     /**
      * Check if both selections are installed
@@ -91,7 +92,8 @@ the desktop you want to enable as the default desktop.</p>");
 
     // translators: dialog title
     Wizard::SetContents ( _("Select Your Default Desktop"), ask_desktop_dialog,
-            desktop_help_text, true, true);
+            desktop_help_text, args["enable_back"]:false,
+                    args["enable_next"]:false);
 
     any ret = nil;
     repeat
@@ -100,7 +102,7 @@ the desktop you want to enable as the default desktop.</p>");
         // get the newly selected base configuration
         Firstboot::default_wm = (string) UI::QueryWidget( `id(`selection_box),`CurrentButton );
 
-    } until (ret == `next || ret == `back);
+    } until (ret == `next || ret == `back || ret == `abort);
 
     return (symbol)ret;
 //EOF

@@ -3,4 +3,4 @@
 PATH=$PATH:/usr/lib/YaST2/bin
 cd /usr/share/YaST2/clients
 
-y2base installation.ycp  '("firstboot")' qt -geometry 1024x768 -bg '#eeeeee'
+y2base firstboot.ycp  '("firstboot")' qt -geometry 1024x768 -bg '#eeeeee'

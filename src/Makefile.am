@@ -17,7 +17,7 @@ ynclude_DATA =			\
 	routines.ycp
 
 module_DATA =			\
-	Firstboot.ycp
+	Firstboot.ycp	
 
 EXTRA_DIST = $(client_DATA) $(module_DATA)  $(ynclude_DATA)
 

@@ -3,44 +3,40 @@
 <productDefines  xmlns="http://www.suse.com/1.0/yast2ns"
     xmlns:config="http://www.suse.com/1.0/configns">
 
-<!--
-$Id$
-Work around for the text domain
-textdomain="firstboot"
--->
+    <!--
+    $Id$
+    Work around for the text domain
+    textdomain="firstboot"
+    -->
 
-<textdomain>firstboot</textdomain>
+    <textdomain>firstboot</textdomain>
 
     <proposals config:type="list">
         <proposal>
+            <name>firstboot_hardware</name>
             <mode>installation</mode>
             <stage>firstboot</stage>
-            <type>firstboot_hardware</type>
             <label>Hardware Configuration</label>
             <proposal_modules config:type="list">
                 <proposal_module>printer</proposal_module>
             </proposal_modules>
         </proposal>
         <proposal>
+            <name>firstboot_network</name>
             <mode>installation</mode>
             <stage>firstboot</stage>
-            <type>firstboot_network</type>
-            <label>Network Configuration</label>
+            <label>Network Configuration II</label>
+            <help>Blah Blah</help>
             <proposal_modules config:type="list">
                 <proposal_module>lan</proposal_module>
-                <proposal_module>dsl</proposal_module>
-                <proposal_module>isdn</proposal_module>
-                <proposal_module>modem</proposal_module>
-                <proposal_module>proxy</proposal_module>
-                <proposal_module>remote</proposal_module>
-                <proposal_module>firewall</proposal_module>
             </proposal_modules>
         </proposal>
     </proposals>
     <workflows  config:type="list">
         <workflow>
             <defaults>
-                <arguments>true,true</arguments>
+                <enable_back>yes</enable_back>
+                <enable_next>yes</enable_next>
                 <archs>all</archs>
             </defaults>
             <stage>firstboot</stage>
@@ -48,82 +44,76 @@ textdomain="firstboot"
             <mode>installation</mode>
             <modules  config:type="list">
                 <module>
-		<label>Welcome</label>
+                    <label>Welcome</label>
                     <name>firstboot_welcome</name>
-                    <arguments>false,true</arguments>
                 </module>
                 <module>
-		    <label>License Agreement</label>
+                    <label>License Agreement</label>
                     <name>firstboot_license</name>
-                    <arguments>true,true</arguments>
                 </module>
                 <module>
-		<label>Language</label>
+                    <label>Network</label>
+                    <name>inst_proposal</name>
+                    <proposal>firstboot_network</proposal>
+                </module>
+                <module>
+                    <label>Language</label>
                     <enabled config:type="boolean">false</enabled>
                     <name>firstboot_language</name>
-                    <arguments>true,true</arguments>
                 </module>
                 <module>
-		<label>Time and Date</label>
-                    <name>firstboot_timezone</name>
-                    <arguments>true,true</arguments>
-                </module>
-                <module>
-		    <label>Desktop</label>
+                    <label>Time and Date</label>
                     <enabled config:type="boolean">false</enabled>
-                    <name>firstboot_desktop</name>
-                    <arguments>true,true</arguments>
+                    <name>firstboot_timezone</name>
                 </module>
                 <module>
-		    <label>Network</label>
+                    <label>Desktop</label>
+                    <enabled config:type="boolean">true</enabled>
+                    <name>firstboot_desktop</name>
+                </module>
+                <module>
+                    <label>Network</label>
                     <name>inst_proposal</name>
-                    <arguments>true,true</arguments>
-                    <type>firstboot_network</type>
+                    <proposal>firstboot_network</proposal>
                 </module>
                 <module>
                     <label>Root Password</label>
+                    <enabled config:type="boolean">false</enabled>
                     <name>inst_root</name>
-                    <arguments>true,true</arguments>
                 </module>
                 <module>
-			<label>Users</label>
+                    <label>Users</label>
+                    <enabled config:type="boolean">false</enabled>
                     <name>inst_auth</name>
-                    <arguments>true,true</arguments>
                 </module>
                 <module>
-		    <label>Users</label>
+                    <label>Users</label>
+                    <enabled config:type="boolean">false</enabled>
                     <name>inst_user</name>
-                    <arguments>true,true</arguments>
                 </module>
                 <module>
-		    <label>Hardware</label>
+                    <label>Hardware</label>
                     <name>inst_proposal</name>
                     <arguments>true,true</arguments>
-                    <type>firstboot_hardware</type>
+                    <proposal>firstboot_hardware</proposal>
                 </module>
-               <module>
-		    <label>Finish Setup</label>
+                <module>
+                    <label>Finish Setup</label>
                     <name>firstboot_write</name>
-                    <arguments>false,false</arguments>
+                    <enable_back>no</enable_back>
+                    <enable_next>no</enable_next>
                 </module>
-               <module>
-		    <label>Finish Setup</label>
+                <module>
+                    <label>Finish Setup</label>
                     <name>inst_suseconfig</name>
-                    <arguments>false,false</arguments>
+                    <enable_back>no</enable_back>
+                    <enable_next>no</enable_next>
                 </module>
-               <module>
-		<label>Finish Setup</label>
+                <module>
+                    <label>Finish Setup</label>
                     <name>firstboot_finish</name>
-                    <arguments>true,true</arguments>
                 </module>
 
-<!--
-                <module>
-                    <name>proposal</name>
-                    <arguments>true,true,`firstboot</arguments>
-	            	<label>Settings</label>
-                </module>
--->
             </modules>
         </workflow>
     </workflows>
