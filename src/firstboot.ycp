@@ -1,6 +1,11 @@
 /**
+ * File:	clients/firstboot.ycp
+ * Package:	Configuration of Firstboot
+ * Summary:	Main file
+ * Authors:	Anas Nashif <nashif@suse.de>
  *
  * $Id$
+ *
  */
 {
     textdomain "firstboot";
@@ -10,6 +15,7 @@
     import "ProductControl";
     import "Wizard";
     import "Report";
+    import "Firstboot";
 
 
     Wizard::OpenNextBackStepsDialog();
