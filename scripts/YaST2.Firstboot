@@ -23,7 +23,7 @@
 # Functions...
 #---------------------------------------------
 function startYaST2 () {
-	/usr/lib/YaST2/startup/YaST2.call installation firstboot
+    /usr/lib/YaST2/startup/YaST2.call firstboo firstboot
 }
 
 #=============================================
