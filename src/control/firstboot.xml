@@ -93,7 +93,6 @@
                 <module>
                     <label>Hardware</label>
                     <name>inst_proposal</name>
-                    <arguments>true,true</arguments>
                     <proposal>firstboot_hardware</proposal>
                 </module>
                 <module>
