@@ -33,8 +33,8 @@ term contents = `VBox (
             `HBox(
                 `HSpacing (2*space),
             `VBox(
-                `Left(`RadioButton(`id(`yes), _("Yes, I agree to the License Agreement"))),
-                `Left( `RadioButton(`id(`no), _("No, I do not agree.")))
+                `Left(`RadioButton(`id(`yes), _("Yes, I Agree to the License Agreement"))),
+                `Left( `RadioButton(`id(`no), _("No, I Do Not Agree")))
                 ),
             `HSpacing (2*space)
                 )
@@ -43,9 +43,10 @@ term contents = `VBox (
         );
 
 
-string help = _("<p>Read the License Agreement carefully and select
-one of the available options. If you do not agree to the License Agreement,
-the configuration will be aborted.</p>");
+string help = _("<p>Read the license agreement carefully and select
+one of the available options. If you do not agree to the license agreement,
+the configuration will be aborted.</p>
+");
 
 Wizard::SetContents(caption, contents, help, (boolean)WFM::Args (0),
                 (boolean)WFM::Args (1));
@@ -60,8 +61,7 @@ while (true)
     symbol accept = (symbol)UI::QueryWidget(`id(`eula), `CurrentButton);
     if (accept == `no)
     {
-       if ( Popup::YesNo(_("Do you want to reread or reconsider the License
-Agreement?")) )
+       if ( Popup::YesNo(_("Reread or reconsider the license agreement?")) )
        {
            continue;
        }
@@ -92,8 +92,7 @@ Agreement?")) )
     }
     else if ( accept != `yes && accept != `no )
     {
-        Popup::Message(_("You have to either accept or decline the License
-Agreement"));
+        Popup::Message(_("Accept or decline the license agreement."));
         continue;
     }
     break;

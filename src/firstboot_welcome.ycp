@@ -29,9 +29,10 @@ string text = _("<p><b>Welcome!</b></p>") +
 
     // congratulation text 2/4
     _("<p>There are a few more steps to take before your system is ready to
-use. YaST will now guide you through some basic configuration.  Please click
-<b>Next</b> button to continue. </p>
-            ");
+use. YaST will now guide you through some basic configuration.  Click
+<b>Next</b> to continue. </p>
+            
+");
 
 term contents = `VBox (
         `VSpacing (space),
@@ -43,8 +44,9 @@ term contents = `VBox (
         `VSpacing (2)
 			   );
 
-string help = _("<p>Click <b>Next</b> button to go through the
-basic configuration of the system.</p>");
+string help = _("<p>Click <b>Next</b> to go through the
+basic configuration of the system.</p>
+");
 
 Wizard::SetContents(caption, contents, help, (boolean)WFM::Args (0),
         (boolean)WFM::Args (1));
