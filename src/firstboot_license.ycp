@@ -52,13 +52,41 @@ Wizard::DisableAbortButton();
 Wizard::SetFocusToNextButton();
 
 any ret = nil;
+boolean halt = false;
 while (true)
 {
     ret = UI::UserInput();
     symbol accept = (symbol)UI::QueryWidget(`id(`eula), `CurrentButton);
     if (accept == `no)
     {
-        ret = `abort;
+       if ( Popup::YesNo(_("Do you want to reread or reconsider the License
+Agreement?")) )
+       {
+           continue;
+       }
+       else
+       {
+           string action = (string)Misc::SysconfigRead("LICENSE_REFUSAL_ACTION", "");
+           if (action == "continue")
+           {
+               ret = `next;
+               break;
+           }
+           else if (action == "halt")
+           {
+               if (!Popup::TimedOKCancel(_("System is shutting down...")))
+               {
+                   continue;
+               } else {
+                   halt = true;
+               }
+               break;
+           }
+           else if (action == "abort")
+           {
+                ret = `abort;
+           }
+       }
     }
     else if ( accept != `yes && accept != `no )
     {
@@ -69,6 +97,11 @@ Agreement"));
     break;
 }
 
+if (halt)
+{
+    UI::CloseDialog();
+    SCR::Execute(.target.bash, "/sbin/halt");
+}
 return ret;
 
 /* EOF */

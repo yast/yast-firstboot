@@ -13,13 +13,11 @@ SCRIPT_DIR="/usr/share/firstboot/scripts"
 # Welcome text file
 FIRSTBOOT_WELCOME_FILE=""
 
-
 ## Type:        string
 ## Default:     "/usr/share/YaST2/data/firstboot_license.txt"
 #
 # license text file
-FIRSTBOOT_LICENSE_FILE="/usr/share/YaST2/data/firstboot_license.txt"
-
+FIRSTBOOT_LICENSE_FILE="/var/lib/YaST2/info.txt"
 
 ## Type:        string
 ## Default:     ""
@@ -32,3 +30,9 @@ FIRSTBOOT_FINISH_FILE=""
 #
 # Show YaST Control Center Checkbox in finish dialog
 SHOW_Y2CC_CHECKBOX="no"
+
+## Type:        string(halt,continue,abort)
+## Default:     "halt"
+#
+# What to do if the user did not accept the license
+LICENSE_REFUSAL_ACTION="halt"
