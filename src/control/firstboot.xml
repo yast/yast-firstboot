@@ -13,8 +13,8 @@ textdomain="firstboot"
 
     <proposals config:type="list">
         <proposal>
-            <mode>firstboot</mode>
-            <stage>normal</stage>
+            <mode>installation</mode>
+            <stage>firstboot</stage>
             <type>firstboot_hardware</type>
             <label>Hardware Configuration</label>
             <proposal_modules config:type="list">
@@ -22,8 +22,8 @@ textdomain="firstboot"
             </proposal_modules>
         </proposal>
         <proposal>
-            <mode>firstboot</mode>
-            <stage>normal</stage>
+            <mode>installation</mode>
+            <stage>firstboot</stage>
             <type>firstboot_network</type>
             <label>Network Configuration</label>
             <proposal_modules config:type="list">
@@ -43,9 +43,9 @@ textdomain="firstboot"
                 <arguments>true,true</arguments>
                 <archs>all</archs>
             </defaults>
-            <stage>normal</stage>
+            <stage>firstboot</stage>
             <label>Configuration</label>
-            <mode>firstboot</mode>
+            <mode>installation</mode>
             <modules  config:type="list">
                 <module>
 		<label>Welcome</label>
@@ -77,7 +77,8 @@ textdomain="firstboot"
                 <module>
 		    <label>Network</label>
                     <name>inst_proposal</name>
-                    <arguments>true,true,`firstboot_network</arguments>
+                    <arguments>true,true</arguments>
+                    <type>firstboot_network</type>
                 </module>
                 <module>
                     <label>Root Password</label>
@@ -97,7 +98,8 @@ textdomain="firstboot"
                 <module>
 		    <label>Hardware</label>
                     <name>inst_proposal</name>
-                    <arguments>true,true,`firstboot_hardware</arguments>
+                    <arguments>true,true</arguments>
+                    <type>firstboot_hardware</type>
                 </module>
                <module>
 		    <label>Finish Setup</label>

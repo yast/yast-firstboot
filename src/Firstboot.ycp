@@ -52,7 +52,12 @@ global void Firstboot()
 
     ProductControl::custom_control_file = firstboot_control_file;
 
-    ProductControl::Init();
+    if (!ProductControl::Init())
+    {
+        y2error("control file %1 not found", ProductControl::custom_control_file );
+    }
+
+    return;
 }
 
 
@@ -60,7 +65,8 @@ global void Firstboot()
  * Execute custom scripts
  * @return boolean
  */
-global boolean ExecuteScripts() {
+global boolean ExecuteScripts()
+{
 
     script_dir = Misc::SysconfigRead(.sysconfig.firstboot.SCRIPT_DIR,
             "/usr/share/firstboot/scripts" );
@@ -80,6 +86,12 @@ global boolean ExecuteScripts() {
 
 
 
+/**
+ * Parse provided text and see if it contains richtext
+ * @param sysconfig_file sysconfig variable with path to file
+ * @param richtext default text
+ * @return term
+ */
 global term DetectRichText(string sysconfig_file, string richtext )
 {
     string text = "";
@@ -90,11 +102,14 @@ global term DetectRichText(string sysconfig_file, string richtext )
     {
         text = (string)SCR::Read(.target.string,  file );
     }
-    else {
+    else 
+    {
         text = richtext;
     }
     if (text == "")
         text = no_text;
+
+
     if (regexpmatch(text, "</.*>")) {
         return (`RichText(`id(`text), text));
     } else {
