@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug 24 20:04:19 CEST 2004 - nashif@suse.de
+
+- Added desktop selection
+- Fixed init script
+
+-------------------------------------------------------------------
 Fri Aug 13 23:06:15 CEST 2004 - nashif@suse.de
 
 - Adde control file specific for firstboot
