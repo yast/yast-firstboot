@@ -1,10 +1,8 @@
 /**
- * File:	firstboot/src/inst_firstboot_finish.ycp
+ * File:	firstboot/src/firstboot_write.ycp
  * Module:	Installation
  * Summary:	Finish Firstboot
  * Authors:	Anas Nashif <nashif@suse.de>
- *
- * Display a nice congratulation message for the user.
  *
  * $Id$
  */
@@ -55,6 +53,22 @@ Please wait while the system is being configured.
     Wizard::EnableBackButton();
     Progress::NextStage ();
 
+
+    // Desktop settings
+    string default_dm = "kdm";
+    if ( Firstboot::default_wm == "gnome" )
+    {
+        default_dm = "gdm";
+    }
+    SCR::Write(
+            .sysconfig.displaymanager.DISPLAYMANAGER, default_dm
+            );
+    SCR::Write(
+            .sysconfig.windowmanager.DEFAULT_WM, Firstboot::default_wm
+            );
+
+
+    // Dont run firstboot next time
     SCR::Execute(.target.remove, "/etc/reconfig_system");
     sleep(100);
     Progress::NextStage ();
@@ -63,8 +77,7 @@ Please wait while the system is being configured.
     sleep(100);
     Progress::Finish ();
 
-    symbol ret = (symbol)UI::UserInput();
-    return ret;
+    return `next;
 
 //EOF
 }

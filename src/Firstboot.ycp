@@ -36,9 +36,15 @@ global boolean language_changed = false;
 global string firstboot_control_file =
         "/usr/share/YaST2/control/firstboot.xml";
 
+global string default_wm = "";
+global list<string> installed_desktops = [];
+
+
 global void Firstboot()
 {
     show_y2cc_checkbox = Misc::SysconfigRead(.sysconfig.firstboot.SHOW_Y2CC_CHECKBOX, "no") == "yes";
+    default_wm =
+        Misc::SysconfigRead(.sysconfig.windowmanager.DEFAULT_WM, "kde");
     Progress::off();
     NetworkDevices::Read();
     Progress::on();
