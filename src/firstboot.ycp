@@ -9,10 +9,7 @@
     import "Stage";
     import "ProductControl";
     import "Wizard";
-    import "Label";
-    import "Popup";
     import "Report";
-    import "Firstboot";
 
 
     Wizard::OpenNextBackStepsDialog();
