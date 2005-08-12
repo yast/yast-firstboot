@@ -35,12 +35,12 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %defattr(-,root,root)
 %dir @ystartupdir@/startup/Firstboot-Stage
 @ystartupdir@/startup/Firstboot-Stage/*
+@ystartupdir@/startup/YaST2.Firstboot
 @clientdir@/firstboot_*.ycp
 @clientdir@/firstboot.ycp
 %dir @yncludedir@/firstboot
 @yncludedir@/firstboot/*.ycp
 @moduledir@/Firstboot.*
-@ybindir@/*
 @ydatadir@/*
 @scrconfdir@/*.scr
 /etc/init.d/firstboot
