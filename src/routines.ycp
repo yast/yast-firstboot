@@ -9,6 +9,9 @@
  */
 
 {
+
+    import "XML";
+
     /*
      * Setup XML for alice
      * @return void

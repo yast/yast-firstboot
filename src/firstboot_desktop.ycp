@@ -86,10 +86,9 @@ to use from the list below.
 
 
     // help text fro desktop dialog
-    string desktop_help_text = _("<h3>Desktop Selections</h3>
-<p>This system has more than one desktop environment installed. Select
-the desktop to enable as the default desktop.</p>
-");
+    string desktop_help_text = _("<p><h3>Desktop Selections</h3>
+This system has more than one desktop environment installed. Select
+the desktop to enable as the default desktop.</p>");
 
     // translators: dialog title
     Wizard::SetContents ( _("Select Your Default Desktop"), ask_desktop_dialog,
