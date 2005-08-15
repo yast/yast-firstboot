@@ -34,7 +34,7 @@ global boolean show_y2cc_checkbox = false;
 global boolean language_changed = false;
 
 global string firstboot_control_file =
-        "/usr/share/YaST2/control/firstboot.xml";
+	"/etc/YaST2/firstboot.xml";
 
 global string default_wm = "";
 
