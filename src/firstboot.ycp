@@ -11,6 +11,7 @@
     import "ProductControl";
     import "Wizard";
     import "Report";
+    import "Firstboot";
 
 
     Wizard::OpenNextBackStepsDialog();
