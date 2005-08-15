@@ -1,0 +1,94 @@
+/**
+ * File:	modules/Firstboot.ycp
+ * Package:	Configuration of firstboot
+ * Summary:	Firstboot settings, input and output functions
+ * Authors:	Anas Nashif <nashif@suse.de>
+ *
+ * $Id$
+ *
+ * Representation of the configuration of firstboot.
+ * Input and output routines.
+ */
+
+{
+
+module "Firstboot";
+textdomain "firstboot";
+
+import "NetworkDevices";
+import "Progress";
+import "Internet";
+import "Misc";
+import "Directory";
+import "ProductControl";
+
+
+global boolean run_suseconfig = false;
+
+string script_dir = "";
+
+string no_text = _("No Text Available");
+
+global boolean show_y2cc_checkbox = false;
+
+global boolean language_changed = false;
+
+global string firstboot_control_file =
+	"/etc/YaST2/firstboot.xml";
+
+global string default_wm = "";
+
+global list<string> installed_desktops = [];
+
+
+global void Firstboot()
+{
+    show_y2cc_checkbox = 
+        Misc::SysconfigRead(.sysconfig.firstboot.SHOW_Y2CC_CHECKBOX, "no") == "yes";
+    default_wm =
+        Misc::SysconfigRead(.sysconfig.windowmanager.DEFAULT_WM, "kde");
+    Progress::off();
+    NetworkDevices::Read();
+    Progress::on();
+    Internet::do_you = true;
+
+    ProductControl::custom_control_file = firstboot_control_file;
+
+    if (!ProductControl::Init())
+    {
+        y2error("control file %1 not found", ProductControl::custom_control_file );
+    }
+
+    return;
+}
+
+
+/*
+ * Execute custom scripts
+ * @return boolean
+ */
+global boolean ExecuteScripts()
+{
+
+    script_dir = Misc::SysconfigRead(.sysconfig.firstboot.SCRIPT_DIR,
+            "/usr/share/firstboot/scripts" );
+
+    if (script_dir!="")
+    {
+        list<string> scripts = (list<string>)SCR::Read(.target.dir, script_dir);
+        foreach(string script, scripts, ``{
+                map ret = (map)SCR::Execute(.target.bash_output, script_dir + "/" + script + " >> /var/log/YaST2/firstboot.log");
+                if (ret["exit"]:-1 != 0)
+                    y2error ("script failed: %1", ret );
+                });
+    } else {
+        y2error("Script dir empty or not configured");
+    }
+    return true;
+}
+
+
+
+
+/* EOF */
+}

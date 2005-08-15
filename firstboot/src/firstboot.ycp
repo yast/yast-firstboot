@@ -1,0 +1,37 @@
+/**
+ * Maintainer:             Jiri Srain <jsrain@suse.cz>
+ *
+ * $Id$
+ */
+{
+    textdomain "firstboot";
+
+    import "Mode";
+    import "Stage";
+    import "ProductControl";
+    import "Wizard";
+    import "Report";
+    import "Firstboot";
+
+
+    Wizard::OpenNextBackStepsDialog();
+
+    string wizard_mode = Mode::test () ? "installation" : Mode::mode ();
+
+    list<map> stage_mode = [$["stage": "firstboot",  "mode": wizard_mode ]];
+    ProductControl::AddWizardSteps(stage_mode);
+
+    // Don't log Report messages by default
+    Report::LogMessages(false);
+    Report::LogErrors(false);
+    Report::LogWarnings(false);
+
+
+    symbol ret = ProductControl::Run();
+
+    Pkg::SourceFinishAll();
+    Pkg::TargetFinish();
+
+    UI::CloseDialog();
+    return ret;
+}

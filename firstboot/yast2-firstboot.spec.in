@@ -1,0 +1,50 @@
+@HEADER-COMMENT@
+# neededforbuild yast2-devel-packages yast2-network yast2-country yast2 yast2-installation yast2-xml
+
+
+@HEADER@
+Requires:	yast2
+
+BuildArchitectures:	noarch
+
+Summary:	Configuration of firstboot
+PreReq:         %insserv_prereq %fillup_prereq
+
+%description
+-
+
+@PREP@
+
+@BUILD@
+
+@INSTALL@
+
+mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
+
+@CLEAN@
+
+
+%post
+%{fillup_and_insserv -y -n -s firstboot}
+
+%postun
+%{insserv_cleanup}
+
+
+%files
+%defattr(-,root,root)
+%dir @ystartupdir@/startup/Firstboot-Stage
+@ystartupdir@/startup/Firstboot-Stage/*
+@ystartupdir@/startup/YaST2.Firstboot
+@clientdir@/firstboot_*.ycp
+@clientdir@/firstboot.ycp
+%dir @yncludedir@/firstboot
+@yncludedir@/firstboot/*.ycp
+@moduledir@/Firstboot.*
+@ydatadir@/*
+@scrconfdir@/*.scr
+/etc/init.d/firstboot
+/var/adm/fillup-templates/sysconfig.firstboot
+/usr/share/firstboot
+%doc @docdir@
+/usr/share/YaST2/control/*.xml

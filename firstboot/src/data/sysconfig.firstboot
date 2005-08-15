@@ -1,0 +1,47 @@
+## Path:    System/Yast2
+## Description: Firstboot Configuration
+## Type:    string
+## Default: /usr/share/firstboot/scripts
+#
+# Scripts to be executed at first boot
+#
+SCRIPT_DIR="/usr/share/firstboot/scripts"
+
+## Type:        string
+## Default:     ""
+#
+# Welcome text file
+FIRSTBOOT_WELCOME_FILE=""
+
+## Type:        string
+## Default:     "/usr/share/YaST2/data/firstboot_license.txt"
+#
+# license text file
+FIRSTBOOT_LICENSE_FILE="/var/lib/YaST2/info.txt"
+
+## Type:        string
+## Default:     ""
+#
+# finish text file
+FIRSTBOOT_FINISH_FILE=""
+
+## Type:        yesno
+## Default:     "no"
+#
+# Show YaST Control Center Checkbox in finish dialog
+SHOW_Y2CC_CHECKBOX="no"
+
+## Type:        string(halt,continue,abort)
+## Default:     "halt"
+#
+# What to do if the user did not accept the license
+LICENSE_REFUSAL_ACTION="halt"
+
+
+## Type:        string
+## Default:     ""
+#
+# Release Notes path. This directory should contain files in the form of
+# RELEASE-NOTES.{language}.rtf, for example /RELEASE-NOTES.en.rtf.
+# See /usr/share/doc/release-notes for examples
+FIRSTBOOT_RELEASE_NOTES_PATH=""
