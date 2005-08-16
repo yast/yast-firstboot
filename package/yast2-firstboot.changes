@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Aug 16 08:25:47 CEST 2005 - jsrain@suse.cz
+
+- fixed location of the firstboot control file (#104864)
+
+-------------------------------------------------------------------
 Fri Aug 12 09:46:36 CEST 2005 - jsrain@suse.cz
 
 - fixed check_ycp errors
