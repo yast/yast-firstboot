@@ -1,6 +1,6 @@
 # Makefile.am for installation/general
 
-controldir = $(yast2dir)/control
+controldir = /etc/YaST2
 
 control_DATA = \
 	firstboot.xml 
