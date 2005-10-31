@@ -13,7 +13,7 @@
 
     <custom>
         <license_action>abort</license_action>
-        <license_file>/usr/lib/YaST2/info.txt</license_action>
+        <license_file>/usr/lib/YaST2/info.txt</license_file>
     </custom>
     <proposals config:type="list">
         <proposal>
