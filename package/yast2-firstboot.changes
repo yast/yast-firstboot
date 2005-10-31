@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Oct 31 11:05:45 CET 2005 - jsrain@suse.cz
+
+- fixed XML syntax in firstboot.xml (#130175)
+
+-------------------------------------------------------------------
 Tue Aug 16 08:25:47 CEST 2005 - jsrain@suse.cz
 
 - fixed location of the firstboot control file (#104864)
