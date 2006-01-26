@@ -1,8 +1,8 @@
 @HEADER-COMMENT@
-# neededforbuild yast2-devel-packages yast2-network yast2-country yast2 yast2-installation yast2-xml
 
 
 @HEADER@
+BuildRequires:	yast2-devel-packages yast2-network yast2-xml
 Requires:	yast2
 
 BuildArchitectures:	noarch
