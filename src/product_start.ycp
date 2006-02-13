@@ -1,7 +1,7 @@
 /**
  * Maintainer:             Jiri Srain <jsrain@suse.cz>
  *
- * $Id: firstboot.ycp 20768 2005-01-16 23:42:37Z nashif $
+ * $Id$
  */
 {
     textdomain "firstboot";
