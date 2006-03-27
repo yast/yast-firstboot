@@ -1,0 +1,79 @@
+-------------------------------------------------------------------
+Mon Mar 27 16:20:55 CEST 2006 - jsrain@suse.de
+
+- updated BuildRequires
+- 2.13.1
+
+-------------------------------------------------------------------
+Mon Oct 31 11:05:45 CET 2005 - jsrain@suse.cz
+
+- fixed XML syntax in firstboot.xml (#130175)
+- 2.13.0
+
+-------------------------------------------------------------------
+Tue Aug 16 08:25:47 CEST 2005 - jsrain@suse.cz
+
+- fixed location of the firstboot control file (#104864)
+- 2.12.1
+
+-------------------------------------------------------------------
+Fri Aug 12 09:46:36 CEST 2005 - jsrain@suse.cz
+
+- fixed check_ycp errors
+- 2.12.0
+
+-------------------------------------------------------------------
+Wed Mar  2 07:52:03 CET 2005 - nashif@suse.de
+
+- Fixed control file 
+- import Firstboot module
+
+-------------------------------------------------------------------
+Fri Feb 11 04:24:51 CET 2005 - nashif@suse.de
+
+- Use general dialogs (welcome, license, finish) from installation
+
+-------------------------------------------------------------------
+Thu Feb 10 10:48:19 CET 2005 - visnov@suse.cz
+
+- Merged messages from proofreading 
+
+-------------------------------------------------------------------
+Mon Jan 24 21:17:29 CET 2005 - nashif@suse.de
+
+- Use new workflow arguments and new startup scripts
+
+-------------------------------------------------------------------
+Tue Nov 30 19:49:37 CET 2004 - nashif@suse.de
+
+- Adapted startup scripts to new scheme
+
+-------------------------------------------------------------------
+Tue Aug 31 13:28:12 CEST 2004 - sh@suse.de
+
+- Merged messages from proofreading
+- 2.10.3 
+
+-------------------------------------------------------------------
+Tue Aug 24 20:04:19 CEST 2004 - nashif@suse.de
+
+- Added desktop selection
+- Fixed init script
+
+-------------------------------------------------------------------
+Fri Aug 13 23:06:15 CEST 2004 - nashif@suse.de
+
+- Adde control file specific for firstboot
+- Support more clients
+- 2.10.1
+
+-------------------------------------------------------------------
+Tue Jul 27 15:44:21 CEST 2004 - nashif@suse.de
+
+- Added missing help texts
+- adapted neededforbuild
+
+-------------------------------------------------------------------
+Mon Jul 12 22:14:03 2004 - nashif@suse.de
+
+- initial version. (#43318)

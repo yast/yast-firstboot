@@ -1,0 +1,83 @@
+/**
+ * File:	firstboot/src/firstboot_write.ycp
+ * Module:	Installation
+ * Summary:	Finish Firstboot
+ * Authors:	Anas Nashif <nashif@suse.de>
+ *
+ * $Id$
+ */
+{
+    textdomain "firstboot";
+    import "Progress";
+    import "Popup";
+    import "Firstboot";
+    import "Wizard";
+
+
+    list<string> progress_stages =
+	[
+	 // progress stages
+	 _("Update configuration"),
+	 // progress stages
+	 _("Prepare system for first login")
+	 ];
+
+    list progress_descriptions =
+	[
+	 // progress stages
+	 _("Updating configuration..."),
+	 // progress stages
+	 _("Preparing system for first login...")
+             ];
+
+
+    // Help text for last dialog of base installation
+    string help_text = _("<p>
+Please wait while the system is being configured.
+</p>");
+
+
+    Progress::on();
+
+    Progress::New(
+		  // Headline for last dialog of first boot workflow
+		  _("Completing the System Configuration"),
+		  "",	// Initial progress bar label - not empty (reserve space!)
+		  2,	// progress bar length
+		  progress_stages,
+		  progress_descriptions,
+		  help_text );
+
+
+    Wizard::EnableNextButton();
+    Wizard::EnableBackButton();
+    Progress::NextStage ();
+
+
+    // Desktop settings
+    string default_dm = "kdm";
+    if ( Firstboot::default_wm == "gnome" )
+    {
+        default_dm = "gdm";
+    }
+    SCR::Write(
+            .sysconfig.displaymanager.DISPLAYMANAGER, default_dm
+            );
+    SCR::Write(
+            .sysconfig.windowmanager.DEFAULT_WM, Firstboot::default_wm
+            );
+
+
+    // Dont run firstboot next time
+    SCR::Execute(.target.remove, "/etc/reconfig_system");
+    sleep(100);
+    Progress::NextStage ();
+
+    Firstboot::ExecuteScripts();
+    sleep(100);
+    Progress::Finish ();
+
+    return `next;
+
+//EOF
+}

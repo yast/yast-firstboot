@@ -1,0 +1,10 @@
+<html>
+<h1>Enjoy The Novell Linux Desktop</h1>
+<p>Some more usefull text should come in here</p>
+<p>This text can be changes by editing the file
+<em>/usr/share/YaST2/data/firstboot_finish.txt</em></p>
+<p>If no markup language is detected, it will be shown as plain text, otherwise
+the page will be formatted according to the markup tags used.
+</p>
+</html>
+

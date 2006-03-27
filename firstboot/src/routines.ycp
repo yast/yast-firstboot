@@ -1,0 +1,37 @@
+/**
+ * File:	include/firstboot/routines.ycp
+ * Package:	Configuration of Firstboot
+ * Summary:	Routines
+ * Authors:	Anas Nashif <nashif@suse.de>
+ *
+ * $Id$
+ *
+ */
+
+{
+
+    import "XML";
+
+    /*
+     * Setup XML for alice
+     * @return void
+     **/
+    define void XmlSetup()
+        {
+            map doc = $[];
+            doc["cdataSections"] = [];
+            doc["listEntries"] =
+                $["workflows":"workflow",
+                "modules":"module",
+                "proposal_modules":"proposal_module",
+                "proposals":"proposal"
+                    ];
+
+            doc["rootElement"] = "productDefines";
+            doc["systemID"] = "/usr/share/YaST2/control/control.dtd";
+            doc["nameSpace"] = "http://www.suse.com/1.0/yast2ns";
+            doc["typeNamespace"] = "http://www.suse.com/1.0/configns";
+            XML::xmlCreateDoc(`firstboot, doc);
+            return;
+        }
+}
