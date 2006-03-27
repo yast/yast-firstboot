@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Mar 27 16:20:55 CEST 2006 - jsrain@suse.de
+
+- updated BuildRequires
+- 2.13.1
+
+-------------------------------------------------------------------
 Mon Oct 31 11:05:45 CET 2005 - jsrain@suse.cz
 
 - fixed XML syntax in firstboot.xml (#130175)
