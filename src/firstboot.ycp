@@ -21,10 +21,10 @@
     list<map> stage_mode = [$["stage": "firstboot",  "mode": wizard_mode ]];
     ProductControl::AddWizardSteps(stage_mode);
 
-    // Don't log Report messages by default
-    Report::LogMessages(false);
-    Report::LogErrors(false);
-    Report::LogWarnings(false);
+    // Do log Report messages by default (#180862)
+    Report::LogMessages(true);
+    Report::LogErrors(true);
+    Report::LogWarnings(true);
 
 
     symbol ret = ProductControl::Run();

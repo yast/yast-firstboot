@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  2 10:56:57 CEST 2006 - jsrain@suse.cz
+
+- log Report messages by default (#180862)
+
+-------------------------------------------------------------------
 Mon Mar 27 16:20:55 CEST 2006 - jsrain@suse.de
 
 - updated BuildRequires
