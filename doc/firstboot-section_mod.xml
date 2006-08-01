@@ -47,7 +47,7 @@
       <para>Firstboot is disabled by default. The yast2-firstboot package is not part of any software selection and has to be installed individually. During the Installation, click Software in the Installation Settings screen, then select the yast2-firstboot package in the Rest selection list. </para>
       <orderedlist>
         <listitem>
-          <para>Install the product on a master box, making sure that you install the firstboot package.</para>
+          <para>Install the product on a master box, making sure that you install the firstboot package. Configure whole system including system services, hardware components,...</para>
         </listitem>
         <listitem>
           <para>Create the empty file <filename>/etc/reconfig_system</filename>. This file will be deleted when firstboot configuration is completed. This can be done by issuing the commnd: <command>touch /etc/reconfig_system</command>
@@ -60,7 +60,9 @@
 </para>
         </listitem>
       </orderedlist>
-      <para>When the system comes up after a shutdown, the firstboot
+      <para>After getting the system installed and prepared, shut it down and
+	clone the hard disk to hard disk to all of the machines.</para>
+      <para>When the system comes up after a shutdown and cloning, the firstboot
 	configuration utility will be started and the user will be presented
 	with the configuration screens.</para>
 
@@ -185,14 +187,17 @@
 	  configuration screens depending on the end configuration of the
 	  system. The file firstboot.xml is installed with the yast2-firstboot
 	  package and can be found at the following location:
-	  <filename>/usr/share/YaST2/control/firstboot.xml</filename>.</para>
+	  <filename>/etc/YaST2/firstboot.xml</filename>.</para>
 
         <para>This file can be modified to match the post installation
 	  requirements of the product in question. In addition to the default
 	  and pre-installed components, custom screens can be added to enable
-	  maximal flexiblity during post installation. For more information
+	  maximal flexiblity during post installation.
+<!-- For more information
 	  about the syntax of the control file, see the document titled
-	  “Product Installation Control”.</para>
+	  “Product Installation Control”.
+-->
+</para>
 
       </section>
     </section>
