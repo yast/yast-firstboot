@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Aug  1 13:34:34 CEST 2006 - jsrain@suse.cz
+
+- updated the documentation (#189358)
+
+-------------------------------------------------------------------
 Fri Jun  2 10:56:57 CEST 2006 - jsrain@suse.cz
 
 - log Report messages by default (#180862)
