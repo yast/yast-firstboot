@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Aug 31 08:56:27 CEST 2006 - lslezak@suse.cz
+
+- the control file has been updated to the default
+  workflow (#200718)
+- added missing documentation files (#189358)
+- 2.13.3
+
+-------------------------------------------------------------------
 Tue Aug  1 13:34:34 CEST 2006 - jsrain@suse.cz
 
 - updated the documentation (#189358)

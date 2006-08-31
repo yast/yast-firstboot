@@ -2,7 +2,8 @@
 
 
 @HEADER@
-BuildRequires:	yast2-network yast2-xml update-desktop-files yast2-devtools yast2-testsuite
+BuildRequires:	yast2-network yast2-xml update-desktop-files yast2-devtools yast2-testsuite docbook-xsl-stylesheets libxslt perl-XML-Writer sgml-skel update-desktop-files
+
 Requires:	yast2
 
 BuildArchitectures:	noarch

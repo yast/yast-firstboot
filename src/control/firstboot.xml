@@ -47,6 +47,11 @@
             <mode>installation</mode>
             <modules  config:type="list">
                 <module>
+                    <label>Language</label>
+                    <enabled config:type="boolean">false</enabled>
+                    <name>firstboot_language</name>
+                </module>
+                <module>
                     <label>Welcome</label>
                     <name>inst_welcome</name>
                 </module>
@@ -54,53 +59,47 @@
                     <label>License Agreement</label>
                     <name>inst_license</name>
                 </module>
-                <!--
                 <module>
                     <label>Network</label>
                     <name>inst_proposal</name>
+                    <enabled config:type="boolean">false</enabled>
                     <proposal>firstboot_network</proposal>
                 </module>
                 <module>
-                    <label>Language</label>
-                    <enabled config:type="boolean">false</enabled>
-                    <name>firstboot_language</name>
-                </module>
-                <module>
                     <label>Time and Date</label>
-                    <enabled config:type="boolean">false</enabled>
+                    <enabled config:type="boolean">true</enabled>
                     <name>firstboot_timezone</name>
                 </module>
                 <module>
                     <label>Desktop</label>
-                    <enabled config:type="boolean">true</enabled>
+                    <enabled config:type="boolean">false</enabled>
                     <name>firstboot_desktop</name>
                 </module>
                 <module>
                     <label>Network</label>
                     <name>inst_proposal</name>
+                    <enabled config:type="boolean">false</enabled>
                     <proposal>firstboot_network</proposal>
                 </module>
-                -->
                 <module>
                     <label>Root Password</label>
-                    <enabled config:type="boolean">false</enabled>
+                    <enabled config:type="boolean">true</enabled>
                     <name>inst_root</name>
                 </module>
-                <!--
                 <module>
                     <label>Users</label>
-                    <enabled config:type="boolean">false</enabled>
+                    <enabled config:type="boolean">true</enabled>
                     <name>inst_auth</name>
                 </module>
                 <module>
                     <label>Users</label>
-                    <enabled config:type="boolean">false</enabled>
+                    <enabled config:type="boolean">true</enabled>
                     <name>inst_user</name>
                 </module>
-                -->
                 <module>
                     <label>Hardware</label>
                     <name>inst_proposal</name>
+                    <enabled config:type="boolean">false</enabled>
                     <proposal>firstboot_hardware</proposal>
                 </module>
                 <module>
