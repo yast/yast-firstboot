@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 25 13:44:07 CEST 2006 - jsrain@suse.cz
+
+- don't redirect stdout of YaST firstboot to /dev/null (#190287)
+
+-------------------------------------------------------------------
 Thu Aug 31 08:56:27 CEST 2006 - lslezak@suse.cz
 
 - the control file has been updated to the default
