@@ -1,0 +1,48 @@
+/*
+ *
+ * Module:             firstboot_welcome.ycp
+ *
+ * Author:             Ladislav Slezak <lslezak@suse.cz>
+ *
+ * Submodules:
+ *
+ *
+ * Purpose:	display a welcome message in running system
+ *
+ *
+ *
+ * $Id:$
+ */
+
+{
+    textdomain "firstboot";
+
+    import "Misc";
+    import "GetInstArgs";
+    import "Directory";
+
+
+    any result = nil;
+
+    map args = GetInstArgs::argmap();
+
+    string directory = Misc::SysconfigRead(.sysconfig.firstboot.FIRSTBOOT_WELCOME_DIR, "");
+    if (directory != "")
+    {
+	// set the prefix to root
+	Directory::custom_workflow_dir = "/";
+	args["directory"] = directory;
+    }
+
+    string patterns = Misc::SysconfigRead(.sysconfig.firstboot.FIRSTBOOT_WELCOME_PATTERNS, "");
+    if (patterns != "")
+    {
+	args["patterns"] = splitstring(patterns, ",");
+    }
+
+    y2milestone("inst_welcome options: %1", args);
+
+    result = WFM::CallFunction( "inst_welcome", [ args ] );
+
+    return result;
+}
