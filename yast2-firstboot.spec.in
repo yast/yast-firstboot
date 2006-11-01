@@ -42,7 +42,6 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %dir @yncludedir@/firstboot
 @yncludedir@/firstboot/*.ycp
 @moduledir@/Firstboot.*
-@ydatadir@/*
 @scrconfdir@/*.scr
 /etc/init.d/firstboot
 /var/adm/fillup-templates/sysconfig.firstboot

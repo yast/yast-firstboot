@@ -133,16 +133,20 @@
           </listitem>
         </itemizedlist>
         <para>To do this, change the values of the respective variables
-	  (FIRSTBOOT_WELCOME_FILE,FIRSTBOOT_LICENSE_FILE , and
-	  FIRSTBOOT_FINISH_FILE) to the full path of a plain or rich text
-	  formatted text file. This will give you dialogs with customized
+	  (FIRSTBOOT_WELCOME_DIR, FIRSTBOOT_WELCOME_PATTERNS, FIRSTBOOT_LICENSE_DIR, and
+	  FIRSTBOOT_FINISH_FILE). This will give you dialogs with customized
 	  text. If the references files are in plain text, they will be shown
 	  as such automatically. If they contain any markup language, they will
 	  be formatted as rich text.</para>
 
-        <para>The default license text shown is taken from the file
-	  <filename>/var/lib/YaST2/info.txt</filename> which is the EULA of the
-	  product being installed.</para>
+	  <para>
+	  Variable FIRSTBOOT_WELCOME_DIR is path to the directory from which is the welcome message read,
+	  FIRSTBOOT_WELCOME_PATTERNS is a list of patterns or filenames which contains the message.
+	  </para>
+
+	  <para>
+	  The license is read from file 'license.txt' or from 'license_&lt;locale&gt;.txt'.
+	  </para>
 
       </section>
       <section>

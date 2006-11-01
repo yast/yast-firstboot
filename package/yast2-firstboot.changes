@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Nov  1 15:07:16 CET 2006 - lslezak@suse.cz
+
+- removed SLES9 license (#207283, #206540), removed other
+  useless message files
+- added firstboot_license client to display he license,
+  updated documentation (#206549)
+- halt the system if the license is not accepted and the action
+  is set to "halt" (#211118)
+- added firstboot_welcome client to display a welcome message
+- 2.13.4
+
+-------------------------------------------------------------------
 Mon Sep 25 13:44:07 CEST 2006 - jsrain@suse.cz
 
 - don't redirect stdout of YaST firstboot to /dev/null (#190287)
