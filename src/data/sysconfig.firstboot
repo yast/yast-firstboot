@@ -10,14 +10,21 @@ SCRIPT_DIR="/usr/share/firstboot/scripts"
 ## Type:        string
 ## Default:     ""
 #
-# Welcome text file
-FIRSTBOOT_WELCOME_FILE=""
+# Directory from which 'welcome.txt' and 'welcome_<locale>.txt' are read
+FIRSTBOOT_WELCOME_DIR=""
 
 ## Type:        string
-## Default:     "/usr/share/YaST2/data/firstboot_license.txt"
+## Default:     ""
 #
-# license text file
-FIRSTBOOT_LICENSE_FILE="/var/lib/YaST2/info.txt"
+# Pattern for the welcome message, if not set welcome.txt and welcome_<locale>.txt files are read
+# Use a comma (,) character as a separator if more than one pattern is required
+FIRSTBOOT_WELCOME_PATTERNS=""
+
+## Type:        string
+## Default:     ""
+#
+# Directory from which 'license.txt' and 'license_<locale>.txt' are read
+FIRSTBOOT_LICENSE_DIR=""
 
 ## Type:        string
 ## Default:     ""

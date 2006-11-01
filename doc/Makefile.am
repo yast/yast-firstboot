@@ -1,43 +1,42 @@
 #
-# Makefile.am 
+# Makefile.am doc subdir
 #
-STYLESHEET_FO=$(ydatadir)/docbook/stylesheets/customize-fo.xsl
-STYLESHEET_HTML=$(ydatadir)/docbook/stylesheets/customize-html.xsl
-COMPONENT=firstboot-doc
 
-htmldir = $(docdir)/$(COMPONENT)
+SUBDIRS = autodocs
+htmldir = $(docdir)
+xml_files =  $(wildcard *.xml) 
 
-html: html/index.html html/susebooks.css
+html_DATA = $(wildcard html/*.html) \
+	    html/index.html \
+	    html/yast2docs.css
 
-pdf: clean.xml $(COMPONENT).pdf
+pdf: firstboot.pdf
 
-validate:
-	xmllint --xinclude --valid --noout $(COMPONENT).xml
+html/index.html: firstboot-doc.xml
+	XML_CATALOG_FILES=@XML_CATALOG@ \
+	@XSLTPROC@ @XSLTPROC_FLAGS@ --xinclude \
+	@STYLESHEET_HTML@ $<
 
-$(COMPONENT).fo: $(COMPONENT).xml
-	xsltproc --xinclude -o $(COMPONENT).fo $(STYLESHEET_FO)  $(COMPONENT).xml
+firstboot.fo: firstboot-doc.xml
+	XML_CATALOG_FILES=@XML_CATALOG@ \
+	@XSLTPROC@ @XSLTPROC_FLAGS@ --xinclude \
+	-o $@ @STYLESHEET_PDF@  $<
 
-$(COMPONENT).pdf: $(COMPONENT).fo
-	fop -q $(COMPONENT).fo $(COMPONENT).pdf
+firstboot.pdf: firstboot.fo
+	fop -q $< $@
 
+html/yast2docs.css: html/index.html
+	cp @STYLESHEET_CSS@ html
+	cp -a `pkg-config --variable=yast2dir yast2-devtools`/data/docbook/images html
 
-html/susebooks.css:
-	cp $(ydatadir)/docbook/css/susebooks.css html
-	cp -a $(ydatadir)/docbook/images html
+EXTRA_DIST = $(xml_files)
 
-clean.xml: firstboot-section.xml
-	xmllint --xinclude --noent --dropdtd -o $@ $<
-	cp $@ firstboot-section_mod.xml
-	
-
-html/index.html: clean.xml
-	xsltproc --xinclude $(STYLESHEET_HTML) $(COMPONENT).xml
-
-html_DATA = $(wildcard html/*) 
-
-EXTRA_DIST = *.xml $(html_DATA)
-
-CLEANFILES = CATALOG.local *.out *.aux *.dvi *.tex *.ps *.pdf *.log *.dsl *.fo clean.xml
+CLEANFILES =  $(html_DATA)
 
 clean-local:
-	rm -rf html/*.html
+	rm -rf html
+
+install-data-local:
+	mkdir -p $(DESTDIR)$(htmldir)
+	cp -a $(srcdir)/html/images $(DESTDIR)$(htmldir)
+

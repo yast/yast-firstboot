@@ -52,7 +52,7 @@ case "$1" in
     echo -n "Configuring System for the first time.. "
 	## Start daemon with startproc(8). If this fails
 	## the return value is set appropriately by startproc.
-	/usr/lib/YaST2/startup/YaST2.Firstboot > /dev/null 2>&1
+	/usr/lib/YaST2/startup/YaST2.Firstboot 2>/dev/null
 
 	# Remember status and be verbose
 	rc_status -v

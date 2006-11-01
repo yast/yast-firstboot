@@ -2,7 +2,8 @@
 
 
 @HEADER@
-BuildRequires:	yast2-network yast2-xml update-desktop-files yast2-devtools yast2-testsuite
+BuildRequires:	yast2-network yast2-xml update-desktop-files yast2-devtools yast2-testsuite docbook-xsl-stylesheets libxslt perl-XML-Writer sgml-skel update-desktop-files
+
 Requires:	yast2
 
 BuildArchitectures:	noarch
@@ -41,7 +42,6 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %dir @yncludedir@/firstboot
 @yncludedir@/firstboot/*.ycp
 @moduledir@/Firstboot.*
-@ydatadir@/*
 @scrconfdir@/*.scr
 /etc/init.d/firstboot
 /var/adm/fillup-templates/sysconfig.firstboot
