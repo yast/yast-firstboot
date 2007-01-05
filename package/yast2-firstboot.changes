@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan  5 14:18:59 CET 2007 - jsrain@suse.cz
+
+- add (by-default disabled) re-creation of SSH keys and setting
+  host name to the firstboot workflow (fate 301246)
+
+-------------------------------------------------------------------
 Wed Nov  1 15:07:16 CET 2006 - lslezak@suse.cz
 
 - removed SLES9 license (#207283, #206540), removed other
