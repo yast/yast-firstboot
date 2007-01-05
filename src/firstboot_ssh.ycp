@@ -1,0 +1,38 @@
+/*
+ *
+ * Module:             firstboot_ssh.ycp
+ *
+ * Author:             Jiri Srain <jsrain@novell.com>
+ *
+ * Submodules:
+ *
+ *
+ * Purpose:	recreate SSH keys during firstboot run
+ *
+ *
+ *
+ * $Id:$
+ */
+
+{
+
+textdomain "firstboot";
+
+import "GetInstArgs";
+
+if (GetInstArgs::going_back())
+    return `auto;
+
+SCR::Execute (.target.bash, "
+test -x /etc/init.d/sshd || exit 0;
+
+/etc/init.d/sshd status && export SSHD_IS_RUNNING=1;
+
+[ $SSHD_IS_RUNNING ] && /etc/init.d/sshd stop;
+rm -f /etc/ssh/ssh_host*key*;
+[ $SSHD_IS_RUNNING ] && /etc/init.d/sshd start;
+");
+
+return `next;
+
+}
