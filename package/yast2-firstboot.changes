@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Feb 28 11:49:25 CET 2007 - lslezak@suse.cz
+
+- Halt the system (configurable in LICENSE_REFUSAL_ACTION) if the
+  firstboot workflow is aborted (prevent from skipping the
+  license agreement) (#247552)
+- 2.13.6
+
+-------------------------------------------------------------------
 Fri Jan  5 14:18:59 CET 2007 - jsrain@suse.cz
 
 - add (by-default disabled) re-creation of SSH keys and setting

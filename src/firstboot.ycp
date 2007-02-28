@@ -12,6 +12,7 @@
     import "Wizard";
     import "Report";
     import "Firstboot";
+    import "Misc";
 
 
     Wizard::OpenNextBackStepsDialog();
@@ -28,10 +29,39 @@
 
 
     symbol ret = ProductControl::Run();
+    y2milestone("ProductControl::Run() returned: %1", ret);
 
     Pkg::SourceFinishAll();
     Pkg::TargetFinish();
 
     UI::CloseDialog();
+
+    // handle abort
+    if (ret == `abort)
+    {
+	// do the same action as if the license has not been accepted
+	string action = Misc::SysconfigRead(.sysconfig.firstboot.LICENSE_REFUSAL_ACTION, "halt");
+	y2milestone("Firstboot aborted, LICENSE_REFUSAL_ACTION: %1", action);
+
+	if (action == "halt")
+	{
+	    y2milestone("Halting the system...");
+	    SCR::Execute(.target.bash, "/sbin/halt");
+	}
+	else if (action == "reboot")
+	{
+	    y2milestone("Rebooting the system...");
+	    SCR::Execute(.target.bash, "/sbin/reboot");
+	}
+	else if (action == "continue")
+	{
+	    y2milestone("Finishing Yast...");
+	}
+	else
+	{
+	    y2error("Unknown action: %1", action);
+	}
+    }
+
     return ret;
 }
