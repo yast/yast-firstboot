@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Mar 15 17:29:01 CET 2007 - jsuchome@suse.cz
+
+- unset LC_ALL before starting firstboot stage (#252780)
+- retranslate buttons after language module (#252780)
+- 2.13.7
+
+-------------------------------------------------------------------
 Wed Feb 28 11:49:25 CET 2007 - lslezak@suse.cz
 
 - Halt the system (configurable in LICENSE_REFUSAL_ACTION) if the

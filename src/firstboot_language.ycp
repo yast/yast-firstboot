@@ -40,6 +40,7 @@
     {
 	Wizard::SetDesktopIcon("language");
         result = WFM::CallFunction ("inst_language", [ GetInstArgs::argmap() ] );
+	Wizard::RetranslateButtons ();
     }
 
     y2milestone ("result '%1'", result);
