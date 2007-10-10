@@ -18,15 +18,16 @@
 {
     textdomain "firstboot";
 
+    import "Console";
     import "Language";
     import "Wizard";
     import "Firstboot";
 
     import "Popup";
-    import "Label";
     import "Encoding";
     import "Mode";
     import "GetInstArgs";
+    import "ProductControl";
 
     // Memozize the current language.
     //
@@ -39,7 +40,9 @@
     while (result == `again)
     {
 	Wizard::SetDesktopIcon("language");
-        result = WFM::CallFunction ("inst_language", [ GetInstArgs::argmap() ] );
+	map args	= GetInstArgs::argmap();
+	args["first_run"]	= "yes";
+        result = WFM::CallFunction ("inst_language", [ args ] );
 	Wizard::RetranslateButtons ();
     }
 
@@ -51,7 +54,6 @@
 	//
 	y2milestone( "`cancel or `back --> restoring: <%1>", language_on_entry );
 
-	import "Console";
 	import "Installation";
 
 	boolean use_utf8 = true;		// utf8 is default
@@ -82,10 +84,19 @@
 	    {
             Firstboot::language_changed = true;
 	    Language::Save();
+	    Console::Save ();
 	    y2milestone( "Language changed --> saving" );
-
-	    // popup text
-	    Popup::Message(  _("Your language setting has been changed.
+	    boolean firstboot_keyboard	= false;
+	    foreach (map mod, ProductControl::getModules( "firstboot", Mode::mode (), `enabled), {
+		if (mod["name"]:"" == "firstboot_keyboard" && mod["enabled"]:false)
+		{
+		    y2milestone ("keyboard will be configured -> no warning");
+		    firstboot_keyboard	= true;
+		}
+	    });
+	    if (!firstboot_keyboard)
+		// popup text
+		Popup::Message(  _("Your language setting has been changed.
 
 If necessary, you may want to adapt your keyboard settings to the new
 language. This is possible either in the YaST2 Control Center or by 
