@@ -50,6 +50,8 @@ rc_reset
 case "$1" in
     start)
     echo -n "Configuring System for the first time.. "
+	# LC_ALL is set to POSIX, so unset it so YaST2.Firstboot can correctly set the language
+	unset LC_ALL
 	## Start daemon with startproc(8). If this fails
 	## the return value is set appropriately by startproc.
 	/usr/lib/YaST2/startup/YaST2.Firstboot 2>/dev/null
