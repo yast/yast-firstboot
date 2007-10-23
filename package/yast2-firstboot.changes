@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Oct 23 15:53:31 CEST 2007 - jsrain@suse.cz
+
+- initialize package callbacks, since some of the modules run
+  in the firstboot workflow expect them being initialized (#335979)
+- 2.13.9
+
+-------------------------------------------------------------------
 Thu Aug 23 14:57:53 CEST 2007 - jsuchome@suse.cz
 
 - added support for keyboard and restaring network (#F302520)
