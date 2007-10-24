@@ -14,7 +14,8 @@ client_DATA =			\
 	firstboot_keyboard.ycp	\
 	firstboot.ycp		\
 	firstboot_license_novell.ycp	\
-	firstboot_network_write.ycp
+	firstboot_network_write.ycp	\
+	firstboot_bootloader_reconfigure.ycp
 
 ynclude_DATA =			\
 	routines.ycp

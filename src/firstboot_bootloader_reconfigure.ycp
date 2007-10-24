@@ -1,0 +1,71 @@
+/**
+ */
+{
+import "Arch";
+import "BootCommon";
+import "Bootloader";
+import "GetInstArgs";
+import "Kernel";
+import "Mode";
+
+
+   void SetVGAKernelParam () {
+        string cmldline = (string) WFM::Read (.local.string, "/proc/cmdline");
+
+        if (cmldline == nil) {
+            y2error ("No cmdline!");
+            return;
+        }
+
+        list <string> cmdline_args = splitstring (cmldline, " \t\n");
+
+        string just_parsing = "";
+
+        foreach (string cmdline_arg, cmdline_args, {
+            if (regexpmatch (cmdline_arg, "[vV][gG][aA]=.*")) {
+                just_parsing = cmdline_arg;
+                cmdline_arg = regexpsub (cmdline_arg, "[vV][gG][aA]=(.*)", "\\1");
+
+                if (cmdline_arg == nil || cmdline_arg == "") {
+                    y2error ("Incorrect vga param %1", just_parsing);
+                    break;
+                } else {
+                    y2milestone ("Adjusting Kernel cmdline vga=%1", cmdline_arg);
+                    Kernel::SetVgaType (cmdline_arg);
+                    break;
+                }
+            }
+        });
+    }
+
+
+if (GetInstArgs::going_back())
+    return `auto;
+
+Bootloader::Reset ();
+if (Arch::i386 () || Arch::x86_64 ())
+{
+    SetVGAKernelParam ();
+    y2milestone ("Setting VGA parameter to %1", Kernel::GetVgaType ());
+}
+
+// pretend installation
+string mode = Mode::mode ();
+Mode::SetMode ("installation");
+
+Bootloader::Propose ();
+Mode::SetMode (mode);
+
+if (Arch::i386 () || Arch::x86_64 ())
+{
+    BootCommon::selected_location = "mbr";
+    BootCommon::loader_device = BootCommon::GetBootloaderDevice ();
+    BootCommon::location_changed = true;
+    BootCommon::changed = true;
+}
+y2milestone ("Loader type: %1", Bootloader::getLoaderType ());
+y2milestone ("Summary: %1", Bootloader::Summary ());
+Bootloader::Write ();
+
+return `next;
+}
