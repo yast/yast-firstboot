@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Oct 24 17:43:40 CEST 2007 - jsrain@suse.cz
+
+- added firstboot_bootloader to recreate bootloader configuration
+
+-------------------------------------------------------------------
 Tue Oct 23 15:53:31 CEST 2007 - jsrain@suse.cz
 
 - initialize package callbacks, since some of the modules run
