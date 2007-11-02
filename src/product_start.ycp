@@ -12,7 +12,6 @@
     import "Wizard";
     import "Report";
     import "Directory";
-    import "SourceManager";
 
     string control = "";
     string start_dir = "";
