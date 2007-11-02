@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Nov  2 15:56:28 CET 2007 - locilka@suse.cz
+
+- Adjusted RPM dependencies (added modules in use: yast2-bootloader
+  yast2-country, removed yast2-network).
+- Removed unneeded SourceManager import.
+- Fixed deprecated 'lookup' call.
+- 2.16.2
+
+-------------------------------------------------------------------
 Wed Oct 24 17:43:40 CEST 2007 - jsrain@suse.cz
 
 - added firstboot_bootloader to recreate bootloader configuration
