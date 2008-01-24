@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan 24 14:17:28 CET 2008 - mzugec@suse.cz
+
+- replace deprecated NetworkDevices by NetworkInterfaces (from yast2)
+- 2.16.3
+
+-------------------------------------------------------------------
 Fri Nov  2 15:56:28 CET 2007 - locilka@suse.cz
 
 - Adjusted RPM dependencies (added modules in use: yast2-bootloader

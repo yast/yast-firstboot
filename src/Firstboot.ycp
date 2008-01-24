@@ -15,7 +15,7 @@
 module "Firstboot";
 textdomain "firstboot";
 
-import "NetworkDevices";
+import "NetworkInterfaces";
 import "Progress";
 import "Internet";
 import "Misc";
@@ -48,7 +48,7 @@ global void Firstboot()
     default_wm =
         Misc::SysconfigRead(.sysconfig.windowmanager.DEFAULT_WM, "kde");
     Progress::off();
-    NetworkDevices::Read();
+    NetworkInterfaces::Read();
     Progress::on();
     Internet::do_you = true;
 
