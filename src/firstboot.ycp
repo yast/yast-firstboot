@@ -13,6 +13,7 @@
     import "Report";
     import "Firstboot";
     import "Misc";
+    import "PackageCallbacksInit";
 
 
     Wizard::OpenNextBackStepsDialog();
@@ -27,6 +28,9 @@
     Report::LogErrors(true);
     Report::LogWarnings(true);
 
+    // initialize package callbacks, since some of the modules run in the
+    // firstboot workflow expect them to be initialized (bug #335979)
+    PackageCallbacksInit::InitPackageCallbacks ();
 
     symbol ret = ProductControl::Run();
     y2milestone("ProductControl::Run() returned: %1", ret);
