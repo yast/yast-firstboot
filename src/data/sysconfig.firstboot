@@ -24,7 +24,14 @@ FIRSTBOOT_WELCOME_PATTERNS=""
 ## Default:     ""
 #
 # Directory from which 'license.txt' and 'license_<locale>.txt' are read
+# This are vendor-specific license texts
 FIRSTBOOT_LICENSE_DIR=""
+
+## Type:        string
+## Default:     ""
+#
+# Directory from which 'license.txt' and 'license_<locale>.txt' are read
+FIRSTBOOT_NOVELL_LICENSE_DIR=""
 
 ## Type:        string
 ## Default:     ""

@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Wed Oct 24 17:43:40 CEST 2007 - jsrain@suse.cz
+
+- added firstboot_bootloader to recreate bootloader configuration
+- 2.13.10
+
+-------------------------------------------------------------------
+Tue Oct 23 15:53:31 CEST 2007 - jsrain@suse.cz
+
+- initialize package callbacks, since some of the modules run
+  in the firstboot workflow expect them being initialized (#335979)
+- 2.13.9
+
+-------------------------------------------------------------------
+Thu Aug 23 14:57:53 CEST 2007 - jsuchome@suse.cz
+
+- added support for keyboard and restaring network (#F302520)
+- added one more client for showing the license + new value
+  FIRSTBOOT_NOVELL_LICENSE_DIR to /etc/sysconfig/firstboot (F302865)
+- restart kbd after yast is finished (#303808)
+- 2.13.8 
+
+-------------------------------------------------------------------
 Thu Mar 15 17:29:01 CET 2007 - jsuchome@suse.cz
 
 - unset LC_ALL before starting firstboot stage (#252780)
