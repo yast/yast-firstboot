@@ -69,7 +69,7 @@ Please wait while the system is being configured.
 
 
     // Dont run firstboot next time
-    SCR::Execute(.target.remove, "/etc/reconfig_system");
+    SCR::Execute(.target.remove, "/var/lib/YaST2/reconfig_system");
     sleep(100);
     Progress::NextStage ();
 

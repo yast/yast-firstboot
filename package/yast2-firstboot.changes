@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Mar 17 11:03:39 CET 2008 - jsrain@suse.cz
+
+- adapted documentation regarding enabling firstboot service,
+  removed /etc/init.d/firstboot (bnc#354738)
+
+-------------------------------------------------------------------
 Thu Jan 24 14:17:28 CET 2008 - mzugec@suse.cz
 
 - replace deprecated NetworkDevices by NetworkInterfaces (from yast2)
