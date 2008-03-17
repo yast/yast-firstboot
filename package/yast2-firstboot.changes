@@ -3,6 +3,7 @@ Mon Mar 17 11:03:39 CET 2008 - jsrain@suse.cz
 
 - adapted documentation regarding enabling firstboot service,
   removed /etc/init.d/firstboot (bnc#354738)
+- 2.16.4
 
 -------------------------------------------------------------------
 Thu Jan 24 14:17:28 CET 2008 - mzugec@suse.cz
