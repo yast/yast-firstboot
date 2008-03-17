@@ -50,13 +50,7 @@
           <para>Install the product on a master box, making sure that you install the firstboot package. Configure whole system including system services, hardware components,...</para>
         </listitem>
         <listitem>
-          <para>Create the empty file <filename>/etc/reconfig_system</filename>. This file will be deleted when firstboot configuration is completed. This can be done by issuing the commnd: <command>touch /etc/reconfig_system</command>
-</para>
-        </listitem>
-        <listitem>
-          <para>Enable the firstboot service using the YaST runlevel editor, or
-	    directly on the command line using the following command:
-	    <command>chkconfig firstboot on</command>
+          <para>Create the empty file <filename>/var/lib/YaST2/reconfig_system</filename>. This file will be deleted when firstboot configuration is completed. This can be done by issuing the command: <command>touch /var/lib/YaST2/reconfig_system</command>
 </para>
         </listitem>
       </orderedlist>
