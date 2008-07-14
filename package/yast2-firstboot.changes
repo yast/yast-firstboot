@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jul 14 15:53:35 CEST 2008 - locilka@suse.cz
+
+- base_product_license_directory added into the fisrtboot control
+  file (FATE: #304865).
+
+-------------------------------------------------------------------
 Mon Mar 17 11:03:39 CET 2008 - jsrain@suse.cz
 
 - adapted documentation regarding enabling firstboot service,
