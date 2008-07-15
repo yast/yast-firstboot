@@ -11,13 +11,23 @@
 
     import "Misc";
     import "GetInstArgs";
-
+    import "ProductFeatures";
 
     any result = nil;
 
     map args = GetInstArgs::argmap();
-    args["directory"] =  Misc::SysconfigRead(.sysconfig.firstboot.FIRSTBOOT_NOVELL_LICENSE_DIR, "");
-    args["action"] = Misc::SysconfigRead(.sysconfig.firstboot.LICENSE_REFUSAL_ACTION, "abort");
+
+    // default directory with Novell license texts
+    string default_dir	= ProductFeatures::GetStringFeature ("globals",
+	"base_product_license_directory");
+
+    args["directory"]	= Misc::SysconfigRead (
+	.sysconfig.firstboot.FIRSTBOOT_NOVELL_LICENSE_DIR, default_dir);
+    if (args["directory"]:"" == "")
+	args["directory"]	= default_dir;
+
+    args["action"]	= Misc::SysconfigRead (
+	.sysconfig.firstboot.LICENSE_REFUSAL_ACTION, "abort");
 
     y2milestone("inst_license options: %1", args);
 

@@ -10,8 +10,8 @@
 #               :
 # BELONGS TO    : System installation and Administration
 #               :
-# DESCRIPTION   : This is the firstboot stage which is triggered if empty file 
-#               : /etc/reconfig_system exists.
+# DESCRIPTION   : This is the firstboot stage which is triggered if file 
+#               : /var/lib/YaST2/reconfig_system exists.
 #               :
 # STATUS        : $Id$
 #----------------

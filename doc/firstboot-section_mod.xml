@@ -127,7 +127,7 @@
           </listitem>
         </itemizedlist>
         <para>To do this, change the values of the respective variables
-	  (FIRSTBOOT_WELCOME_DIR, FIRSTBOOT_WELCOME_PATTERNS, FIRSTBOOT_LICENSE_DIR, and
+	  (FIRSTBOOT_WELCOME_DIR, FIRSTBOOT_WELCOME_PATTERNS, FIRSTBOOT_LICENSE_DIR, FIRSTBOOT_NOVELL_LICENSE_DIR, and
 	  FIRSTBOOT_FINISH_FILE). This will give you dialogs with customized
 	  text. If the references files are in plain text, they will be shown
 	  as such automatically. If they contain any markup language, they will
@@ -139,7 +139,7 @@
 	  </para>
 
 	  <para>
-	  The license is read from file 'license.txt' or from 'license_&lt;locale&gt;.txt'.
+	  The license is read from file 'license.txt' or from 'license_&lt;locale&gt;.txt'. The license texts of the Novell base product are by default installed to the directory /etc/YaST2/licenses/base/, set different value to FIRSTBOOT_NOVELL_LICENSE_DIR if they are elsewhere. Use FIRSTBOOT_LICENSE_DIR to indicate a path to directory containing vendor licence texts; it is preferred to put these license texts into another subdirectory of /etc/YaST2/licenses/.
 	  </para>
 
       </section>
