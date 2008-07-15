@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Jul 15 10:17:32 CEST 2008 - jsuchome@suse.cz
+
+- added default location of Novell license texts (fate#304865)
+- enabled license clients by default
+- adapted documentation
+- 2.17.0
+
+-------------------------------------------------------------------
 Mon Mar 17 11:03:39 CET 2008 - jsrain@suse.cz
 
 - adapted documentation regarding enabling firstboot service,
