@@ -1,6 +1,7 @@
 # Makefile.am for firstboot/src
 
 yncludedir = @yncludedir@/firstboot
+
 SUBDIRS = data control
 
 client_DATA =			\
@@ -15,7 +16,8 @@ client_DATA =			\
 	firstboot.ycp		\
 	firstboot_license_novell.ycp	\
 	firstboot_network_write.ycp	\
-	firstboot_bootloader_reconfigure.ycp
+	firstboot_bootloader_reconfigure.ycp	\
+	firstboot_auto.ycp
 
 ynclude_DATA =			\
 	routines.ycp

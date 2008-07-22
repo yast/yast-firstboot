@@ -2,8 +2,8 @@
 <section>
     <title>Firstboot Configuration</title>
     <para>The YaST firstboot utility (YaST Initial System Configuration), which
-      runs after the installation is completed, lets you configure the Novell
-      Linux Desktop system before creation of the install image so that on the
+      runs after the installation is completed, lets you configure the
+      before creation of the install image so that on the
       first boot after configuration, users are guided through a series of
       steps that allow for easier configuration of their desktops. YaST
       firstboot does not run by default and has to be configured to run by the
@@ -195,8 +195,12 @@
 	  about the syntax of the control file, see the document titled
 	  “Product Installation Control”.
 -->
-</para>
-
+	</para>
+	<para>Instead of modifying the default /etc/YaST2/firstboot.xml file,
+	it is possible to put the customized one to different location and
+	specify path to it by altering the value of FIRSTBOOT_CONTROL_FILE
+	variable in /etc/sysconfig/firstboot.
+	</para>
       </section>
     </section>
     <section>
@@ -208,8 +212,45 @@
 	location that can be set using the
 	<filename>/etc/sysconfig/firstboot</filename> configuration
 	file.</para>
-
-      
-      
+    </section>
+    <section>
+      <title>Firstboot and AutoYaST</title>
+	<para>
+	It is possible to configure the firstboot process as a part of
+	autoinstallation, so the system can be installed with most of the
+	default values set via AutoYaST profile, leaving the rest to the end
+	user during the firstboot sequence.
+	</para>
+	<para>
+	As a part of autoinstallation configuration, you need to provide
+	all the changes mentioned above:
+	</para>
+        <itemizedlist>
+          <listitem>
+            <para>Customize <filename>/etc/sysconfig/firstboot</filename>:
+	    it can be done e.g. via
+	    Sysconfig Editor in System section of AutoYaST configuration module.
+	    </para>
+          </listitem>
+          <listitem>
+            <para>Provide customized firstboot.xml file and point to its
+	    location in FIRSTBOOT_CONTROL_FILE value of
+	    <filename>/etc/sysconfig/firstboot</filename>.
+	    </para>
+          </listitem>
+          <listitem>
+            <para>Enable Firstboot: do it via GUI in Misc/Firstboot section of
+	    AutoYaST configuration module or manually by adding the section
+	    <screen>
+		<![CDATA[
+<firstboot>
+    <firstboot_enabled config:type="boolean">true</firstboot_enabled>
+</firstboot>
+]]>
+	    </screen>
+	    to your AutoYaST profile.
+	    </para>
+          </listitem>
+        </itemizedlist>
     </section>
   </section>
