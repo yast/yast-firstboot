@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Jul 22 11:28:57 CEST 2008 - jsuchome@suse.cz
+
+- addedd support fot autoyast (fate#301946):
+    client for firstboot enablement
+    configurable path to firstboot.xml
+    adapted documentation
+- 2.17.1
+
+-------------------------------------------------------------------
 Tue Jul 15 10:17:32 CEST 2008 - jsuchome@suse.cz
 
 - added default location of Novell license texts (fate#304865)

@@ -17,7 +17,7 @@ Requires:	yast2-installation
 BuildArchitectures:	noarch
 
 Summary:	Configuration of firstboot
-PreReq:         %insserv_prereq %fillup_prereq
+PreReq:         %fillup_prereq
 
 %description
 -
@@ -34,11 +34,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 
 
 %post
-%{fillup_and_insserv -y -n -s firstboot}
-
-%postun
-%{insserv_cleanup}
-
+%{fillup_only -n firstboot}
 
 %files
 %defattr(-,root,root)
