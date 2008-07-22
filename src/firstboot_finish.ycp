@@ -12,6 +12,7 @@
 {
     textdomain "firstboot";
 
+    import "Misc";
     import "Mode";
     import "Wizard";
     import "Popup";
@@ -63,19 +64,22 @@ After clicking <b>Finish</b>, you can log in to the system.</p>
 
 
     // If text exists, read it from file instead.
+    string finish_text	= Misc::SysconfigRead (
+        .sysconfig.firstboot.FIRSTBOOT_FINISH_FILE, "");
+    if (finish_text == "")
+	finish_text	= text;
 
     term contents = `VBox (
-			   `VSpacing (space),
-			   `HBox (
-				  `HSpacing (2*space),
-                                   Firstboot::DetectRichText("FIRSTBOOT_FINISH_FILE",
-                                       text),
-				  `HSpacing (2*space)
-				  ),
-			   `VSpacing (space),
-			   check_box_start_y2cc,
-			   `VSpacing (2)
-			   );
+	`VSpacing (space),
+	`HBox (
+	    `HSpacing (2*space),
+	    `RichText (finish_text)
+	    `HSpacing (2*space)
+	),
+	`VSpacing (space),
+	check_box_start_y2cc,
+	`VSpacing (2)
+   );
 
     // help 1/4 for dialog "Congratulation Dialog"
     string help = _("<p>Your system is ready for use.</p>") +
