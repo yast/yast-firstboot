@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 24 14:52:16 CEST 2008 - jsuchome@suse.cz
+
+- document the usage of Automatic Configuration (fate#303939)
+- 2.17.2 
+
+-------------------------------------------------------------------
 Tue Jul 22 11:28:57 CEST 2008 - jsuchome@suse.cz
 
 - addedd support fot autoyast (fate#301946):

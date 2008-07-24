@@ -11,6 +11,36 @@
 
     <textdomain>firstboot</textdomain>
 
+    <globals>
+	<!--
+	Definition of Automatic Configuration Steps follows - each step
+	runs non-interactive configuration. To enable steps defined in
+	Automatic Configuration, enable inst_automatic_configuration in the
+	workflow.
+	-->
+	<automatic_configuration config:type="list">
+	    <!-- Configure network -->
+	    <ac_step>
+		<text_id>ac_label_1</text_id>
+		<icon>yast-lan</icon>
+		<type>proposals</type>
+		<ac_items config:type="list">
+		    <ac_item>lan</ac_item>
+		</ac_items>
+	    </ac_step>
+	    <!--
+	    Configure printer (needs configured network for net-detection)
+	    -->
+	    <ac_step>
+		<text_id>ac_label_2</text_id>
+		<icon>yast-hwinfo</icon>
+		<type>proposals</type>
+		<ac_items config:type="list">
+		    <ac_item>printer</ac_item>
+		</ac_items>
+	    </ac_step>
+	</automatic_configuration>
+    </globals>
     <proposals config:type="list">
         <proposal>
             <name>firstboot_hardware</name>
@@ -76,6 +106,11 @@
                     <enabled config:type="boolean">false</enabled>
                     <proposal>firstboot_network</proposal>
                 </module>
+                 <module>
+                    <label>Automatic Configuration</label>
+                    <name>inst_automatic_configuration</name>
+                    <enabled config:type="boolean">false</enabled>
+                 </module>
                 <module>
                     <label>Time and Date</label>
                     <enabled config:type="boolean">true</enabled>
@@ -133,4 +168,11 @@
             </modules>
         </workflow>
     </workflows>
+    <texts>
+	<!--
+	Labels used during Automatic Configuration: use "text_id" from "ac_step"
+	-->
+	<ac_label_1><label>Configuring network...</label></ac_label_1>
+	<ac_label_2><label>Configuring hardware...</label></ac_label_2>
+    </texts>
 </productDefines>
