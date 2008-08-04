@@ -7,7 +7,7 @@
     import "Label";
     import "Wizard";
 
-    textdomain "firsboot";
+    textdomain "firstboot";
 
     any ret = nil;
     string func = "";
