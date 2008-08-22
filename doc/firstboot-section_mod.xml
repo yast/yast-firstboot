@@ -142,6 +142,11 @@
 	  The license is read from file 'license.txt' or from 'license_&lt;locale&gt;.txt'. The license texts of the Novell base product are by default installed to the directory /etc/YaST2/licenses/base/, set different value to FIRSTBOOT_NOVELL_LICENSE_DIR if they are elsewhere. Use FIRSTBOOT_LICENSE_DIR to indicate a path to directory containing vendor licence texts; it is preferred to put these license texts into another subdirectory of /etc/YaST2/licenses/.
 	  </para>
 
+	  <para>
+	  If you want to use FIRSTBOOT_FINISH_FILE, you need to update the firstboot workflow so that it calls firstboot_finish instead
+	  of inst_finish. The recommended way of customizing the congratulate text is specifying it in the firstboot.xml control file.
+	  </para>
+
       </section>
       <section>
         <title>License Action</title>

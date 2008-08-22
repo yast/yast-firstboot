@@ -13,6 +13,7 @@ client_DATA =			\
 	firstboot_welcome.ycp	\
 	firstboot_ssh.ycp	\
 	firstboot_keyboard.ycp	\
+	firstboot_finish.ycp	\
 	firstboot.ycp		\
 	firstboot_license_novell.ycp	\
 	firstboot_network_write.ycp	\

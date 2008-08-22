@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug 22 12:11:19 CEST 2008 - jsrain@suse.cz
+
+- added missing firstboot_finish.ycp to package, fixed typo,
+  adapted documentation (bnc #407075)
+- 2.17.3
+
+-------------------------------------------------------------------
 Thu Jul 24 14:52:16 CEST 2008 - jsuchome@suse.cz
 
 - document the usage of Automatic Configuration (fate#303939)
