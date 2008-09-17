@@ -18,7 +18,8 @@ client_DATA =			\
 	firstboot_license_novell.ycp	\
 	firstboot_network_write.ycp	\
 	firstboot_bootloader_reconfigure.ycp	\
-	firstboot_auto.ycp
+	firstboot_auto.ycp		\
+	firstboot_ntp.ycp
 
 ynclude_DATA =			\
 	routines.ycp
