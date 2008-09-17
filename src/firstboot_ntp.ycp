@@ -1,0 +1,27 @@
+/**
+ * File		: firstboot_ntp.ycp
+ * Author	: Jiri Suchomel <jsuchome@suse.cz>
+ * Purpose	: NTP configuration sequence to be run during firstboot
+ *
+ */
+{
+    import "NtpClient";
+    import "Progress";
+    import "Wizard";
+
+    include "ntp-client/wizards.ycp";
+
+    boolean progress_orig = Progress::set (false);
+
+    Wizard::SetDesktopIcon ("ntp-client");
+
+    NtpClient::Read();
+
+    any ret	= SimpleSequence ();
+    if (ret == `next)
+	NtpClient::Write ();
+
+    Progress::set (progress_orig);
+
+    return ret;
+}
