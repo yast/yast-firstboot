@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Dec 10 14:52:35 CET 2008 - jsuchome@suse.cz
+
+- removed reference to obsolete control.dtd (bnc#455994)
+- 2.17.5 
+
+-------------------------------------------------------------------
 Wed Sep 17 10:25:13 CEST 2008 - jsuchome@suse.cz
 
 - added client for NTP configuration 
