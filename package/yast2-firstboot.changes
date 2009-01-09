@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan  9 15:37:55 CET 2009 - ug@suse.de
+
+- firstboot.desktop file moved from autoyast2 package to this
+  package
+
+-------------------------------------------------------------------
 Wed Dec 10 14:52:35 CET 2008 - jsuchome@suse.cz
 
 - removed reference to obsolete control.dtd (bnc#455994)
