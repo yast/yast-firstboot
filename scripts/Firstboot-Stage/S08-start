@@ -1,5 +1,5 @@
 #!/bin/sh
-log "Starting S04-start..."
+log "Starting S08-start..."
 log "====================="
 
 
