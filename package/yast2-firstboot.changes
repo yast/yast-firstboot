@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Feb 25 19:17:47 CET 2009 - jsuchome@suse.cz
+
+- start the services before YaST (bnc#475169)
+- set the reasonable value for LC_ALL (bnc#478812)
+- retranslate wizard steps after language change (bnc#479571)
+- 2.18.0 
+
+-------------------------------------------------------------------
 Fri Jan  9 15:37:55 CET 2009 - ug@suse.de
 
 - firstboot.desktop file moved from autoyast2 package to this
