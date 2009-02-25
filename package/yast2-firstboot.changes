@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed Feb 25 18:32:41 CET 2009 - jsuchome@suse.cz
+
+- retranslate wizard steps after language change (bnc#479571)
+- 2.17.7 
+
+-------------------------------------------------------------------
+Wed Feb 25 11:45:13 CET 2009 - jsuchome@suse.cz
+
+- start the services before YaST (bnc#475169)
+- set the reasonable value for LC_ALL (bnc#478812)
+- 2.17.6
+
+-------------------------------------------------------------------
 Wed Dec 10 14:52:35 CET 2008 - jsuchome@suse.cz
 
 - removed reference to obsolete control.dtd (bnc#455994)
