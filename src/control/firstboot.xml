@@ -77,6 +77,11 @@
                     <name>firstboot_language</name>
                 </module>
                 <module>
+                    <label>Keyboard Layout</label>
+                    <enabled config:type="boolean">false</enabled>
+                    <name>firstboot_keyboard</name>
+                </module>
+                <module>
                     <label>Welcome</label>
                     <name>firstboot_welcome</name>
                 </module>
@@ -145,6 +150,11 @@
                     <label>Users</label>
                     <enabled config:type="boolean">true</enabled>
                     <name>inst_user</name>
+                </module>
+                <module>
+                    <label>Customer Center</label>
+                    <name>inst_suse_register</name>
+                    <enabled config:type="boolean">false</enabled>
                 </module>
                 <module>
                     <label>Hardware</label>
