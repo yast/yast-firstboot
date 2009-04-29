@@ -4,7 +4,7 @@
  * Author	: Ladislav Slezak <lslezak@suse.cz>,
  * Purpose	: Display vendor license during firstboot configuration
  *
- * $Id:$
+ * $Id$
  */
 
 {
