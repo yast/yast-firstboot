@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun  1 13:10:05 CEST 2009 - jsuchome@suse.cz
+
+- call the X11 config to save kbd layout (bnc#497819)
+- 2.18.2 
+
+-------------------------------------------------------------------
 Tue Apr 14 14:44:19 CEST 2009 - jsuchome@suse.cz
 
 - grab texts from firstboot.xml when creating pot file (bnc#479571)
