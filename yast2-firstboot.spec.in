@@ -1,0 +1,53 @@
+@HEADER-COMMENT@
+
+
+@HEADER@
+BuildRequires:	yast2-xml update-desktop-files yast2-devtools yast2-testsuite docbook-xsl-stylesheets libxslt perl-XML-Writer sgml-skel update-desktop-files
+# Internet.ycp moved to yast2.rpm
+BuildRequires:	yast2 >= 2.16.6
+# Installation startup scripts
+BuildRequires:	yast2-installation
+
+# yast2/NeworkDevices -> yast2/NetworkInterfaces
+Requires:	yast2 >= 2.16.23
+Requires:	yast2-bootloader yast2-country
+# Installation startup scripts
+Requires:	yast2-installation
+
+BuildArchitectures:	noarch
+
+Summary:	Configuration of firstboot
+PreReq:         %fillup_prereq
+
+%description
+-
+
+@PREP@
+
+@BUILD@
+
+@INSTALL@
+
+mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
+
+@CLEAN@
+
+
+%post
+%{fillup_only -n firstboot}
+
+%files
+%defattr(-,root,root)
+%dir @ystartupdir@/startup/Firstboot-Stage
+@ystartupdir@/startup/Firstboot-Stage/*
+@ystartupdir@/startup/YaST2.Firstboot
+@clientdir@/firstboot_*.ycp
+@clientdir@/firstboot.ycp
+%dir @yncludedir@/firstboot
+@yncludedir@/firstboot/*.ycp
+@moduledir@/Firstboot.*
+@scrconfdir@/*.scr
+/var/adm/fillup-templates/sysconfig.firstboot
+/usr/share/firstboot
+%doc @docdir@
+/etc/YaST2/*.xml

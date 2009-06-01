@@ -1,0 +1,92 @@
+/**
+ * Autoinstallation client for firstboot configuration
+ * Author	: Jiri Suchomel <jsuchome@suse.cz>
+ */
+{
+    import "Firstboot";
+    import "Label";
+    import "Wizard";
+
+    textdomain "firstboot";
+
+    any ret = nil;
+    string func = "";
+    map<string,any> param = $[];
+
+    if(size(WFM::Args()) > 0 && is(WFM::Args(0), string)) {
+    func = (string) WFM::Args(0);
+    if(size(WFM::Args()) > 1 && is(WFM::Args(1), map))
+	param = (map<string,any>)WFM::Args(1);
+    }
+
+    y2security ("func=%1", func);
+    y2debug ("param=%1", param);
+
+    if(func == "Import") {
+	ret = Firstboot::Import (param);
+    }
+    else if (func == "Export") {
+	ret = Firstboot::Export ();
+    }
+    else if(func == "Summary") {
+	ret = Firstboot::Summary();
+    }
+    else if (func == "Reset") {
+	Firstboot::Import ($[
+	    "firstboot_enabled"	: false
+	]);
+	ret =  $[];
+    }
+    else if (func == "Change") {
+	// dialog caption
+        string caption = _("Firstboot Configuration");
+	term contents	= `HBox (`VBox (
+	    `Label (
+	    // text label, describing the check box meaning
+	    // keep in 2 lines with roughly the same length
+_("Check Enable Firstboot Sequence here to start YaST
+firstboot utility on the first boot after configuration")),
+	    `VSpacing (),
+	    // check box label
+	    `CheckBox (`id (`enable), _("Enable Firstboot Sequence"),
+		Firstboot::firstboot_enabled)
+	));
+	Wizard::CreateDialog();
+	// help text
+	Wizard::SetContentsButtons (caption, contents, _("<p>Check <b>Enable Firstboot Sequence</b> to start YaST firstboot utility on the first boot after configuration.</p>
+<p>Check the documentation of yast2-firstboot module to find out more.</p>"),
+	    Label::BackButton(), Label::NextButton());
+
+        ret = UI::UserInput ();
+	if (ret == `next)
+	{
+	    Firstboot::firstboot_enabled	=
+		(boolean) UI::QueryWidget (`id (`enable),`Value);
+	}
+	UI::CloseDialog();
+    }
+    else if (func == "Write") {
+	ret = Firstboot::Write ();
+    }
+    /**
+     * Return if configuration  was changed
+     * return boolean
+     */
+    else if (func == "GetModified") {
+	ret = Firstboot::modified;
+    }
+    /**
+     * Set all modified flags
+     * return boolean
+     */
+    else if (func == "SetModified") {
+	Firstboot::modified	= true;
+	ret = true;
+    }
+
+    y2debug ("ret=%1", ret);
+    y2milestone("firstboot auto finished");
+    y2milestone("----------------------------------------");
+
+    return ret;
+}

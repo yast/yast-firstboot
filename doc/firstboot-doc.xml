@@ -1,0 +1,30 @@
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "/usr/share/xml/docbook/schema/dtd/4.2/docbookx.dtd"[
+<!ENTITY  firstboot-section  SYSTEM "firstboot-section_mod.xml">
+]>
+
+<article>
+
+  <articleinfo>
+    <title>Firstboot Configuration Utility</title>
+    <subtitle>End User Post Installation </subtitle>
+    <authorgroup>
+      <author>
+        <firstname>Anas</firstname>
+        <surname>Nashif</surname>
+           <affiliation>
+          <orgname> SUSE Linux AG</orgname>
+        </affiliation>
+      </author>
+    </authorgroup>
+    <copyright>
+      <year>2004</year>
+      <holder> SUSE  Linux AG</holder>
+    </copyright>
+  </articleinfo>
+
+
+  <toc>
+ </toc>
+&firstboot-section;
+</article>
+

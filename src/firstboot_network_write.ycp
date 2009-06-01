@@ -1,0 +1,16 @@
+/**
+ * File		: firstboot_network_write.ycp
+ * Author	: Jiri Suchomel <jsuchome@suse.cz>
+ * Purpose	: Save network configuration
+ *		 (usable when network proposal was not run)
+ * $Id$
+ */
+{
+    // currently only restart the service, may be enhanced later
+
+    import "Service";
+
+    Service::Restart ("network");
+
+    return `auto;
+}

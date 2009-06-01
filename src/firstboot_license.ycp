@@ -1,0 +1,36 @@
+/*
+ * Module	: Firstboot configuration
+ * File		: firstboot_license_novell.ycp
+ * Author	: Ladislav Slezak <lslezak@suse.cz>,
+ * Purpose	: Display vendor license during firstboot configuration
+ *
+ * $Id:$
+ */
+
+{
+    textdomain "firstboot";
+
+    import "Misc";
+    import "GetInstArgs";
+
+
+    any result = nil;
+
+    map args = GetInstArgs::argmap();
+    args["directory"] =  Misc::SysconfigRead(.sysconfig.firstboot.FIRSTBOOT_LICENSE_DIR, "/etc/YaST2");
+    args["action"] = Misc::SysconfigRead(.sysconfig.firstboot.LICENSE_REFUSAL_ACTION, "abort");
+
+    y2milestone("inst_license options: %1", args);
+
+    result = WFM::CallFunction( "inst_license", [ args ] );
+
+    if (result == `halt)
+    {
+	UI::CloseDialog();
+	y2milestone("Halting the system...");
+	SCR::Execute(.target.bash, "/sbin/halt");
+    }
+
+    return result;
+
+}

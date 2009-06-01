@@ -1,0 +1,119 @@
+/*
+ *
+ * Module:             firstboot_language.ycp
+ *
+ * Author:             Klaus Kaempf (kkaempf@suse.de)
+ *
+ * Submodules:
+ *
+ *
+ * Purpose:	configure language in running system
+ *
+ * Modify:
+ *
+ *
+ * $Id$
+ */
+
+{
+    textdomain "firstboot";
+
+    import "Console";
+    import "Directory";
+    import "Language";
+    import "Wizard";
+    import "Firstboot";
+
+    import "Popup";
+    import "Encoding";
+    import "Mode";
+    import "GetInstArgs";
+    import "ProductControl";
+
+    // Memozize the current language.
+    //
+    string language_on_entry = Language::language;
+
+    y2milestone("language_on_entry: <%1>", language_on_entry );
+    any result = `again;
+    // create the wizard dialog
+    while (result == `again)
+    {
+	Wizard::SetDesktopIcon("language");
+	map args	= GetInstArgs::argmap();
+	args["first_run"]	= "yes";
+        result = WFM::CallFunction ("inst_language", [ args ] );
+	Wizard::RetranslateButtons ();
+	ProductControl::RetranslateWizardSteps ();
+    }
+
+    y2milestone ("result '%1'", result);
+
+    if( result == `cancel || result == `back )
+	{
+	// Back to original values...
+	//
+	y2milestone( "`cancel or `back --> restoring: <%1>", language_on_entry );
+
+	import "Installation";
+
+	boolean use_utf8 = true;		// utf8 is default
+
+	map display_info = UI::GetDisplayInfo();
+	if (display_info["HasFullUtf8Support"]:false != true)
+	    {
+	    use_utf8 = false;		// fallback to ascii
+	    }
+
+	// Set it in the Language module.
+	//
+	Language::Set( language_on_entry );
+
+	// Set Console font
+	//
+	Console::SelectFont( language_on_entry );
+
+	Installation::encoding = (use_utf8) ? "UTF-8" : Encoding::console;
+
+	// Set it in YaST2
+	Language::WfmSetLanguage();
+	}
+    else
+	{
+	// User wants to keep his changes --> save to sysconfig.
+	//
+	if( Language::language != language_on_entry || Language::ExpertSettingsChanged )
+	    {
+            Firstboot::language_changed = true;
+	    Language::Save();
+	    Console::Save ();
+	    y2milestone( "Language changed --> saving" );
+	    boolean firstboot_keyboard	= false;
+	    foreach (map mod, ProductControl::getModules( "firstboot", Mode::mode (), `enabled), {
+		if (mod["name"]:"" == "firstboot_keyboard" && mod["enabled"]:false)
+		{
+		    y2milestone ("keyboard will be configured -> no warning");
+		    firstboot_keyboard	= true;
+		}
+	    });
+	    if (!firstboot_keyboard)
+	    {
+		// popup text
+		Popup::Message(  _("Your language setting has been changed.
+
+If necessary, you may want to adapt your keyboard settings to the new
+language. This is possible either in the YaST2 Control Center or by 
+starting \"yast2 keyboard\" directly."));
+		// save X11 keyboard layout at the end:
+		// (default change of layout was done based on language)
+		SCR::Execute (.target.bash, sformat ("touch %1/firstboot_x11_save", Directory::vardir));
+	    }
+	    }
+	else
+	    {
+	    y2milestone( "Language not changed --> doing nothing" );
+	    }
+	}
+
+    return result;
+}

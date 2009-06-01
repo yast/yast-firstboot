@@ -1,0 +1,36 @@
+/**
+ * File		: firstboot_keyboard.ycp
+ * Author	: Jiri Suchomel <jsuchome@suse.cz>
+ * Purpose	: Firstboot configuratiuon of keyboard
+ *
+ * $Id$
+ */
+{
+    textdomain "country";
+
+    import "Arch";
+    import "Directory";
+    import "Keyboard";
+    import "Firstboot";
+
+    include "keyboard/dialogs.ycp";
+
+    any ret	= `auto;
+    if (Arch::s390 ())
+	return ret;
+
+    Keyboard::Read ();
+
+    ret = KeyboardDialog ($[]);
+
+    if (ret == `next)
+    {
+	Keyboard::Save (false);
+	// kbd must be restarted after YaST finishes (#303808)
+	SCR::Execute (.target.bash, sformat ("touch %1/firstboot_kbd_restart", Directory::vardir));
+	// save X11 keyboard layout at the end
+	SCR::Execute (.target.bash, sformat ("touch %1/firstboot_x11_save", Directory::vardir));
+    }
+
+    return ret;
+}

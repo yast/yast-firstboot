@@ -1,0 +1,242 @@
+-------------------------------------------------------------------
+Mon Jun  1 13:02:52 CEST 2009 - jsuchome@suse.cz
+
+- grab texts from firstboot.xml when creating pot file (bnc#479571) 
+- call the X11 config to save kbd layout (bnc#497819)
+- 2.17.8
+
+-------------------------------------------------------------------
+Wed Feb 25 18:32:41 CET 2009 - jsuchome@suse.cz
+
+- retranslate wizard steps after language change (bnc#479571)
+- 2.17.7 
+
+-------------------------------------------------------------------
+Wed Feb 25 11:45:13 CET 2009 - jsuchome@suse.cz
+
+- start the services before YaST (bnc#475169)
+- set the reasonable value for LC_ALL (bnc#478812)
+- 2.17.6
+
+-------------------------------------------------------------------
+Wed Dec 10 14:52:35 CET 2008 - jsuchome@suse.cz
+
+- removed reference to obsolete control.dtd (bnc#455994)
+- 2.17.5 
+
+-------------------------------------------------------------------
+Wed Sep 17 10:25:13 CEST 2008 - jsuchome@suse.cz
+
+- added client for NTP configuration 
+- 2.17.4
+
+-------------------------------------------------------------------
+Fri Aug 22 12:11:19 CEST 2008 - jsrain@suse.cz
+
+- added missing firstboot_finish.ycp to package, fixed typo,
+  adapted documentation (bnc #407075)
+- 2.17.3
+
+-------------------------------------------------------------------
+Thu Jul 24 14:52:16 CEST 2008 - jsuchome@suse.cz
+
+- document the usage of Automatic Configuration (fate#303939)
+- 2.17.2 
+
+-------------------------------------------------------------------
+Tue Jul 22 11:28:57 CEST 2008 - jsuchome@suse.cz
+
+- addedd support fot autoyast (fate#301946):
+    client for firstboot enablement
+    configurable path to firstboot.xml
+    adapted documentation
+- 2.17.1
+
+-------------------------------------------------------------------
+Tue Jul 15 10:17:32 CEST 2008 - jsuchome@suse.cz
+
+- added default location of Novell license texts (fate#304865)
+- enabled license clients by default
+- adapted documentation
+- 2.17.0
+
+-------------------------------------------------------------------
+Mon Mar 17 11:03:39 CET 2008 - jsrain@suse.cz
+
+- adapted documentation regarding enabling firstboot service,
+  removed /etc/init.d/firstboot (bnc#354738)
+- 2.16.4
+
+-------------------------------------------------------------------
+Thu Jan 24 14:17:28 CET 2008 - mzugec@suse.cz
+
+- replace deprecated NetworkDevices by NetworkInterfaces (from yast2)
+- 2.16.3
+
+-------------------------------------------------------------------
+Fri Nov  2 15:56:28 CET 2007 - locilka@suse.cz
+
+- Adjusted RPM dependencies (added modules in use: yast2-bootloader
+  yast2-country, removed yast2-network).
+- Removed unneeded SourceManager import.
+- Fixed deprecated 'lookup' call.
+- 2.16.2
+
+-------------------------------------------------------------------
+Wed Oct 24 17:43:40 CEST 2007 - jsrain@suse.cz
+
+- added firstboot_bootloader to recreate bootloader configuration
+
+-------------------------------------------------------------------
+Tue Oct 23 15:53:31 CEST 2007 - jsrain@suse.cz
+
+- initialize package callbacks, since some of the modules run
+  in the firstboot workflow expect them being initialized (#335979)
+- 2.16.1
+
+-------------------------------------------------------------------
+Fri Oct 19 12:02:36 CEST 2007 - jsuchome@suse.cz
+
+- added support for keyboard and restaring network (#F302520)
+- added one more client for showing the license + new value
+  FIRSTBOOT_NOVELL_LICENSE_DIR to /etc/sysconfig/firstboot (F302865)
+- restart kbd after yast is finished (#303808)
+- unset LC_ALL before starting firstboot stage (#252780)
+- retranslate buttons after language module (#252780)
+- 2.16.0
+
+-------------------------------------------------------------------
+Wed Feb 28 11:49:25 CET 2007 - lslezak@suse.cz
+
+- Halt the system (configurable in LICENSE_REFUSAL_ACTION) if the
+  firstboot workflow is aborted (prevent from skipping the
+  license agreement) (#247552)
+- 2.15.1
+
+-------------------------------------------------------------------
+Fri Jan  5 14:18:59 CET 2007 - jsrain@suse.cz
+
+- add (by-default disabled) re-creation of SSH keys and setting
+  host name to the firstboot workflow (fate 301246)
+- 2.15.0
+
+-------------------------------------------------------------------
+Mon Nov 13 13:21:37 CET 2006 - lslezak@suse.cz
+
+- 2.14.0
+
+-------------------------------------------------------------------
+Wed Nov  1 15:07:16 CET 2006 - lslezak@suse.cz
+
+- removed SLES9 license (#207283, #206540), removed other
+  useless message files
+- added firstboot_license client to display he license,
+  updated documentation (#206549)
+- halt the system if the license is not accepted and the action
+  is set to "halt" (#211118)
+- added firstboot_welcome client to display a welcome message
+- 2.13.4
+
+-------------------------------------------------------------------
+Mon Sep 25 13:44:07 CEST 2006 - jsrain@suse.cz
+
+- don't redirect stdout of YaST firstboot to /dev/null (#190287)
+
+-------------------------------------------------------------------
+Thu Aug 31 08:56:27 CEST 2006 - lslezak@suse.cz
+
+- the control file has been updated to the default
+  workflow (#200718)
+- added missing documentation files (#189358)
+- 2.13.3
+
+-------------------------------------------------------------------
+Tue Aug  1 13:34:34 CEST 2006 - jsrain@suse.cz
+
+- updated the documentation (#189358)
+
+-------------------------------------------------------------------
+Fri Jun  2 10:56:57 CEST 2006 - jsrain@suse.cz
+
+- log Report messages by default (#180862)
+- 2.13.2
+
+-------------------------------------------------------------------
+Mon Mar 27 16:20:55 CEST 2006 - jsrain@suse.de
+
+- updated BuildRequires
+- 2.13.1
+
+-------------------------------------------------------------------
+Mon Oct 31 11:05:45 CET 2005 - jsrain@suse.cz
+
+- fixed XML syntax in firstboot.xml (#130175)
+- 2.13.0
+
+-------------------------------------------------------------------
+Tue Aug 16 08:25:47 CEST 2005 - jsrain@suse.cz
+
+- fixed location of the firstboot control file (#104864)
+- 2.12.1
+
+-------------------------------------------------------------------
+Fri Aug 12 09:46:36 CEST 2005 - jsrain@suse.cz
+
+- fixed check_ycp errors
+- 2.12.0
+
+-------------------------------------------------------------------
+Wed Mar  2 07:52:03 CET 2005 - nashif@suse.de
+
+- Fixed control file 
+- import Firstboot module
+
+-------------------------------------------------------------------
+Fri Feb 11 04:24:51 CET 2005 - nashif@suse.de
+
+- Use general dialogs (welcome, license, finish) from installation
+
+-------------------------------------------------------------------
+Thu Feb 10 10:48:19 CET 2005 - visnov@suse.cz
+
+- Merged messages from proofreading 
+
+-------------------------------------------------------------------
+Mon Jan 24 21:17:29 CET 2005 - nashif@suse.de
+
+- Use new workflow arguments and new startup scripts
+
+-------------------------------------------------------------------
+Tue Nov 30 19:49:37 CET 2004 - nashif@suse.de
+
+- Adapted startup scripts to new scheme
+
+-------------------------------------------------------------------
+Tue Aug 31 13:28:12 CEST 2004 - sh@suse.de
+
+- Merged messages from proofreading
+- 2.10.3 
+
+-------------------------------------------------------------------
+Tue Aug 24 20:04:19 CEST 2004 - nashif@suse.de
+
+- Added desktop selection
+- Fixed init script
+
+-------------------------------------------------------------------
+Fri Aug 13 23:06:15 CEST 2004 - nashif@suse.de
+
+- Adde control file specific for firstboot
+- Support more clients
+- 2.10.1
+
+-------------------------------------------------------------------
+Tue Jul 27 15:44:21 CEST 2004 - nashif@suse.de
+
+- Added missing help texts
+- adapted neededforbuild
+
+-------------------------------------------------------------------
+Mon Jul 12 22:14:03 2004 - nashif@suse.de
+
+- initial version. (#43318)
