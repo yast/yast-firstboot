@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jun 16 14:36:12 CEST 2009 - mvidner@suse.cz
+
+- Using autodocs-ycp.ami, which contains a fix for automake 1.11.
+
+-------------------------------------------------------------------
 Mon Jun  1 13:10:05 CEST 2009 - jsuchome@suse.cz
 
 - call the X11 config to save kbd layout (bnc#497819)
