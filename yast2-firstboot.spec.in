@@ -16,7 +16,7 @@ Requires:	yast2-installation
 
 BuildArchitectures:	noarch
 
-Summary:	Configuration of firstboot
+Summary:	YaST2 - Initial System Configuration
 PreReq:         %fillup_prereq
 
 %description
