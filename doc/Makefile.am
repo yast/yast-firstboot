@@ -7,7 +7,6 @@ htmldir = $(docdir)
 xml_files =  $(wildcard *.xml) 
 
 html_DATA = $(wildcard html/*.html) \
-	    html/index.html \
 	    html/yast2docs.css
 
 pdf: firstboot.pdf
