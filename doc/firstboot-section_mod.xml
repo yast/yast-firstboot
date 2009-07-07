@@ -167,6 +167,11 @@
         </itemizedlist>
       </section>
       <section>
+        <title>Reboot at the end</title>
+        <para>It is possible to force reboot at the end of firstboot workflow. To do so, set the value of sysconfig variable FIRSTBOOT_FINISH_ACTION to "reboot".
+	</para>
+      </section>
+      <section>
         <title>Release Notes</title>
         <para>Use the configuration option FIRSTBOOT_RELEASE_NOTES_PATH to show
 	  release notes in the target language. The value of the option should

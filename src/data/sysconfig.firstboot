@@ -63,6 +63,12 @@ SHOW_Y2CC_CHECKBOX="no"
 # What to do if the user did not accept the license
 LICENSE_REFUSAL_ACTION="halt"
 
+## Type:        string(reboot)
+## Default:     ""
+#
+# Action that should be done after the firstboot sequence finishes.
+FIRSTBOOT_FINISH_ACTION=""
+
 
 ## Type:        string
 ## Default:     ""

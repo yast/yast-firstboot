@@ -95,7 +95,7 @@ global boolean ExecuteScripts()
 
     if (script_dir!="")
     {
-        list<string> scripts = (list<string>)SCR::Read(.target.dir, script_dir);
+        list<string> scripts = sort ((list<string>)SCR::Read(.target.dir, script_dir));
         foreach(string script, scripts, ``{
                 map ret = (map)SCR::Execute(.target.bash_output, script_dir + "/" + script + " >> /var/log/YaST2/firstboot.log");
                 if (ret["exit"]:-1 != 0)

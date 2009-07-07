@@ -6,6 +6,7 @@
 {
     textdomain "firstboot";
 
+    import "Directory";
     import "Mode";
     import "Stage";
     import "ProductControl";
@@ -37,6 +38,15 @@
 
     Pkg::SourceFinishAll();
     Pkg::TargetFinish();
+
+    if (ret == `next || ret == `finish)
+    {
+	string action	= Misc::SysconfigRead(.sysconfig.firstboot.FIRSTBOOT_FINISH_ACTION, "");
+	if (action == "reboot")
+	{
+	    SCR::Execute (.target.bash, sformat ("touch %1/firstboot_reboot_after_finish", Directory::vardir));
+	}
+    }
 
     UI::CloseDialog();
 
