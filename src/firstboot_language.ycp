@@ -19,6 +19,7 @@
     textdomain "firstboot";
 
     import "Console";
+    import "Directory";
     import "Language";
     import "Wizard";
     import "Firstboot";
@@ -34,7 +35,6 @@
     string language_on_entry = Language::language;
 
     y2milestone("language_on_entry: <%1>", language_on_entry );
-
     any result = `again;
     // create the wizard dialog
     while (result == `again)
@@ -97,12 +97,17 @@
 		}
 	    });
 	    if (!firstboot_keyboard)
+	    {
 		// popup text
 		Popup::Message(  _("Your language setting has been changed.
 
 If necessary, you may want to adapt your keyboard settings to the new
 language. This is possible either in the YaST2 Control Center or by 
 starting \"yast2 keyboard\" directly."));
+		// save X11 keyboard layout at the end:
+		// (default change of layout was done based on language)
+		SCR::Execute (.target.bash, sformat ("touch %1/firstboot_x11_save", Directory::vardir));
+	    }
 	    }
 	else
 	    {
