@@ -48,3 +48,11 @@ if [ -e "/var/lib/YaST2/firstboot_kbd_restart" ] ; then
 fi
 
 stop_unicode
+
+if [ -e "/var/lib/YaST2/firstboot_reboot_after_finish" ] ; then
+    log "\tRebooting system as requested by firstboot..."
+    rm /var/lib/YaST2/firstboot_reboot_after_finish
+    /sbin/reboot
+fi
+
+

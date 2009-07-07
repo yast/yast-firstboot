@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul  7 10:06:25 CEST 2009 - jsuchome@suse.cz
+
+- added option to do reboot at the end of firstboot (bnc#514745)
+- 2.18.4
+
+-------------------------------------------------------------------
 Thu Jun 18 09:23:36 CEST 2009 - jsuchome@suse.cz
 
 - 2.18.3 
