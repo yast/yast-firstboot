@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jun  1 13:02:52 CEST 2009 - jsuchome@suse.cz
+
+- grab texts from firstboot.xml when creating pot file (bnc#479571) 
+- call the X11 config to save kbd layout (bnc#497819)
+- 2.17.8
+
+-------------------------------------------------------------------
 Wed Feb 25 18:32:41 CET 2009 - jsuchome@suse.cz
 
 - retranslate wizard steps after language change (bnc#479571)
