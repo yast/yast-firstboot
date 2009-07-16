@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jul 16 15:57:01 CEST 2009 - jsuchome@suse.cz
+
+- added example for root_password_as_first_user (fate#306297) into
+  default firstboot.xml
+- 2.18.6
+
+-------------------------------------------------------------------
 Thu Jul 16 13:58:34 CEST 2009 - jsuchome@suse.cz
 
 - added step for both language and keyboard layout (fate#306296)
