@@ -72,6 +72,12 @@
             <mode>installation</mode>
             <modules  config:type="list">
                 <module>
+                    <label>Language and Keyboard</label>
+                    <enabled config:type="boolean">true</enabled>
+		    <!-- step for configuration of both language and keyboard layout (fate#306296) -->
+                    <name>firstboot_language</name>
+                </module>
+                <module>
                     <label>Language</label>
                     <enabled config:type="boolean">false</enabled>
                     <name>firstboot_language</name>
