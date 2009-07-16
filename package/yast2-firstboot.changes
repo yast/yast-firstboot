@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 16 13:58:34 CEST 2009 - jsuchome@suse.cz
+
+- added step for both language and keyboard layout (fate#306296)
+- 2.18.5 
+
+-------------------------------------------------------------------
 Tue Jul  7 10:06:25 CEST 2009 - jsuchome@suse.cz
 
 - added option to do reboot at the end of firstboot (bnc#514745)
