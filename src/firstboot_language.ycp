@@ -104,9 +104,6 @@
 If necessary, you may want to adapt your keyboard settings to the new
 language. This is possible either in the YaST2 Control Center or by 
 starting \"yast2 keyboard\" directly."));
-		// save X11 keyboard layout at the end:
-		// (default change of layout was done based on language)
-		SCR::Execute (.target.bash, sformat ("touch %1/firstboot_x11_save", Directory::vardir));
 	    }
 	    }
 	else

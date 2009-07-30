@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jul 30 15:25:00 CEST 2009 - jsuchome@suse.cz
+
+- adapted to changes in yast2-country: no saving of xorg.conf 
+  (bnc#441404) 
+- 2.18.7
+
+-------------------------------------------------------------------
 Thu Jul 16 15:57:01 CEST 2009 - jsuchome@suse.cz
 
 - added example for root_password_as_first_user (fate#306297) into
