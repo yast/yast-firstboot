@@ -200,7 +200,7 @@ installation, but the selected language will be used for the new system."));
 	    }
 
 	    Language::Save ();
-	    Keyboard::Save (true);
+	    Keyboard::Save ();
 	    Timezone::Save ();
 	    Console::Save ();
 	}
@@ -242,8 +242,6 @@ installation, but the selected language will be used for the new system."));
 
 	    // kbd must be restarted after YaST finishes (#303808)
 	    SCR::Execute (.target.bash, sformat ("touch %1/firstboot_kbd_restart", Directory::vardir));
-	    // save X11 keyboard layout at the end:
-	    SCR::Execute (.target.bash, sformat ("touch %1/firstboot_x11_save", Directory::vardir));
 
 	    if (ret == `next) break;
 	}

@@ -76,15 +76,6 @@ Please wait while the system is being configured.
     sleep(100);
     Progress::NextStage ();
 
-    // call the X11 config before executing the scripts... (bnc#497819,c23)
-    string file = sformat ("%1/firstboot_x11_save", Directory::vardir);
-    if (FileUtils::Exists (file))
-    {
-	// current X11 keyboard layout needs to be saved
-	Keyboard::xf86_update ();
-	SCR::Execute (.target.remove, file);
-    }
-
     Firstboot::ExecuteScripts();
     sleep(100);
     Progress::Finish ();
