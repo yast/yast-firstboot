@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug  4 15:20:20 CEST 2009 - jsuchome@suse.cz
+
+- retranslate wizard steps after language change (bnc#524969)
+- 2.13.11
+
+-------------------------------------------------------------------
 Wed Oct 24 17:43:40 CEST 2007 - jsrain@suse.cz
 
 - added firstboot_bootloader to recreate bootloader configuration

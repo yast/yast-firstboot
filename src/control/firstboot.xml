@@ -55,6 +55,11 @@
                     <label>License Agreement</label>
                     <name>firstboot_license</name>
                 </module>
+               <module>
+		    <label>Keyboard</label>
+		    <enabled config:type="boolean">true</enabled>
+		    <name>firstboot_keyboard</name>
+		</module>
                 <module>
                     <label>Host Name</label>
                     <enabled config:type="boolean">false</enabled>
@@ -71,7 +76,7 @@
                     <proposal>firstboot_network</proposal>
                 </module>
                 <module>
-                    <label>Time and Date</label>
+                    <label>Timezone</label>
                     <enabled config:type="boolean">true</enabled>
                     <name>firstboot_timezone</name>
                 </module>

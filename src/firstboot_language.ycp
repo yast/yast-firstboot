@@ -44,6 +44,7 @@
 	args["first_run"]	= "yes";
         result = WFM::CallFunction ("inst_language", [ args ] );
 	Wizard::RetranslateButtons ();
+	ProductControl::RetranslateWizardSteps();
     }
 
     y2milestone ("result '%1'", result);
