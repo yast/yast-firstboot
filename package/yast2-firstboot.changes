@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug 20 16:37:22 CEST 2009 - jsuchome@suse.cz
+
+- adapted help text (keyboard configuration is gone)
+- 2.18.8 
+
+-------------------------------------------------------------------
 Thu Jul 30 15:25:00 CEST 2009 - jsuchome@suse.cz
 
 - adapted to changes in yast2-country: no saving of xorg.conf 
