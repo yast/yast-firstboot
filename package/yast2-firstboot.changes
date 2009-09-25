@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun  1 13:02:52 CEST 2009 - jsuchome@suse.cz
+
+- grab texts from firstboot.xml when creating pot file (bnc#479571) 
+- call the X11 config to save kbd layout (bnc#497819)
+
+-------------------------------------------------------------------
 Tue Jul  7 09:50:06 CEST 2009 - jsuchome@suse.cz
 
 - start the services before YaST (bnc#475169)
