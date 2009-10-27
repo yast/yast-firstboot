@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Oct 27 13:25:19 CET 2009 - jsuchome@suse.cz
+
+- fixed example firstboot.xml: correct client name
+- 2.18.9 
+
+-------------------------------------------------------------------
 Thu Aug 20 16:37:22 CEST 2009 - jsuchome@suse.cz
 
 - adapted help text (keyboard configuration is gone)
