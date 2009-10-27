@@ -8,6 +8,7 @@ client_DATA =			\
 	firstboot_write.ycp	\
 	firstboot_desktop.ycp	\
 	firstboot_language.ycp	\
+	firstboot_language_keyboard.ycp \
 	firstboot_timezone.ycp	\
 	firstboot_license.ycp	\
 	firstboot_welcome.ycp	\

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Oct 27 13:22:14 CET 2009 - jsuchome@suse.cz
+
+- added step for both language and keyboard layout (fate#306296) 
+- added example for root_password_as_first_user (fate#306297) into
+  default firstboot.xml
+- 2.17.10
+
+-------------------------------------------------------------------
 Mon Jun  1 13:02:52 CEST 2009 - jsuchome@suse.cz
 
 - grab texts from firstboot.xml when creating pot file (bnc#479571) 
