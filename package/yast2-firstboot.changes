@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Oct 27 13:32:11 CET 2009 - jsuchome@suse.cz
+
+- package firstboot_language_keyboard.ycp file (fate#306296)
+- 2.18.10 
+
+-------------------------------------------------------------------
 Tue Oct 27 13:25:19 CET 2009 - jsuchome@suse.cz
 
 - fixed example firstboot.xml: correct client name
