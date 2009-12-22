@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Dec 22 13:04:44 CET 2009 - jsuchome@suse.cz
+
+- handle arguments from control file (bnc#566669)
+- 2.17.11 
+
+-------------------------------------------------------------------
 Tue Oct 27 13:22:14 CET 2009 - jsuchome@suse.cz
 
 - added step for both language and keyboard layout (fate#306296) 
