@@ -9,6 +9,7 @@
     textdomain "country";
 
     import "Arch";
+    import "GetInstArgs";
     import "Directory";
     import "Keyboard";
     import "Firstboot";
@@ -21,7 +22,7 @@
 
     Keyboard::Read ();
 
-    ret = KeyboardDialog ($[]);
+    ret = KeyboardDialog (GetInstArgs::argmap());
 
     if (ret == `next)
     {
