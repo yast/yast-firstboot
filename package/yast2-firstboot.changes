@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Dec 22 13:04:01 CET 2009 - jsuchome@suse.cz
+
+- handle arguments from control file (bnc#566669)
+- 2.19.0 
+
+-------------------------------------------------------------------
 Tue Oct 27 13:32:11 CET 2009 - jsuchome@suse.cz
 
 - package firstboot_language_keyboard.ycp file (fate#306296)
