@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan  4 08:51:37 CET 2010 - jsuchome@suse.cz
+
+- handle arguments from control file (bnc#566669) 
+- 2.13.12
+
+-------------------------------------------------------------------
 Tue Aug  4 15:20:20 CEST 2009 - jsuchome@suse.cz
 
 - retranslate wizard steps after language change (bnc#524969)
