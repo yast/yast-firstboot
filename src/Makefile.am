@@ -11,6 +11,7 @@ client_DATA =			\
 	firstboot_language_keyboard.ycp	\
 	firstboot_timezone.ycp	\
 	firstboot_license.ycp	\
+	firstboot_licenses.ycp	\
 	firstboot_welcome.ycp	\
 	firstboot_ssh.ycp	\
 	firstboot_keyboard.ycp	\
