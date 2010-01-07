@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jan  7 15:12:05 CET 2010 - jsuchome@suse.cz
+
+- added firstboot_licenses step able to show 2 license texts
+  (fate#306295)
+- adapt to Language::SwitchToEnglishIfNeeded (bnc#479529)
+- 2.17.12 
+
+-------------------------------------------------------------------
 Tue Dec 22 13:04:44 CET 2009 - jsuchome@suse.cz
 
 - handle arguments from control file (bnc#566669)

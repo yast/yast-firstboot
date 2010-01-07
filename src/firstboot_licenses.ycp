@@ -1,0 +1,49 @@
+/*
+ * Purpose	: Display 2 license texts (probably from vendor and Novell) during firstboot configuration
+ *
+ * $Id$
+ */
+
+{
+    textdomain "firstboot";
+
+    import "Misc";
+    import "GetInstArgs";
+    import "ProductFeatures";
+
+
+    any result = nil;
+
+    map args = GetInstArgs::argmap();
+
+    // default directory with Novell license texts
+    string default_dir	= ProductFeatures::GetStringFeature ("globals",
+	"base_product_license_directory");
+
+    string dir1		= Misc::SysconfigRead (
+	.sysconfig.firstboot.FIRSTBOOT_LICENSE_DIR, "/etc/YaST2");
+    string dir2		= Misc::SysconfigRead (
+	.sysconfig.firstboot.FIRSTBOOT_NOVELL_LICENSE_DIR, default_dir);
+
+    if (dir2 != dir1)
+	args["directories"]	= [ dir1, dir2];
+    else
+	args["directories"]	= [ dir1 ];
+
+    args["action"] = Misc::SysconfigRead (
+	.sysconfig.firstboot.LICENSE_REFUSAL_ACTION, "abort");
+
+    y2milestone("inst_license options: %1", args);
+
+    result = WFM::CallFunction( "inst_license", [ args ] );
+
+    if (result == `halt)
+    {
+	UI::CloseDialog();
+	y2milestone("Halting the system...");
+	SCR::Execute(.target.bash, "/sbin/halt");
+    }
+
+    return result;
+
+}
