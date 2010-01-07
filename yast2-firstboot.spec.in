@@ -13,10 +13,10 @@ BuildRequires:	yast2-installation
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
 Requires:	yast2 >= 2.16.23
 Requires:	yast2-bootloader
-# Keyboard::Write (), bnc#441404
-Requires:	yast2-country >= 2.18.14
-# Installation startup scripts
-Requires:	yast2-installation
+# Language::SwitchToEnglishIfNeeded
+Requires:	yast2-country >= 2.19.5
+# new version of inst_license
+Requires:	yast2-installation >= 2.19.0
 
 BuildArchitectures:	noarch
 

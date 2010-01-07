@@ -143,6 +143,10 @@
 	  </para>
 
 	  <para>
+	  To show two license texts in one dialog (typically the one from vendor and one from Novell), use 'firstboot_license_novell' step in your firstboot.xml file. This client will use the license texts specified by both FIRSTBOOT_LICENSE_DIR and FIRSTBOOT_NOVELL_LICENSE_DIR.
+	  </para>
+
+	  <para>
 	  If you want to use FIRSTBOOT_FINISH_FILE, you need to update the firstboot workflow so that it calls firstboot_finish instead
 	  of inst_finish. The recommended way of customizing the congratulate text is specifying it in the firstboot.xml control file.
 	  </para>
