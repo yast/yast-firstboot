@@ -21,18 +21,18 @@ Tue Oct 27 13:22:14 CET 2009 - jsuchome@suse.cz
 - 2.17.10
 
 -------------------------------------------------------------------
-Mon Jun  1 13:02:52 CEST 2009 - jsuchome@suse.cz
-
-- grab texts from firstboot.xml when creating pot file (bnc#479571) 
-- call the X11 config to save kbd layout (bnc#497819)
-
--------------------------------------------------------------------
 Tue Jul  7 09:50:06 CEST 2009 - jsuchome@suse.cz
 
 - start the services before YaST (bnc#475169)
 - set the reasonable value for LC_ALL (bnc#478812)
 - added option to do reboot at the end of firstboot (bnc#514745)
 - 2.17.9
+
+-------------------------------------------------------------------
+Mon Jun  1 13:02:52 CEST 2009 - jsuchome@suse.cz
+
+- grab texts from firstboot.xml when creating pot file (bnc#479571) 
+- call the X11 config to save kbd layout (bnc#497819)
 
 -------------------------------------------------------------------
 Mon Jun  1 13:02:52 CEST 2009 - jsuchome@suse.cz
