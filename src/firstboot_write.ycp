@@ -12,6 +12,7 @@
     import "FileUtils";
     import "Firstboot";
     import "Keyboard";
+    import "Package";
     import "Popup";
     import "Progress";
     import "Wizard";
@@ -63,9 +64,11 @@ Please wait while the system is being configured.
     {
         default_dm = "gdm";
     }
-    SCR::Write(
-            .sysconfig.displaymanager.DISPLAYMANAGER, default_dm
-            );
+    if ((default_dm == "kdm" && Package::Installed ("kdm")) ||
+	(default_dm == "gdm" && Package::Installed ("gdm")))
+    {
+	SCR::Write (.sysconfig.displaymanager.DISPLAYMANAGER, default_dm);
+    }
     SCR::Write(
             .sysconfig.windowmanager.DEFAULT_WM, Firstboot::default_wm
             );

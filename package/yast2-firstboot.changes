@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jan 11 10:02:39 CET 2010 - jsuchome@suse.cz
+
+- set the displaymanager only when respective package is installed
+  (bnc#538998)
+- 2.19.2
+
+-------------------------------------------------------------------
 Thu Jan  7 14:34:43 CET 2010 - jsuchome@suse.cz
 
 - added firstboot_licenses step able to show 2 license texts
