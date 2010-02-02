@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb  2 07:43:10 CET 2010 - jsuchome@suse.cz
+
+- fixed string in default firstboot.xml (bnc#576020)
+- 2.17.13 
+
+-------------------------------------------------------------------
 Thu Jan  7 15:12:05 CET 2010 - jsuchome@suse.cz
 
 - added firstboot_licenses step able to show 2 license texts
