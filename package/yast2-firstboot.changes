@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb  2 07:47:13 CET 2010 - jsuchome@suse.cz
+
+- fixed string in default firstboot.xml (bnc#576020) 
+
+-------------------------------------------------------------------
 Mon Jan 11 10:02:39 CET 2010 - jsuchome@suse.cz
 
 - set the displaymanager only when respective package is installed
