@@ -66,7 +66,7 @@
             <name>firstboot_network</name>
             <mode>installation</mode>
             <stage>firstboot</stage>
-            <label>Network Configuration II</label>
+            <label>Network Configuration</label>
             <proposal_modules config:type="list">
                 <proposal_module>lan</proposal_module>
             </proposal_modules>
