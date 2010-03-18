@@ -25,6 +25,7 @@
     import "Label";
     import "Language";
     import "Popup";
+    import "ProductControl";
     import "Report";
     import "Timezone";
     import "Wizard";
@@ -244,6 +245,9 @@ installation process at any time.
 	    if (ret == `next) break;
 	}
     }
+
+    Wizard::RetranslateButtons ();
+    ProductControl::RetranslateWizardSteps ();
 
     return (symbol) ret;
 }

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar 18 12:05:43 CET 2010 - jsuchome@suse.cz
+
+- retranslate wizard steps after language change (bnc#588569)
+- 2.17.14 
+
+-------------------------------------------------------------------
 Tue Feb  2 07:43:10 CET 2010 - jsuchome@suse.cz
 
 - fixed string in default firstboot.xml (bnc#576020)
