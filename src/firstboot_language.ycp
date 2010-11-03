@@ -20,6 +20,7 @@
 
     import "Console";
     import "Directory";
+    import "GfxMenu";
     import "Language";
     import "Wizard";
     import "Firstboot";
@@ -108,6 +109,11 @@ starting \"yast2 keyboard\" directly."));
 		// (default change of layout was done based on language)
 		SCR::Execute (.target.bash, sformat ("touch %1/firstboot_x11_save", Directory::vardir));
 	    }
+
+	    // update bootloader menu
+	    Language::WfmSetLanguage();
+	    GfxMenu::Update();
+
 	    }
 	else
 	    {

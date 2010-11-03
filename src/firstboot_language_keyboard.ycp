@@ -21,6 +21,7 @@
     import "Console";
     import "Directory";
     import "GetInstArgs";
+    import "GfxMenu";
     import "Keyboard";
     import "Label";
     import "Language";
@@ -200,6 +201,8 @@ installation process at any time.
 	    Keyboard::Save (true);
 	    Timezone::Save ();
 	    Console::Save ();
+	    // update bootloader menu items
+	    GfxMenu::Update();
 	}
 
 	return false;
