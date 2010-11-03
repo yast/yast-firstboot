@@ -20,6 +20,7 @@
 
     import "Console";
     import "Directory";
+    import "GfxMenu";
     import "Language";
     import "Wizard";
     import "Firstboot";
@@ -104,6 +105,11 @@
 If necessary, you may want to adapt your keyboard settings to the new
 language. Use keyboard layout configuration tool after the login."));
 	    }
+
+	    // update bootloader menu
+	    Language::WfmSetLanguage();
+	    GfxMenu::Update();
+
 	    }
 	else
 	    {
