@@ -46,9 +46,9 @@ FIRSTBOOT_NOVELL_LICENSE_DIR=""
 ## Type:        string
 ## Default:     ""
 #
-# finish text file
+# finish text file, containing the finish text in richtext format
 # enable firstboot_finish instead of inst_finish in the control file
-# preffered way is to define the text in the control file
+# (but preffered way is to define the text in the control file)
 FIRSTBOOT_FINISH_FILE=""
 
 ## Type:        yesno

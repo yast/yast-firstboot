@@ -12,6 +12,7 @@
 {
     textdomain "firstboot";
 
+    import "FileUtils";
     import "Misc";
     import "Mode";
     import "Wizard";
@@ -63,10 +64,15 @@ After clicking <b>Finish</b>, you can log in to the system.</p>
 	_("<p>Have a lot of fun!<br>Your SuSE Development Team</p>");
 
 
-    // If text exists, read it from file instead.
-    string finish_text	= Misc::SysconfigRead (
+    // If text exists, read it from file instead; it is expected to be richtext.
+    string finish_text		= "";
+    string finish_text_file	= Misc::SysconfigRead (
         .sysconfig.firstboot.FIRSTBOOT_FINISH_FILE, "");
-    if (finish_text == "")
+    if (finish_text_file != "" && FileUtils::Exists (finish_text_file))
+    {
+	finish_text	= (string)SCR::Read (.target.string, finish_text_file);
+    }
+    if (finish_text == nil || finish_text == "")
 	finish_text	= text;
 
     term contents = `VBox (
