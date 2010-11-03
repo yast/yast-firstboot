@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov  3 17:11:19 CET 2010 - jsuchome@suse.cz
+
+- translate bootloader items after setting the language (bnc#644062) 
+- 2.20.1
+
+-------------------------------------------------------------------
 Wed Nov  3 16:27:19 CET 2010 - jsuchome@suse.cz
 
 - fix FIRSTBOOT_FINISH_FILE behavior and documentation (bnc#615146)
