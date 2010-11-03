@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov  3 16:27:19 CET 2010 - jsuchome@suse.cz
+
+- fix FIRSTBOOT_FINISH_FILE behavior and documentation (bnc#615146)
+- 2.20.0 
+
+-------------------------------------------------------------------
 Fri Apr 23 16:22:45 CEST 2010 - ug@suse.de
 
 - desktop file fixed
