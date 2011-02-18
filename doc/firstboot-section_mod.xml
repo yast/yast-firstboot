@@ -148,7 +148,7 @@
 
 	  <para>
 	  If you want to use FIRSTBOOT_FINISH_FILE, you need to update the firstboot workflow so that it calls firstboot_finish instead of inst_congratulate. The content of the given file would be shown as the final text. 
-	  However the recommended way of customizing the congratulate text is using default inst_congratulate step and specifying the text (as a value for 'congratulate' section) it in the firstboot.xml control file (see control.xml examples and documentation).
+	  However the recommended way of customizing the congratulate text is using default inst_congratulate step and specifying the text (as a value for 'congratulate' section) it in the firstboot.xml control file (see control.xml examples and documentation). With such text, it is possible to provide translations to more languages, which is not possible for FIRSTBOOT_FINISH_FILE.
 	  </para>
 
       </section>

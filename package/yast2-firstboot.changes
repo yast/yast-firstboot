@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 18 11:28:57 CET 2011 - jsuchome@suse.cz
+
+- call stop_unicode before kbd restart (bnc#665504)
+- docu update
+- 2.20.2 
+
+-------------------------------------------------------------------
 Wed Nov  3 17:11:19 CET 2010 - jsuchome@suse.cz
 
 - translate bootloader items after setting the language (bnc#644062) 
