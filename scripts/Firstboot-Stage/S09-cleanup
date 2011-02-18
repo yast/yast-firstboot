@@ -42,12 +42,12 @@ else
 	rm -f $IFCFG_USB
 fi
 
+stop_unicode
+
 if [ -e "/var/lib/YaST2/firstboot_kbd_restart" ] ; then
     /etc/init.d/kbd restart
     rm /var/lib/YaST2/firstboot_kbd_restart
 fi
-
-stop_unicode
 
 if [ -e "/var/lib/YaST2/firstboot_reboot_after_finish" ] ; then
     log "\tRebooting system as requested by firstboot..."
