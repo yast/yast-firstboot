@@ -22,5 +22,4 @@ Icon=yast-firstboot
 
 Name=Firstboot Configuration
 GenericName=Enable or disable starting Firstboot sequence
-X-KDE-SubstituteUID=true
 StartupNotify=true
