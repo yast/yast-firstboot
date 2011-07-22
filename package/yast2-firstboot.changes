@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jul 22 15:05:22 CEST 2011 - locilka@suse.cz
+
+- Removed obsoleted X-KDE-SubstituteUID from desktop file
+  (bnc#540627)
+
+-------------------------------------------------------------------
 Fri Feb 18 11:28:57 CET 2011 - jsuchome@suse.cz
 
 - call stop_unicode before kbd restart (bnc#665504)
