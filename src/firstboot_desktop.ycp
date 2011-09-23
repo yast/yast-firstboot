@@ -19,7 +19,7 @@
     define boolean checkSelections()
     {
         Pkg::TargetInit ("/", false);
-        list<string> installed_desktop_selections = Pkg::GetSelections( `installed, "base");
+        list<string> installed_desktop_selections = []; // FIXME: Pkg::GetSelections() has been removed, returned [] anyway
         y2milestone ("available_desktop_selections %1", installed_desktop_selections);
 
         if (!contains (installed_desktop_selections, "Gnome"))
@@ -46,7 +46,7 @@
 
     map<string, string> selection_description = $[];
     foreach( string selection, Firstboot::installed_desktops, {
-	map selection_data = Pkg::SelectionData (selection);
+	map selection_data = $[]; // FIXME: Pkg::SelectionData() has been removed, returned $[] anyway
 	if (selection_data != nil)
 	{
 	    selection_description[selection] = selection_data["summary"]:("'"+selection+"'");
