@@ -3,7 +3,7 @@
 
 @HEADER@
 Group:	System/YaST
-License: GPL v2 or later X11/MIT
+License: GPL-2.0+ X11/MIT
 BuildRequires:	yast2-xml update-desktop-files yast2-devtools yast2-testsuite docbook-xsl-stylesheets libxslt perl-XML-Writer sgml-skel update-desktop-files
 # Internet.ycp moved to yast2.rpm
 BuildRequires:	yast2 >= 2.16.6
