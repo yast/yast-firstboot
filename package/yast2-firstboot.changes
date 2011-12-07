@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Dec  7 10:05:06 UTC 2011 - coolo@suse.com
+
+- fix license to be in spdx.org format
+
+-------------------------------------------------------------------
 Fri Sep 23 09:48:05 UTC 2011 - lslezak@suse.cz
 
 - removed obsoleted Pkg::*Selection*() calls
