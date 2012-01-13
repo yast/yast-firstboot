@@ -2,8 +2,8 @@
 
 
 @HEADER@
-Group:	System/YaST
-License:        GPL-2.0+ ; MIT
+Group:          System/YaST
+License:        GPL-2.0
 BuildRequires:	yast2-xml update-desktop-files yast2-devtools yast2-testsuite docbook-xsl-stylesheets libxslt perl-XML-Writer sgml-skel update-desktop-files
 # Internet.ycp moved to yast2.rpm
 BuildRequires:	yast2 >= 2.16.6
@@ -62,5 +62,6 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 /var/adm/fillup-templates/sysconfig.firstboot
 /usr/share/firstboot
 %doc @docdir@
+%doc COPYING
 /etc/YaST2/*.xml
 /usr/share/autoinstall/modules/firstboot.desktop
