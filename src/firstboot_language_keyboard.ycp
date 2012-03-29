@@ -106,8 +106,8 @@
 
     // help text for firstboot language + keyboard screen
     string help_text = _("<p>
-Choose the <b>Language</b> and the <b>Keyboard layout</b> to be used during
-configuration and for the installed system.
+Choose the <b>Language</b> and the <b>Keyboard Layout</b> to be used during
+configuration and in the installed system.
 </p>
 ") +
     // help text, continued

@@ -65,7 +65,8 @@
 	    // text label, describing the check box meaning
 	    // keep in 2 lines with roughly the same length
 _("Check Enable Firstboot Sequence here to start YaST
-firstboot utility on the first boot after configuration")),
+firstboot utility on the first boot after configuration.
+")),
 	    `VSpacing (),
 	    // check box label
 	    `CheckBox (`id (`enable), _("Enable Firstboot Sequence"),
@@ -74,7 +75,8 @@ firstboot utility on the first boot after configuration")),
 	Wizard::CreateDialog();
 	// help text
 	Wizard::SetContentsButtons (caption, contents, _("<p>Check <b>Enable Firstboot Sequence</b> to start YaST firstboot utility on the first boot after configuration.</p>
-<p>Check the documentation of yast2-firstboot module to find out more.</p>"),
+<p>Check the documentation of yast2-firstboot module for further information.</p>
+"),
 	    Label::BackButton(), Label::NextButton());
 
         ret = UI::UserInput ();
