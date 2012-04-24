@@ -65,3 +65,4 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %doc COPYING
 /etc/YaST2/*.xml
 /usr/share/autoinstall/modules/firstboot.desktop
+/usr/share/YaST2/schema/autoyast/rnc/firstboot.rnc
