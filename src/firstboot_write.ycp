@@ -14,6 +14,7 @@
     import "Keyboard";
     import "Popup";
     import "Progress";
+    import "ProductFeatures";
     import "Wizard";
 
 
@@ -73,6 +74,16 @@ Please wait while the system is being configured.
 
     // Dont run firstboot next time
     SCR::Execute (.target.remove, Firstboot::reconfig_file);
+
+    // save product features if they do not exist
+    if (!FileUtils::Exists ("/etc/YaST2/ProductFeatures"))
+    {
+        y2milestone ("Saving ProductFeatures...");
+        SCR::Execute (.target.bash, "/bin/mkdir -p '/etc/YaST2'");
+        SCR::Execute (.target.bash, "touch '/etc/YaST2/ProductFeatures'");
+        ProductFeatures::Save();
+    }
+
     sleep(100);
     Progress::NextStage ();
 

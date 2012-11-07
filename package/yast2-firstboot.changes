@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov  7 12:13:57 CET 2012 - jsuchome@suse.cz
+
+- save Product Features at the end (bnc#784588)
+- 2.17.17 
+
+-------------------------------------------------------------------
 Thu Feb 10 17:05:04 CET 2011 - jsuchome@suse.cz
 
 - call stop_unicode before kbd restart (bnc#665504)
