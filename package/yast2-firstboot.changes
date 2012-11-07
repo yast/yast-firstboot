@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov  7 12:16:08 CET 2012 - jsuchome@suse.cz
+
+- save Product Features at the end (bnc#784588)
+- 2.23.0 
+
+-------------------------------------------------------------------
 Tue Apr 24 13:15:18 CEST 2012 - ug@suse.de
 
 - added schema check file for autoyast
