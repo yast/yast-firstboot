@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Nov 28 14:03:10 CET 2012 - jsuchome@suse.cz
+
+- firstboot.desktop file moved from autoyast2 package to this
+  package (bnc#788593)
+- 2.17.18 
+
+-------------------------------------------------------------------
 Wed Nov  7 12:13:57 CET 2012 - jsuchome@suse.cz
 
 - save Product Features at the end (bnc#784588)
