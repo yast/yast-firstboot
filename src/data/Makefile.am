@@ -4,6 +4,12 @@
 fillupdir = /var/adm/fillup-templates/
 fillup_DATA = sysconfig.firstboot
 
-EXTRA_DIST = $(fillup_DATA)
+modconfigdir = $(prefix)/share/autoinstall/modules
+modconfig_DATA = firstboot.desktop
+
+schemafilesdir =  $(schemadir)/autoyast/rnc
+schemafiles_DATA = $(wildcard *.rnc)
+
+EXTRA_DIST = $(fillup_DATA) $(modconfig_DATA) $(schemafiles_DATA)
 
 include $(top_srcdir)/Makefile.am.common
