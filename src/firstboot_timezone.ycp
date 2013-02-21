@@ -73,7 +73,6 @@ import "GetInstArgs";
 	    // Save changes...
 	    Timezone::Save();
 
-            Firstboot::run_suseconfig = true;
 	    }
 	else
 	    {

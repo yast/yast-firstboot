@@ -45,7 +45,6 @@ import "ProductControl";
 import "Summary";
 
 
-global boolean run_suseconfig = false;
 
 string script_dir = "";
 

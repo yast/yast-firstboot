@@ -207,12 +207,6 @@
                 </module>
                 <module>
                     <label>Finish Setup</label>
-                    <name>inst_suseconfig</name>
-                    <enable_back>no</enable_back>
-                    <enable_next>no</enable_next>
-                </module>
-                <module>
-                    <label>Finish Setup</label>
                     <name>inst_congratulate</name>
                 </module>
 
