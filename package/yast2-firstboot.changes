@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Thu Feb 21 12:50:00 CET 2013 - jsuchome@suse.cz
 
-- remove references to SuSEconfig
+- remove references to SuSEconfig (bnc#804936)
 - 2.23.1 
 
 -------------------------------------------------------------------
