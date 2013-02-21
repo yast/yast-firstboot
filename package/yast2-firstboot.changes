@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb 21 12:50:00 CET 2013 - jsuchome@suse.cz
+
+- remove references to SuSEconfig
+- 2.23.1 
+
+-------------------------------------------------------------------
 Wed Nov  7 12:16:08 CET 2012 - jsuchome@suse.cz
 
 - save Product Features at the end (bnc#784588)
