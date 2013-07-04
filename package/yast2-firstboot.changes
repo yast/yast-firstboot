@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul  4 11:45:56 UTC 2013 - jreidinger@suse.com
+
+- remove obsolete client product_start
+- 2.24.0
+
+-------------------------------------------------------------------
 Thu Feb 21 12:50:00 CET 2013 - jsuchome@suse.cz
 
 - remove references to SuSEconfig (bnc#804936)
