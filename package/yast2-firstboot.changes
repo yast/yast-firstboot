@@ -5,6 +5,18 @@ Thu Jul  4 11:45:56 UTC 2013 - jreidinger@suse.com
 - 2.24.0
 
 -------------------------------------------------------------------
+Thu Feb 21 12:50:00 CET 2013 - jsuchome@suse.cz
+
+- remove references to SuSEconfig (bnc#804936)
+- 2.23.1 
+
+-------------------------------------------------------------------
+Wed Nov  7 12:16:08 CET 2012 - jsuchome@suse.cz
+
+- save Product Features at the end (bnc#784588)
+- 2.23.0 
+
+-------------------------------------------------------------------
 Tue Apr 24 13:15:18 CEST 2012 - ug@suse.de
 
 - added schema check file for autoyast
