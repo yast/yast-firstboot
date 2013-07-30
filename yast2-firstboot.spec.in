@@ -20,6 +20,8 @@ Requires:	yast2-installation >= 2.19.0
 
 BuildArchitectures:	noarch
 
+Requires:       yast2-ruby-bindings >= 1.0.0
+
 Summary:	YaST2 - Initial System Configuration
 PreReq:         %fillup_prereq
 
@@ -53,10 +55,10 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %dir @ystartupdir@/startup/Firstboot-Stage
 @ystartupdir@/startup/Firstboot-Stage/*
 @ystartupdir@/startup/YaST2.Firstboot
-@clientdir@/firstboot_*.ycp
-@clientdir@/firstboot.ycp
+@clientdir@/firstboot_*.rb
+@clientdir@/firstboot.rb
 %dir @yncludedir@/firstboot
-@yncludedir@/firstboot/*.ycp
+@yncludedir@/firstboot/*.rb
 @moduledir@/Firstboot.*
 @scrconfdir@/*.scr
 /var/adm/fillup-templates/sysconfig.firstboot
