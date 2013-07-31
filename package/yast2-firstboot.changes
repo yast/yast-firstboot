@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jul 31 08:29:10 UTC 2013 - yast-devel@opensuse.org
+
+- converted from YCP to Ruby by YCP Killer
+  (https://github.com/yast/ycp-killer)
+- version 3.0.0
+
+-------------------------------------------------------------------
 Thu Jul  4 11:45:56 UTC 2013 - jreidinger@suse.com
 
 - remove obsolete client product_start
