@@ -1,34 +1,42 @@
-# Makefile.am for firstboot/src
+# Sources for firstboot
+
+module_DATA = \
+  modules/Firstboot.rb
+
+client_DATA = \
+  clients/firstboot_welcome.rb \
+  clients/firstboot_keyboard.rb \
+  clients/firstboot_write.rb \
+  clients/firstboot.rb \
+  clients/firstboot_ntp.rb \
+  clients/firstboot_timezone.rb \
+  clients/firstboot_ssh.rb \
+  clients/firstboot_finish.rb \
+  clients/firstboot_license.rb \
+  clients/firstboot_desktop.rb \
+  clients/firstboot_config.rb \
+  clients/firstboot_language.rb \
+  clients/firstboot_licenses.rb \
+  clients/firstboot_bootloader_reconfigure.rb \
+  clients/firstboot_language_keyboard.rb \
+  clients/firstboot_license_novell.rb \
+  clients/firstboot_network_write.rb \
+  clients/firstboot_auto.rb
 
 yncludedir = @yncludedir@/firstboot
+ynclude_DATA = \
+  include/firstboot/routines.rb
 
-SUBDIRS = data control
+scrconf_DATA = \
+  scrconf/cfg_firstboot.scr
 
-client_DATA =			\
-	firstboot_write.ycp	\
-	firstboot_desktop.ycp	\
-	firstboot_language.ycp	\
-	firstboot_language_keyboard.ycp	\
-	firstboot_timezone.ycp	\
-	firstboot_license.ycp	\
-	firstboot_licenses.ycp	\
-	firstboot_welcome.ycp	\
-	firstboot_ssh.ycp	\
-	firstboot_keyboard.ycp	\
-	firstboot_finish.ycp	\
-	firstboot.ycp		\
-	firstboot_license_novell.ycp	\
-	firstboot_network_write.ycp	\
-	firstboot_bootloader_reconfigure.ycp	\
-	firstboot_auto.ycp		\
-	firstboot_ntp.ycp
+schemafilesdir = $(schemadir)/autoyast/rnc
+schemafiles_DATA = \
+  autoyast-rnc/firstboot.rnc
 
-ynclude_DATA =			\
-	routines.ycp
+fillup_DATA = \
+  fillup/sysconfig.firstboot
 
-module_DATA =			\
-	Firstboot.ycp	
-
-EXTRA_DIST = $(client_DATA) $(module_DATA)  $(ynclude_DATA)
+EXTRA_DIST = $(module_DATA) $(client_DATA) $(ynclude_DATA) $(scrconf_DATA) $(schemafiles_DATA) $(fillup_DATA)
 
 include $(top_srcdir)/Makefile.am.common
