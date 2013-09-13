@@ -6,7 +6,6 @@
 
 ## some common checks
 @YAST2-CHECKS-COMMON@
-@YAST2-CHECKS-YCP@
 
 AX_CHECK_DOCBOOK
 
@@ -14,6 +13,11 @@ AX_CHECK_DOCBOOK
 ( cd control; ln -sf firstboot.xml firstboot.glade )
 
 find control -name \*.glade | LC_ALL=C sort > POTFILES
+
+# this module does not have any YCP modules
+# (defined explicitly here as using (@)YAST2-CHECKS-YCP(@) would add yast2-core
+# build dependency back)
+AM_CONDITIONAL([HAS_YCP_MODULES], [false])
 
 ## and generate the output...
 @YAST2-OUTPUT@

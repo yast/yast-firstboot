@@ -3,6 +3,8 @@ Fri Sep 13 11:57:58 UTC 2013 - lslezak@suse.cz
 
 - properly symlink firstboot.xml file (for collecting translatable
   strings by "make pot")
+- removed obsolete BuildRequires (perl-XML-Writer, sgml-skel,
+  yast2, yast2-installation, yast2-testsuite, yast2-xml)
 
 -------------------------------------------------------------------
 Wed Jul 31 08:29:10 UTC 2013 - yast-devel@opensuse.org
