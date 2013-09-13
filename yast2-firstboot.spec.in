@@ -4,11 +4,7 @@
 @HEADER@
 Group:          System/YaST
 License:        GPL-2.0
-BuildRequires:	yast2-xml update-desktop-files yast2-devtools yast2-testsuite docbook-xsl-stylesheets libxslt perl-XML-Writer sgml-skel update-desktop-files
-# Internet.ycp moved to yast2.rpm
-BuildRequires:	yast2 >= 2.16.6
-# Installation startup scripts
-BuildRequires:	yast2-installation
+BuildRequires:	update-desktop-files yast2-devtools docbook-xsl-stylesheets libxslt
 
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
 Requires:	yast2 >= 2.16.23
@@ -52,19 +48,29 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 
 %files
 %defattr(-,root,root)
+%dir @ystartupdir@/startup
 %dir @ystartupdir@/startup/Firstboot-Stage
 @ystartupdir@/startup/Firstboot-Stage/*
 @ystartupdir@/startup/YaST2.Firstboot
 @clientdir@/firstboot_*.rb
 @clientdir@/firstboot.rb
+%dir @yncludedir@
 %dir @yncludedir@/firstboot
 @yncludedir@/firstboot/*.rb
+%dir @moduledir@
 @moduledir@/Firstboot.*
+%dir @scrconfdir@
 @scrconfdir@/*.scr
 /var/adm/fillup-templates/sysconfig.firstboot
 /usr/share/firstboot
 %doc @docdir@
 %doc COPYING
+%dir /etc/YaST2/
 /etc/YaST2/*.xml
+%dir /usr/share/autoinstall
+%dir /usr/share/autoinstall/modules
 /usr/share/autoinstall/modules/firstboot.desktop
-/usr/share/YaST2/schema/autoyast/rnc/firstboot.rnc
+%dir @schemadir@
+%dir @schemadir@/autoyast
+%dir @schemadir@/autoyast/rnc
+@schemadir@/autoyast/rnc/firstboot.rnc
