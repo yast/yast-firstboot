@@ -11,9 +11,9 @@
 AX_CHECK_DOCBOOK
 
 ## Nasty hack: xgettext doesn't work for XML files, so let's symlink it
-( cd src/control; ln -sf firstboot.xml firstboot.glade )
+( cd control; ln -sf firstboot.xml firstboot.glade )
 
-find src/control -name \*.glade | LC_ALL=C sort > POTFILES
+find control -name \*.glade | LC_ALL=C sort > POTFILES
 
 ## and generate the output...
 @YAST2-OUTPUT@
