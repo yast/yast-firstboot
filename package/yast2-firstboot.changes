@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 18 16:12:24 UTC 2013 - lslezak@suse.cz
+
+- do not use *.spec.in template, use *.spec file with RPM macros
+  instead
+- 3.0.2
+
+-------------------------------------------------------------------
 Fri Sep 13 11:57:58 UTC 2013 - lslezak@suse.cz
 
 - properly symlink firstboot.xml file (for collecting translatable
