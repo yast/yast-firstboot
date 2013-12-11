@@ -26,7 +26,7 @@ Source0:        %{name}-%{version}.tar.bz2
 Group:          System/YaST
 License:        GPL-2.0
 BuildRequires:	update-desktop-files docbook-xsl-stylesheets libxslt
-BuildRequires:  yast2-devtools >= 3.0.6
+BuildRequires:  yast2-devtools >= 3.1.10
 
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
 Requires:	yast2 >= 2.16.23
