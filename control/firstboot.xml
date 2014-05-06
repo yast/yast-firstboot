@@ -92,6 +92,10 @@
             <mode>installation</mode>
             <modules  config:type="list">
                 <module>
+                    <label>Network Autosetup</label>
+                    <name>setup_dhcp</name>
+                </module>
+                <module>
                     <label>Language and Keyboard</label>
                     <enabled config:type="boolean">true</enabled>
 		    <!-- step for configuration of both language and keyboard layout (fate#306296) -->
