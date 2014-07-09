@@ -83,7 +83,8 @@ module Yast
 
       # Desktop settings
       @default_dm = "kdm"
-      @default_dm = "gdm" if (Firstboot.default_wm == "gnome" || Firstboot.default_wm == "sle-classic")
+      gnome_window_managers = ["gnome", "sle-classic", "gnome-classic"]
+      @default_dm = "gdm" if gnome_window_managers.include?(Firstboot.default_wm)
       if @default_dm == "kdm" && Package.Installed("kdm") ||
           @default_dm == "gdm" && Package.Installed("gdm")
         SCR.Write(path(".sysconfig.displaymanager.DISPLAYMANAGER"), @default_dm)
