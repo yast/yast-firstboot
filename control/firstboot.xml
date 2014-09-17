@@ -93,7 +93,7 @@
             <modules  config:type="list">
                 <module>
                     <label>Network Autosetup</label>
-                    <name>setup_dhcp</name>
+                    <name>firstboot_setup_dhcp</name>
                 </module>
                 <module>
                     <label>Language and Keyboard</label>
