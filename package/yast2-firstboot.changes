@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 17 19:09:03 UTC 2014 - mfilka@suse.com
+
+- bnc#895359
+  - added client for nic cards autoconfiguration 
+- 3.1.4
+
+-------------------------------------------------------------------
 Wed Jul  9 13:59:18 CEST 2014 - schubi@suse.de
 
 - Added gnome-classic to gnome WM. (part of bnc#886367)
