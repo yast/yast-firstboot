@@ -17,7 +17,7 @@
 
 
 Name:           yast2-firstboot
-Version:        3.1.3
+Version:        3.1.4
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -35,6 +35,8 @@ Requires:	yast2-bootloader
 Requires:	yast2-country >= 2.19.5
 # new version of inst_license
 Requires:	yast2-installation >= 2.19.0
+# network autoconfiguration
+Requires:	yast2-network >= 3.1.91
 
 BuildArchitectures:	noarch
 
