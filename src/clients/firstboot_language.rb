@@ -41,7 +41,6 @@ module Yast
 
       Yast.import "Console"
       Yast.import "Directory"
-      Yast.import "GfxMenu"
       Yast.import "Language"
       Yast.import "Wizard"
       Yast.import "Firstboot"
@@ -132,7 +131,6 @@ module Yast
 
           # update bootloader menu
           Language.WfmSetLanguage
-          GfxMenu.Update
         else
           Builtins.y2milestone("Language not changed --> doing nothing")
         end
