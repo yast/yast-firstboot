@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Nov 18 12:56:02 UTC 2014 - ancor@suse.com
+
+- Added missing module for DHCP (bnc#895359, bnc#904527).
+- Fixed errors in keyboard and language configuration (bnc#904527).
+- 3.1.5
+
+-------------------------------------------------------------------
 Wed Sep 17 19:09:03 UTC 2014 - mfilka@suse.com
 
 - bnc#895359

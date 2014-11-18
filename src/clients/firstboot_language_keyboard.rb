@@ -44,7 +44,6 @@ module Yast
       Yast.import "Console"
       Yast.import "Directory"
       Yast.import "GetInstArgs"
-      Yast.import "GfxMenu"
       Yast.import "Keyboard"
       Yast.import "Label"
       Yast.import "Language"
@@ -280,8 +279,6 @@ module Yast
         Keyboard.Save
         Timezone.Save
         Console.Save
-        # update bootloader menu items
-        GfxMenu.Update
       end
 
       false

@@ -21,6 +21,7 @@ client_DATA = \
   clients/firstboot_language_keyboard.rb \
   clients/firstboot_license_novell.rb \
   clients/firstboot_network_write.rb \
+  clients/firstboot_setup_dhcp.rb \
   clients/firstboot_auto.rb
 
 yncludedir = @yncludedir@/firstboot
