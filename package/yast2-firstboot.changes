@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb  5 09:08:40 UTC 2015 - ancor@suse.com
+
+- Fixed the step for host name configuration (bnc#911952)
+- 3.1.6
+
+-------------------------------------------------------------------
 Tue Nov 18 12:56:02 UTC 2014 - ancor@suse.com
 
 - Added missing module for DHCP (bnc#895359, bnc#904527).
