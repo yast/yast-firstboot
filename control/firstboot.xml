@@ -133,7 +133,7 @@
                 <module>
                     <label>Host Name</label>
                     <enabled config:type="boolean">false</enabled>
-                    <name>inst_hostname</name>
+                    <name>firstboot_hostname</name>
                 </module>
                 <module>
                     <label>Network</label>
