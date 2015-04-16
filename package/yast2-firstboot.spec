@@ -17,7 +17,7 @@
 
 
 Name:           yast2-firstboot
-Version:        3.1.5.1
+Version:        3.1.5.2
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
