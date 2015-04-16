@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Apr 16 10:29:47 CEST 2015 - locilka@suse.com
+
+- Forcing mode "installation" for firstboot to always use the
+  correct workflow (bsc#924278)
+- 3.1.9
+
+-------------------------------------------------------------------
 Thu Feb  5 09:08:40 UTC 2015 - ancor@suse.com
 
 - Fixed the step for host name configuration
