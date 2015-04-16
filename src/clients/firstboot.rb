@@ -42,6 +42,7 @@ module Yast
 
       Wizard.OpenNextBackStepsDialog
 
+      # Always force the mode (bsc#924278)
       Mode.SetMode("installation")
       ProductControl.AddWizardSteps([{ "stage" => "firstboot", "mode" => "installation" }])
 
