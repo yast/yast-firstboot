@@ -38,7 +38,7 @@ module Yast
       Yast.import "Firstboot"
       Yast.import "Misc"
       Yast.import "PackageCallbacksInit"
-
+      Yast.import "Keyboard"
 
       Wizard.OpenNextBackStepsDialog
 
@@ -50,6 +50,12 @@ module Yast
       Report.LogMessages(true)
       Report.LogErrors(true)
       Report.LogWarnings(true)
+
+      # Just in case /etc/X11/xorg.conf.d/00-keyboard.conf has not been
+      # generated yet (the X server started by YaST-Firstboot doesn't seem to
+      # be enough to trigger the systemd mechanism that generates it), let's
+      # enforce the keyboard map if we are running in graphic mode (bsc#950335)
+      Keyboard.SetX11(Keyboard.current_kbd)
 
       # initialize package callbacks, since some of the modules run in the
       # firstboot workflow expect them to be initialized (bug #335979)
