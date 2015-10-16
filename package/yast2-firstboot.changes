@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Oct 16 12:21:01 UTC 2015 - ancor@suse.com
+
+- Fixed to always use the configured keyboard layout (bsc#950335)
+- 3.1.10
+
+-------------------------------------------------------------------
 Thu Apr 16 10:29:47 CEST 2015 - locilka@suse.com
 
 - Forcing mode "installation" for firstboot to always use the
