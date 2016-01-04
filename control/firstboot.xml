@@ -70,15 +70,6 @@
                 <proposal_module>printer</proposal_module>
             </proposal_modules>
         </proposal>
-        <proposal>
-            <name>firstboot_network</name>
-            <mode>installation</mode>
-            <stage>firstboot</stage>
-            <label>Network Configuration</label>
-            <proposal_modules config:type="list">
-                <proposal_module>lan</proposal_module>
-            </proposal_modules>
-        </proposal>
     </proposals>
     <workflows  config:type="list">
         <workflow>
@@ -147,9 +138,8 @@
                 </module>
                 <module>
                     <label>Network</label>
-                    <name>inst_proposal</name>
+                    <name>inst_lan</name>
                     <enabled config:type="boolean">false</enabled>
-                    <proposal>firstboot_network</proposal>
                 </module>
                  <module>
                     <label>Automatic Configuration</label>
@@ -173,9 +163,8 @@
                 </module>
                 <module>
                     <label>Network</label>
-                    <name>inst_proposal</name>
+                    <name>inst_lan</name>
                     <enabled config:type="boolean">false</enabled>
-                    <proposal>firstboot_network</proposal>
                 </module>
                 <module>
                     <label>Root Password</label>
