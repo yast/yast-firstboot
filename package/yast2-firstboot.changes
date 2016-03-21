@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Mar 21 12:23:54 UTC 2016 - lslezak@suse.cz
+
+- Fixed firstboot.xml to call the correct client for registration
+  (bsc#970572)
+- 3.1.12
+
+-------------------------------------------------------------------
 Mon Jan  4 12:50:27 UTC 2016 - ancor@suse.com
 
 - Fixed firstboot.xml to call the correct client for LAN
