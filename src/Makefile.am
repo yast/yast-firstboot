@@ -17,7 +17,6 @@ client_DATA = \
   clients/firstboot_config.rb \
   clients/firstboot_language.rb \
   clients/firstboot_licenses.rb \
-  clients/firstboot_bootloader_reconfigure.rb \
   clients/firstboot_language_keyboard.rb \
   clients/firstboot_license_novell.rb \
   clients/firstboot_network_write.rb \

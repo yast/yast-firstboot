@@ -17,7 +17,7 @@
 
 
 Name:           yast2-firstboot
-Version:        3.1.11
+Version:        3.1.12
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -30,7 +30,6 @@ BuildRequires:  yast2-devtools >= 3.1.10
 
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
 Requires:	yast2 >= 2.16.23
-Requires:	yast2-bootloader
 # Language::SwitchToEnglishIfNeeded
 Requires:	yast2-country >= 2.19.5
 # new version of inst_license
