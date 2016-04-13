@@ -30,7 +30,6 @@ BuildRequires:  yast2-devtools >= 3.1.10
 
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
 Requires:	yast2 >= 2.16.23
-Requires:	yast2-bootloader
 # Language::SwitchToEnglishIfNeeded
 Requires:	yast2-country >= 2.19.5
 # new version of inst_license
