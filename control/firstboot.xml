@@ -183,7 +183,7 @@
                 </module>
                 <module>
                     <label>Customer Center</label>
-                    <name>inst_suse_register</name>
+                    <name>registration</name>
                     <enabled config:type="boolean">false</enabled>
                 </module>
                 <module>

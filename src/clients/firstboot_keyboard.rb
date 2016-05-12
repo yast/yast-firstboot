@@ -45,14 +45,7 @@ module Yast
 
       @ret = KeyboardDialog(GetInstArgs.argmap)
 
-      if @ret == :next
-        Keyboard.Save
-        # kbd must be restarted after YaST finishes (#303808)
-        SCR.Execute(
-          path(".target.bash"),
-          Builtins.sformat("touch %1/firstboot_kbd_restart", Directory.vardir)
-        )
-      end
+      Keyboard.Save if @ret == :next
 
       deep_copy(@ret)
     end
