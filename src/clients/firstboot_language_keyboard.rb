@@ -185,12 +185,6 @@ module Yast
             break
           end
 
-          # kbd must be restarted after YaST finishes (#303808)
-          SCR.Execute(
-            path(".target.bash"),
-            Builtins.sformat("touch %1/firstboot_kbd_restart", Directory.vardir)
-          )
-
           break if @ret == :next
         end
       end
