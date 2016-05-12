@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu May 12 14:09:22 UTC 2016 - igonzalezsosa@suse.com
+
+- Remove kbd service restart because it does not exist anymore
+  (bsc#974489)
+- Fixed firstboot.xml to call the correct client for registration
+  (bsc#970572) (lslezak@suse.cz)
+- 3.1.13
+
+-------------------------------------------------------------------
 Wed Apr 13 12:48:04 UTC 2016 - jreidinger@suse.com
 
 - Do not overwrite bootloader configuration in first boot
