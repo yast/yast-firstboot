@@ -2,7 +2,6 @@
 # Makefile.am doc subdir
 #
 
-SUBDIRS = autodocs
 htmldir = $(docdir)
 xml_files =  $(wildcard *.xml) 
 
