@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun  7 08:11:50 UTC 2016 - igonzalezsosa@suse.com
+
+- Stop generating autodocs (fate#320356)
+- 3.1.14
+
+-------------------------------------------------------------------
 Thu May 12 14:09:22 UTC 2016 - igonzalezsosa@suse.com
 
 - Remove kbd service restart because it does not exist anymore
