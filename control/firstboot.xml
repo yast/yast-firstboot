@@ -174,11 +174,6 @@
                 <module>
                     <label>Users</label>
                     <enabled config:type="boolean">true</enabled>
-                    <name>inst_auth</name>
-                </module>
-                <module>
-                    <label>Users</label>
-                    <enabled config:type="boolean">true</enabled>
                     <name>inst_user</name>
                 </module>
                 <module>
