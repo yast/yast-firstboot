@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Thu Aug 11 11:44:28 UTC 2016 - ancor@suse.com
+
+- Reimplemented "create user" and "root password" steps to reuse
+  the new installation dialogs instead of the obsolete ones.
+- More sensible order for the mentioned steps in the default
+  configuration file.
+- Removed from the default configuration file the obsolete step
+  for configuring authentication.
+- bsc#992245, bsc#991863
+- 3.1.15
+
+-------------------------------------------------------------------
 Tue Jun  7 08:11:50 UTC 2016 - igonzalezsosa@suse.com
 
 - Stop generating autodocs (fate#320356)

@@ -22,7 +22,9 @@ client_DATA = \
   clients/firstboot_network_write.rb \
   clients/firstboot_setup_dhcp.rb \
   clients/firstboot_auto.rb \
-  clients/firstboot_hostname.rb
+  clients/firstboot_hostname.rb \
+  clients/firstboot_root.rb \
+  clients/firstboot_user.rb
 
 yncludedir = @yncludedir@/firstboot
 ynclude_DATA = \
@@ -38,6 +40,11 @@ schemafiles_DATA = \
 fillup_DATA = \
   fillup/sysconfig.firstboot
 
-EXTRA_DIST = $(module_DATA) $(client_DATA) $(ynclude_DATA) $(scrconf_DATA) $(schemafiles_DATA) $(fillup_DATA)
+ylibclientdir = "${yast2dir}/lib/y2firstboot/clients"
+ylibclient_DATA = \
+  lib/y2firstboot/clients/root.rb \
+  lib/y2firstboot/clients/user.rb
+
+EXTRA_DIST = $(module_DATA) $(client_DATA) $(ynclude_DATA) $(scrconf_DATA) $(schemafiles_DATA) $(fillup_DATA) $(ylibclient_DATA)
 
 include $(top_srcdir)/Makefile.am.common

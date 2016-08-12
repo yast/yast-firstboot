@@ -17,7 +17,7 @@
 
 
 Name:           yast2-firstboot
-Version:        3.1.14
+Version:        3.1.15
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -78,6 +78,10 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %{yast_ystartupdir}/startup/YaST2.Firstboot
 %{yast_clientdir}/firstboot_*.rb
 %{yast_clientdir}/firstboot.rb
+%dir %{yast_libdir}
+%dir %{yast_libdir}/y2firstboot
+%dir %{yast_libdir}/y2firstboot/clients
+%{yast_libdir}/y2firstboot/clients/*.rb
 %dir %{yast_yncludedir}
 %dir %{yast_yncludedir}/firstboot
 %{yast_yncludedir}/firstboot/*.rb

@@ -167,19 +167,14 @@
                     <enabled config:type="boolean">false</enabled>
                 </module>
                 <module>
+                    <label>Users</label>
+                    <enabled config:type="boolean">true</enabled>
+                    <name>firstboot_user</name>
+                </module>
+                <module>
                     <label>Root Password</label>
                     <enabled config:type="boolean">true</enabled>
-                    <name>inst_root</name>
-                </module>
-                <module>
-                    <label>Users</label>
-                    <enabled config:type="boolean">true</enabled>
-                    <name>inst_auth</name>
-                </module>
-                <module>
-                    <label>Users</label>
-                    <enabled config:type="boolean">true</enabled>
-                    <name>inst_user</name>
+                    <name>firstboot_root</name>
                 </module>
                 <module>
                     <label>Customer Center</label>
