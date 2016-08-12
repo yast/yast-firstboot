@@ -34,8 +34,9 @@ module Y2Firstboot
       end
 
       def run
-        dialog_result = Yast::InstUserFirstDialog.new.run
-        if dialog_result == :next
+        dialog = Yast::InstUserFirstDialog.new
+        dialog_result = dialog.run
+        if dialog_result == :next && dialog.action == :new_user
           # Change root password if needed
           Yast::UsersSimple.Write
           # Create user
