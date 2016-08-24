@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Aug 24 11:22:55 UTC 2016 - jreidinger@suse.com
+
+- fix not showing errors as popup in firstboot (bnc#994892)
+- 3.1.17
+
+-------------------------------------------------------------------
 Fri Aug 12 14:45:25 UTC 2016 - ancor@suse.com
 
 - Faster response when the user skips the creation of a new user
