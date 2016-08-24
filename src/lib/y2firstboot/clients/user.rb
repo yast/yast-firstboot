@@ -24,6 +24,7 @@
 require "users/dialogs/inst_user_first"
 Yast.import "Users"
 Yast.import "UsersSimple"
+Yast.import "Progress"
 
 module Y2Firstboot
   module Clients
@@ -42,8 +43,9 @@ module Y2Firstboot
           # Create user
           if setup_all_users
             # Do not mess with the progress indicator
-            Yast::Users.SetGUI(false)
+            orig = Yast::Progress.set(false)
             Yast::Users.Write
+            Yast::Progress.set(orig)
           end
         end
         dialog_result
