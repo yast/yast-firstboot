@@ -22,7 +22,7 @@ doc/*.html
 doc/css
 doc/html/
 doc/js
-firstboot.pot
 install-sh
 missing
 pluglib-bindings.ami
+*.pot
