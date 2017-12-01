@@ -1,1 +1,41 @@
-package/*.tar.bz2
+Makefile
+/Makefile.am
+Makefile.am.common
+Makefile.in
+aclocal.m4
+autodocs-cc.*
+autodocs-ycp.*
+autodocs-cc-base.*
+autodocs-cc-off.*
+autom4te.cache
+config.*
+configure
+configure.in
+configure.ac
+coverage/
+install-sh
+pluglib-bindings.ami
+*/.dep
+doc/autodocs
+coverage
+
+# Generated
+control/firstboot.glade
+missing
+/.yardoc
+/*.pot
+*.log
+*.trs
+POTFILES
+
+# Documentation
+doc/*
+!doc/*.xml
+!doc/Makefile.am
+
+# Package
+package/yast2-*.tar.bz2
+
+# other
+YaST:Head
+*.sw?
