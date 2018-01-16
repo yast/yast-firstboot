@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jan 16 09:12:23 CET 2018 - schubi@suse.de
+
+- Do not initialize firstboot in AutoYaST upgrade mode.
+  (Additial fix for bnc#1075744)
+- 4.0.2
+
+-------------------------------------------------------------------
 Thu Nov 30 17:47:59 UTC 2017 - knut.anderssen@suse.com
 
 - Bring back HostnameDialog adding it into firstboot_hostname once

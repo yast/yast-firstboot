@@ -73,7 +73,7 @@ module Yast
     end
 
     def Firstboot
-      if Mode.config || Mode.autoinst
+      if Mode.config || Mode.auto
         Builtins.y2milestone(
           "no firstboot initialization in mode %1",
           Mode.mode
