@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb  8 08:38:38 UTC 2018 - jsrain@suse.cz
+
+- adapted to changes in the Language module (bsc#1079852)
+- 4.0.3
+
+-------------------------------------------------------------------
 Tue Jan 16 09:12:23 CET 2018 - schubi@suse.de
 
 - Do not initialize firstboot in AutoYaST upgrade mode.
