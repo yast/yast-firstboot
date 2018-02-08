@@ -258,7 +258,7 @@ module Yast
 
         # install language dependent packages now
         # Language::PackagesModified () does not work here as _on_entry variables are not set
-        if @language != Language.ReadSysconfigLanguage
+        if @language != Language.ReadLocaleConfLanguage
           if !Language.PackagesInit([@language])
             # error message
             Report.Error(
