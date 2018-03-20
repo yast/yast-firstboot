@@ -9,11 +9,6 @@
 
 AX_CHECK_DOCBOOK
 
-## Nasty hack: xgettext doesn't work for XML files, so let's symlink it
-( cd control; ln -sf firstboot.xml firstboot.glade )
-
-find control -name \*.glade | LC_ALL=C sort > POTFILES
-
 # this module does not have any YCP modules
 # (defined explicitly here as using (@)YAST2-CHECKS-YCP(@) would add yast2-core
 # build dependency back)
