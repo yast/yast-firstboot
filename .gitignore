@@ -20,7 +20,6 @@ doc/autodocs
 coverage
 
 # Generated
-control/firstboot.glade
 missing
 /.yardoc
 /*.pot

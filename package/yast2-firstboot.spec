@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.0.3
+Version:        4.0.4
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -63,6 +63,11 @@ created to personalize the system.
 %install
 %yast_install
 
+# Remove the license from the /usr/share/doc/packages directory,
+# it is also included in the /usr/share/licenses directory by using
+# the %license tag.
+rm $RPM_BUILD_ROOT/%{yast_docdir}/COPYING
+
 mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 
 
@@ -91,7 +96,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %{_fillupdir}/sysconfig.firstboot
 /usr/share/firstboot
 %doc %{yast_docdir}
-%doc COPYING
+%license COPYING
 %dir /etc/YaST2/
 /etc/YaST2/*.xml
 %dir /usr/share/autoinstall
