@@ -97,6 +97,8 @@ module Yast
           @action
         )
 
+        # The S09-cleanup script is responsible of rebooting or halting the
+        # system depending on the existence of the specifig flag files
         if @action == "halt"
           Builtins.y2milestone("Halting the system...")
           SCR.Execute(path(".target.bash"),

@@ -53,5 +53,8 @@ fi
 if [ -e "/var/lib/YaST2/firstboot_halt_after_finish" ] ; then
     log "\tHalting system as requested by firstboot..."
     rm /var/lib/YaST2/firstboot_halt_after_finish
+    # Instead of calling halt directly we will rely on systemd
+    # failed state, that is OnFailure=shutdown.target in the
+    # YaST2-Firstboot.service (bsc#1095251)
     exit 1
 fi
