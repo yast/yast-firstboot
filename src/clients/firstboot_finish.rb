@@ -142,6 +142,7 @@ module Yast
         GetInstArgs.enable_next
       )
 
+      Wizard.HideAbortButton
       Wizard.SetNextButton(:next, Label.FinishButton)
       Wizard.SetFocusToNextButton
 

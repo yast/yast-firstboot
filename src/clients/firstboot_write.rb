@@ -39,6 +39,7 @@ module Yast
       Yast.import "ProductFeatures"
       Yast.import "Wizard"
 
+      return :back if GetInstArgs.going_back
 
       @progress_stages = [
         # progress stages
@@ -93,10 +94,6 @@ module Yast
         path(".sysconfig.windowmanager.DEFAULT_WM"),
         Firstboot.default_wm
       )
-
-
-      # Dont run firstboot next time
-      SCR.Execute(path(".target.remove"), Firstboot.reconfig_file)
 
       # save product features if they do not exist
       if !FileUtils.Exists("/etc/YaST2/ProductFeatures")
