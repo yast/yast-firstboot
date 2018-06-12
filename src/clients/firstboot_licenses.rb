@@ -71,11 +71,7 @@ module Yast
 
       @result = WFM.CallFunction("inst_license", [@args])
 
-      if @result == :halt
-        UI.CloseDialog
-        Builtins.y2milestone("Halting the system...")
-        SCR.Execute(path(".target.bash"), "/sbin/halt")
-      end
+      UI.CloseDialog if @result == :halt
 
       deep_copy(@result)
     end
