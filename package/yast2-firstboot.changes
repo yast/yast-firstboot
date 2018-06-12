@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun 11 11:10:40 UTC 2018 - knut.anderssen@suse.com
+
+- Allow going back from finish step and unified halt (bsc#1095253)
+- 4.0.5
+
+-------------------------------------------------------------------
 Tue Mar 20 16:35:46 UTC 2018 - lslezak@suse.cz
 
 - Added firstboot.glade symlink to include also the firstboot.xml
