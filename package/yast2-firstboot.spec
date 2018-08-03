@@ -17,7 +17,7 @@
 
 
 Name:           yast2-firstboot
-Version:        3.1.18
+Version:        3.1.19
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -32,8 +32,8 @@ BuildRequires:  yast2-devtools >= 3.1.10
 Requires:	yast2 >= 2.16.23
 # Language::SwitchToEnglishIfNeeded
 Requires:	yast2-country >= 2.19.5
-# new version of inst_license
-Requires:	yast2-installation >= 2.19.0
+# Rely on the YaST2-Firstboot.service for halting the system on failure
+Requires:	yast2-installation >= 3.2.60
 # network autoconfiguration
 Requires:	yast2-network >= 3.1.91
 
