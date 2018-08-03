@@ -1,7 +1,8 @@
 -------------------------------------------------------------------
 Mon Jun 11 11:10:40 UTC 2018 - knut.anderssen@suse.com
 
-- Allow going back from finish step and unified halt (bsc#1103525)
+- Allow going back from finish step and unified halt
+  (bsc#1095251, bsc#1103525)
 - 3.1.19
 
 -------------------------------------------------------------------
