@@ -32,6 +32,7 @@ module Yast
       Yast.import "Directory"
       Yast.import "FileUtils"
       Yast.import "Firstboot"
+      Yast.import "GetInstArgs"
       Yast.import "Keyboard"
       Yast.import "Package"
       Yast.import "Popup"
