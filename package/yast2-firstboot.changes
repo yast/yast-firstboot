@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Aug  8 09:14:49 UTC 2018 - knut.anderssen@suse.com
+
+- Import missing GetInstArgs module in firstboot_write client
+  (bsc#1104158)
+- 4.0.6
+
+-------------------------------------------------------------------
 Mon Jun 11 11:10:40 UTC 2018 - knut.anderssen@suse.com
 
 - Allow going back from finish step and unified halt (bsc#1095253)
