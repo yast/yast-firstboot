@@ -23,7 +23,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Source0:        %{name}-%{version}.tar.bz2
 
 Group:          System/YaST
-License:        GPL-2.0
+License:        GPL-2.0-only
 BuildRequires:	update-desktop-files docbook-xsl-stylesheets libxslt
 BuildRequires:  yast2-devtools >= 3.1.10
 
@@ -66,7 +66,7 @@ created to personalize the system.
 # Remove the license from the /usr/share/doc/packages directory,
 # it is also included in the /usr/share/licenses directory by using
 # the %license tag.
-rm $RPM_BUILD_ROOT/%{yast_docdir}/COPYING
+rm -f $RPM_BUILD_ROOT/%{yast_docdir}/COPYING
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 
