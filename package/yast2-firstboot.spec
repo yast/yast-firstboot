@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.0.6
+Version:        4.1.0
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -106,3 +106,4 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %dir %{yast_schemadir}/autoyast
 %dir %{yast_schemadir}/autoyast/rnc
 %{yast_schemadir}/autoyast/rnc/firstboot.rnc
+%{_datadir}/icons/*
