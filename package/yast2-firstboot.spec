@@ -106,4 +106,4 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %dir %{yast_schemadir}/autoyast
 %dir %{yast_schemadir}/autoyast/rnc
 %{yast_schemadir}/autoyast/rnc/firstboot.rnc
-%{_datadir}/icons/*
+%{yast_icondir}
