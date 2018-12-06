@@ -100,7 +100,7 @@ module Yast
       if !FileUtils.Exists("/etc/YaST2/ProductFeatures")
         Builtins.y2milestone("Saving ProductFeatures...")
         SCR.Execute(path(".target.bash"), "/bin/mkdir -p '/etc/YaST2'")
-        SCR.Execute(path(".target.bash"), "touch '/etc/YaST2/ProductFeatures'")
+        SCR.Execute(path(".target.bash"), "/usr/bin/touch '/etc/YaST2/ProductFeatures'")
         ProductFeatures.Save
       end
 

@@ -22,6 +22,9 @@
 # Maintainer:             Jiri Srain <jsrain@suse.cz>
 #
 # $Id$
+
+require "shellwords"
+
 module Yast
   class FirstbootClient < Client
     def main
@@ -76,8 +79,8 @@ module Yast
           SCR.Execute(
             path(".target.bash"),
             Builtins.sformat(
-              "touch %1/firstboot_reboot_after_finish",
-              Directory.vardir
+              "/usr/bin/touch %1/firstboot_reboot_after_finish",
+              Directory.vardir.shellescape
             )
           )
         end
@@ -103,16 +106,16 @@ module Yast
           Builtins.y2milestone("Halting the system...")
           SCR.Execute(path(".target.bash"),
                Builtins.sformat(
-              "touch %1/firstboot_halt_after_finish",
-              Directory.vardir
+              "/usr/bin/touch %1/firstboot_halt_after_finish",
+              Directory.vardir.shellescape
             )
           )
         elsif @action == "reboot"
           Builtins.y2milestone("Rebooting the system...")
           SCR.Execute(path(".target.bash"),
                Builtins.sformat(
-              "touch %1/firstboot_reboot_after_finish",
-              Directory.vardir
+              "/usr/bin/touch %1/firstboot_reboot_after_finish",
+              Directory.vardir.shellescape
             )
           )
         elsif @action == "continue"
