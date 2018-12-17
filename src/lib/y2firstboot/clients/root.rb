@@ -26,6 +26,7 @@ Yast.import "UsersSimple"
 
 module Y2Firstboot
   module Clients
+    # Client to set the root password
     class Root < Yast::Client
       def run
         dialog_result = Yast::InstRootFirstDialog.new.run
