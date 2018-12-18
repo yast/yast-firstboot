@@ -69,8 +69,8 @@ describe Y2Firstboot::Clients::ConfigurationManagement do
       client.run
     end
 
-    it "returns :next" do
-      expect(client.run).to eq(:next)
+    it "returns :auto" do
+      expect(client.run).to eq(:auto)
     end
 
     context "when type or mode are specified in the configuration" do

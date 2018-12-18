@@ -38,12 +38,13 @@ module Y2Firstboot
           return :abort
         end
         Yast::ConfigurationManagement::Clients::Provision.new.run
-        :next
+        :auto
       end
 
     private
 
-      # @return [Hash] Default settings
+      # @return [Hash] Fixed settings (these settings cannot be overriden as this is the only
+      #   supported scenario)
       FIXED_SETTINGS = { "type" => "salt", "mode" => "masterless" }.freeze
 
       # Returns the configuration management configuration
