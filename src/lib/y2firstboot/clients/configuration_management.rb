@@ -54,7 +54,7 @@ module Y2Firstboot
       # @return [Yast::ConfigurationManagement::Configurations::Base]
       def config
         settings = Yast::ProductFeatures.GetSection("configuration_management")
-          .merge(FIXED_SETTINGS)
+                                        .merge(FIXED_SETTINGS)
         Yast::ConfigurationManagement::Configurations::Base.import(settings)
       end
     end
