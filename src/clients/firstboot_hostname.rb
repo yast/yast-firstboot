@@ -32,7 +32,7 @@ module Yast
     def main
       Yast.import "UI"
 
-      textdomain "network"
+      textdomain "firstboot"
 
       Yast.import "Arch"
       Yast.import "DNS"
