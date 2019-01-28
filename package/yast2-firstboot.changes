@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jan 25 14:59:38 UTC 2019 - igonzalezsosa@suse.com
+
+- Add integration with the yast2-configuration-management module
+  (fate#322722).
+- 4.1.4
+
+-------------------------------------------------------------------
 Fri Jan 11 16:13:58 UTC 2019 - lslezak@suse.cz
 
 - Fixed textdomain name (bsc#1121643)

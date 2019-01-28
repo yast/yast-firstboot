@@ -1,8 +1,6 @@
-#!/usr/bin/env ruby
-#
 # encoding: utf-8
 
-# Copyright (c) [2016] SUSE LLC
+# Copyright (c) [2018] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -21,18 +19,6 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-require "users/dialogs/inst_root_first"
-Yast.import "UsersSimple"
+require "y2firstboot/clients/configuration_management"
 
-module Y2Firstboot
-  module Clients
-    # Client to set the root password
-    class Root < Yast::Client
-      def run
-        dialog_result = Yast::InstRootFirstDialog.new.run
-        Yast::UsersSimple.Write if dialog_result == :next
-        dialog_result
-      end
-    end
-  end
-end
+Y2Firstboot::Clients::ConfigurationManagement.new.run

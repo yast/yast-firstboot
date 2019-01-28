@@ -24,7 +24,8 @@ client_DATA = \
   clients/firstboot_auto.rb \
   clients/firstboot_hostname.rb \
   clients/firstboot_root.rb \
-  clients/firstboot_user.rb
+  clients/firstboot_user.rb \
+  clients/firstboot_configuration_management.rb
 
 yncludedir = @yncludedir@/firstboot
 ynclude_DATA = \
@@ -42,6 +43,7 @@ fillup_DATA = \
 
 ylibclientdir = "${yast2dir}/lib/y2firstboot/clients"
 ylibclient_DATA = \
+  lib/y2firstboot/clients/configuration_management.rb \
   lib/y2firstboot/clients/root.rb \
   lib/y2firstboot/clients/user.rb
 

@@ -28,8 +28,8 @@ Yast.import "Progress"
 
 module Y2Firstboot
   module Clients
+    # Client to set up the first user
     class User < Yast::Client
-
       def initialize
         Yast.include self, "users/routines.rb"
       end

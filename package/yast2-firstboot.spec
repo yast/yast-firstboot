@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.1.3
+Version:        4.1.4
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -39,6 +39,7 @@ Requires:	yast2-network >= 3.1.91
 BuildArchitectures:	noarch
 
 Requires:       yast2-ruby-bindings >= 1.0.0
+Requires:       yast2-configuration-management >= 4.1.1
 
 Summary:	YaST2 - Initial System Configuration
 PreReq:         %fillup_prereq
