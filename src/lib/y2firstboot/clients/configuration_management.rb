@@ -20,11 +20,12 @@
 # find current contact information at www.suse.com.
 
 require "yast"
-require "configuration_management/clients/provision"
-require "configuration_management/configurators/base"
+require "y2configuration_management/clients/provision"
+require "y2configuration_management/configurators/base"
 
 Yast.import "ProductFeatures"
 Yast.import "PackageSystem"
+Yast.import "GetInstArgs"
 
 module Y2Firstboot
   module Clients
@@ -32,16 +33,23 @@ module Y2Firstboot
     class ConfigurationManagement
       # Runs the client
       def run
-        configurator = Yast::ConfigurationManagement::Configurators::Base.for(config)
-        return :abort unless configurator.prepare
-        if !Yast::PackageSystem.CheckAndInstallPackages(configurator.packages.fetch("install", []))
-          return :abort
-        end
-        Yast::ConfigurationManagement::Clients::Provision.new.run
-        :auto
+        configurator = Y2ConfigurationManagement::Configurators::Base.for(config)
+        result = configurator.prepare(reverse: Yast::GetInstArgs.going_back)
+        return result unless result == :finish
+        provision ? :next : :abort
       end
 
     private
+
+      # Runs the provisioner
+      #
+      # @return [Boolean] true if it ran successfully; false otherwise.
+      def provision
+        if !Yast::PackageSystem.CheckAndInstallPackages(configurator.packages.fetch("install", []))
+          return false
+        end
+        Y2ConfigurationManagement::Clients::Provision.new.run
+      end
 
       # @return [Hash] Fixed settings (these settings cannot be overriden as this is the only
       #   supported scenario)
@@ -51,11 +59,21 @@ module Y2Firstboot
       #
       # It relies in the configuration found in the control file.
       #
-      # @return [Yast::ConfigurationManagement::Configurations::Base]
+      # @return [Y2ConfigurationManagement::Configurations::Base]
       def config
+        current_config = Y2ConfigurationManagement::Configurations::Base.current
+        return current_config if current_config
         settings = Yast::ProductFeatures.GetSection("configuration_management")
                                         .merge(FIXED_SETTINGS)
-        Yast::ConfigurationManagement::Configurations::Base.import(settings)
+        Y2ConfigurationManagement::Configurations::Base.current =
+          Y2ConfigurationManagement::Configurations::Base.import(settings)
+      end
+
+      def configurator
+        current_configurator = Y2ConfigurationManagement::Configurators::Base.current
+        return current_configurator if current_configurator
+        Y2ConfigurationManagement::Configurators::Base.current =
+          Y2ConfigurationManagement::Configurators::Base.for(config)
       end
     end
   end

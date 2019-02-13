@@ -22,36 +22,41 @@
 
 require_relative "../../test_helper"
 require "y2firstboot/clients/configuration_management"
-require "configuration_management/configurators/salt"
+require "y2configuration_management/configurators/salt"
 
 describe Y2Firstboot::Clients::ConfigurationManagement do
   subject(:client) { described_class.new }
 
   describe "#run" do
     let(:provisioner) do
-      instance_double(Yast::ConfigurationManagement::Clients::Provision, run: nil)
+      instance_double(Y2ConfigurationManagement::Clients::Provision, run: provision_result)
     end
     let(:configurator) do
       instance_double(
-        Yast::ConfigurationManagement::Configurators::Salt, prepare: true, packages: packages
+        Y2ConfigurationManagement::Configurators::Salt, prepare: :finish, packages: packages
       )
     end
     let(:packages) { { "install" => ["salt"] } }
     let(:settings) { { "states_roots" => ["/srv/salt"] } }
+    let(:provision_result) { true }
+    let(:going_back) { false }
 
     before do
       allow(Yast::ProductFeatures).to receive(:GetSection)
         .with("configuration_management")
         .and_return(settings)
-      allow(Yast::ConfigurationManagement::Configurators::Base).to receive(:for)
+      allow(Y2ConfigurationManagement::Configurators::Base).to receive(:for)
         .and_return(configurator)
-      allow(Yast::ConfigurationManagement::Clients::Provision).to receive(:new)
+      allow(Y2ConfigurationManagement::Clients::Provision).to receive(:new)
         .and_return(provisioner)
       allow(Yast::PackageSystem).to receive(:CheckAndInstallPackages).and_return(true)
+      allow(Yast::GetInstArgs).to receive(:going_back).and_return(going_back)
+      Y2ConfigurationManagement::Configurations::Base.current = nil
+      Y2ConfigurationManagement::Configurators::Base.current = nil
     end
 
     it "uses the configuration from the control file" do
-      expect(Yast::ConfigurationManagement::Configurators::Base).to receive(:for) do |config|
+      expect(Y2ConfigurationManagement::Configurators::Base).to receive(:for) do |config|
         expect(config.states_roots).to include(Pathname.new("/srv/salt"))
         configurator
       end
@@ -69,15 +74,42 @@ describe Y2Firstboot::Clients::ConfigurationManagement do
       client.run
     end
 
-    it "returns :auto" do
-      expect(client.run).to eq(:auto)
+    it "returns :next" do
+      allow(provisioner).to receive(:run).and_return(:finish)
+      expect(client.run).to eq(:next)
+    end
+
+    context "when the provisioner fails" do
+      let(:provision_result) { false }
+
+      it "returns :abort" do
+        expect(client.run).to eq(:abort)
+      end
+    end
+
+    context "when going back" do
+      let(:going_back) { true }
+
+      before do
+        allow(configurator).to receive(:prepare).and_return(:back)
+      end
+
+      it "runs the configurator in reverse mode" do
+        expect(configurator).to receive(:prepare).with(reverse: true)
+        client.run
+      end
+
+      it "does not run the provisioner" do
+        expect(provisioner).to_not receive(:run)
+        client.run
+      end
     end
 
     context "when type or mode are specified in the configuration" do
       let(:settings) { { "type" => "puppet", "mode" => "client" } }
 
       it "forces type and mode" do
-        expect(Yast::ConfigurationManagement::Configurators::Base).to receive(:for)
+        expect(Y2ConfigurationManagement::Configurators::Base).to receive(:for)
           .with(an_object_having_attributes(type: "salt", mode: :masterless))
           .and_return(configurator)
         client.run
@@ -88,7 +120,7 @@ describe Y2Firstboot::Clients::ConfigurationManagement do
       let(:settings) { {} }
 
       it "uses the default configuration" do
-        expect(Yast::ConfigurationManagement::Configurators::Base).to receive(:for)
+        expect(Y2ConfigurationManagement::Configurators::Base).to receive(:for)
           .with(an_object_having_attributes(type: "salt")).and_return(configurator)
         client.run
       end
