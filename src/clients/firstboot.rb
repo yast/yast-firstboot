@@ -35,6 +35,7 @@ module Yast
       Yast.import "Directory"
       Yast.import "Mode"
       Yast.import "Stage"
+      Yast.import "Product"
       Yast.import "ProductControl"
       Yast.import "Wizard"
       Yast.import "Report"
@@ -63,6 +64,8 @@ module Yast
       # initialize package callbacks, since some of the modules run in the
       # firstboot workflow expect them to be initialized (bug #335979)
       PackageCallbacksInit.InitPackageCallbacks
+
+      UI.SetProductName(Product.name)
 
       @ret = ProductControl.Run
       Builtins.y2milestone("ProductControl::Run() returned: %1", @ret)
