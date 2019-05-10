@@ -1,0 +1,1 @@
+firstboot_licenses.rb
