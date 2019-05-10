@@ -18,65 +18,7 @@
 #
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
-module Yast
-  # Client that allows to display license texts during the firstboot
-  # configuration.
-  #
-  # NOTE: for backward compatibility, it can display the Novell licenses if a
-  # valid path is given through FIRSTBOOT_NOVELL_LICENCE_DIR
-  class FirstbootLicensesClient < Client
-    def main
-      textdomain "firstboot"
 
-      Yast.import "UI"
-      Yast.import "Misc"
-      Yast.import "GetInstArgs"
+require "y2firstboot/clients/licenses"
 
-      result = WFM.CallFunction("inst_license", inst_license_args)
-
-      UI.CloseDialog if result == :halt
-
-      result
-    end
-
-  private
-
-    # Build, log, and returns args to be used for calling InstLicense client
-    #
-    # @return [Array]
-    def inst_license_args
-      args = GetInstArgs.argmap
-      args["action"] = refusal_action
-      args["directories"] = licenses_directories
-
-      Builtins.y2milestone("inst_license options: %1", args)
-
-      [args]
-    end
-
-    # Action to perform if the user's refusal to accept the license agreement
-    #
-    # @return [String]
-    def refusal_action
-      Misc.SysconfigRead(path(".sysconfig.firstboot.LICENSE_REFUSAL_ACTION"), "abort")
-    end
-
-    # Directories in which look for the license agreement texts
-    #
-    # NOTE: if that result in an empty list, {Yast::InstLicenseClient} will do
-    # an extra attemp to look for the license agreement in the path given as
-    # "base_product_license_directory" global param through the control file.
-    #
-    # @return [Array<String>] license agreement paths
-    def licenses_directories
-      directories = [
-        Misc.SysconfigRead(path(".sysconfig.firstboot.FIRSTBOOT_LICENSE_DIR"), ""),
-        Misc.SysconfigRead(path(".sysconfig.firstboot.FIRSTBOOT_NOVELL_LICENSE_DIR"), "")
-      ]
-
-      directories.uniq.reject(&:empty?)
-    end
-  end
-end
-
-Yast::FirstbootLicensesClient.new.main
+Y2Firstboot::Clients::Licenses.new.run
