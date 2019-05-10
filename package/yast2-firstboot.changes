@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri May 10 07:05:14 UTC 2019 - David Diaz <dgonzalez@suse.com>
+
+- Disable duplicate license dialogs (boo#1131301)
+- Initialize product in firstboot (boo#1132189)
+- 3.1.21
+
+-------------------------------------------------------------------
 Wed Aug  8 09:14:49 UTC 2018 - knut.anderssen@suse.com
 
 - Import missing GetInstArgs module in firstboot_write client
