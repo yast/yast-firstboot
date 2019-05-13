@@ -26,3 +26,4 @@ install-sh
 missing
 pluglib-bindings.ami
 *.pot
+/coverage

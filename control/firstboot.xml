@@ -109,7 +109,7 @@
                 <module>
                     <label>License Agreement</label>
                     <enabled config:type="boolean">true</enabled>
-                    <name>firstboot_license</name>
+                    <name>firstboot_licenses</name>
                 </module>
                 <module>
                     <label>Host Name</label>
