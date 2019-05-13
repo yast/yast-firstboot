@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.0.6
+Version:        4.0.7
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
