@@ -12,12 +12,11 @@ config.*
 configure
 configure.in
 configure.ac
-coverage/
+/coverage
 install-sh
 pluglib-bindings.ami
 */.dep
 doc/autodocs
-coverage
 
 # Generated
 missing
