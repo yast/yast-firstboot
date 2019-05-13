@@ -45,7 +45,8 @@ ylibclientdir = "${yast2dir}/lib/y2firstboot/clients"
 ylibclient_DATA = \
   lib/y2firstboot/clients/configuration_management.rb \
   lib/y2firstboot/clients/root.rb \
-  lib/y2firstboot/clients/user.rb
+  lib/y2firstboot/clients/user.rb \
+  lib/y2firstboot/clients/licenses.rb
 
 symbolicdir = @icondir@/hicolor/symbolic/apps
 symbolic_DATA = \
