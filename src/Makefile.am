@@ -43,7 +43,8 @@ fillup_DATA = \
 ylibclientdir = "${yast2dir}/lib/y2firstboot/clients"
 ylibclient_DATA = \
   lib/y2firstboot/clients/root.rb \
-  lib/y2firstboot/clients/user.rb
+  lib/y2firstboot/clients/user.rb \
+  lib/y2firstboot/clients/licenses.rb
 
 EXTRA_DIST = $(module_DATA) $(client_DATA) $(ynclude_DATA) $(scrconf_DATA) $(schemafiles_DATA) $(fillup_DATA) $(ylibclient_DATA)
 
