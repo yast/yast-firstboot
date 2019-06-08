@@ -59,7 +59,7 @@ module Yast
       @result = :again
       # create the wizard dialog
       while @result == :again
-        Wizard.SetDesktopIcon("language")
+        Wizard.SetDesktopIcon("org.opensuse.yast.Language")
         @args = GetInstArgs.argmap
         Ops.set(@args, "first_run", "yes")
         @result = WFM.CallFunction("inst_language", [@args])

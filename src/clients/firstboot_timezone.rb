@@ -51,7 +51,7 @@ module Yast
       @timezone_on_entry = Timezone.timezone
       @hwclock_on_entry = Timezone.hwclock
 
-      Wizard.SetDesktopIcon("timezone")
+      Wizard.SetDesktopIcon("org.opensuse.yast.Timezone")
 
       #------------------------------------------------------------
 
