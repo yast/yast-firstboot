@@ -2,7 +2,7 @@
 
 
 modconfigdir = $(prefix)/share/autoinstall/modules
-modconfig_DATA = firstboot.desktop
+modconfig_DATA = org.opensuse.yast.Firstboot.desktop
 
 EXTRA_DIST = $(modconfig_DATA)
 

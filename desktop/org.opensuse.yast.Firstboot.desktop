@@ -18,6 +18,7 @@ X-SuSE-YaST-AutoInstSchema=firstboot.rnc
 Exec=
 Icon=yast-firstboot
 
-Name=Firstboot Configuration
-GenericName=Enable or disable starting Firstboot sequence
+Name=YaST Firstboot
+GenericName=Firstboot Configuration
+Comment=Enable or disable starting Firstboot sequence
 StartupNotify=true

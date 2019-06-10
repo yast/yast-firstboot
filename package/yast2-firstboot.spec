@@ -12,37 +12,37 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 Name:           yast2-firstboot
-Version:        4.1.7
+Version:        4.2.0
 Release:        0
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Source0:        %{name}-%{version}.tar.bz2
-
+Summary:        YaST2 - Initial System Configuration
 Group:          System/YaST
 License:        GPL-2.0-only
-BuildRequires:	update-desktop-files docbook-xsl-stylesheets libxslt
-BuildRequires:  yast2-devtools >= 3.1.10
+Url:            https://github.com/yast/yast-firstboot
 
+Source0:        %{name}-%{version}.tar.bz2
+
+BuildRequires:  update-desktop-files
+BuildRequires:  docbook-xsl-stylesheets
+BuildRequires:  libxslt
+BuildRequires:  yast2-devtools >= 4.2.2
+
+PreReq:         %fillup_prereq
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
-Requires:	yast2 >= 2.16.23
+Requires:       yast2 >= 2.16.23
 # Language::SwitchToEnglishIfNeeded
-Requires:	yast2-country >= 2.19.5
+Requires:       yast2-country >= 2.19.5
 # Rely on the YaST2-Firstboot.service for halting the system on failure
-Requires:	yast2-installation >= 4.1.2
+Requires:       yast2-installation >= 4.1.2
 # network autoconfiguration
-Requires:	yast2-network >= 3.1.91
-
-BuildArchitectures:	noarch
-
+Requires:       yast2-network >= 3.1.91
 Requires:       yast2-ruby-bindings >= 1.0.0
 Requires:       yast2-configuration-management >= 4.1.3
 
-Summary:	YaST2 - Initial System Configuration
-PreReq:         %fillup_prereq
+BuildArch:      noarch
 
 %description
 The YaST firstboot utility runs after installation is completed.  It
@@ -56,18 +56,14 @@ however some last steps like root password and user logins have to be
 created to personalize the system.
 
 %prep
-%setup -n %{name}-%{version}
+%setup -q
 
 %build
 %yast_build
 
 %install
 %yast_install
-
-# Remove the license from the /usr/share/doc/packages directory,
-# it is also included in the /usr/share/licenses directory by using
-# the %license tag.
-rm -f $RPM_BUILD_ROOT/%{yast_docdir}/COPYING
+%yast_metainfo
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 
@@ -76,35 +72,20 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 %{fillup_only -n firstboot}
 
 %files
-%defattr(-,root,root)
-%dir %{yast_ystartupdir}/startup
-%dir %{yast_ystartupdir}/startup/Firstboot-Stage
-%{yast_ystartupdir}/startup/Firstboot-Stage/*
-%{yast_ystartupdir}/startup/YaST2.Firstboot
-%{yast_clientdir}/firstboot_*.rb
-%{yast_clientdir}/firstboot.rb
-%dir %{yast_libdir}
-%dir %{yast_libdir}/y2firstboot
-%dir %{yast_libdir}/y2firstboot/clients
-%{yast_libdir}/y2firstboot/clients/*.rb
-%dir %{yast_yncludedir}
-%dir %{yast_yncludedir}/firstboot
-%{yast_yncludedir}/firstboot/*.rb
-%dir %{yast_moduledir}
-%{yast_moduledir}/Firstboot.*
-%dir %{yast_scrconfdir}
-%{yast_scrconfdir}/*.scr
-%{_fillupdir}/sysconfig.firstboot
-/usr/share/firstboot
+%{yast_ystartupdir}
+%{yast_clientdir}
+%{yast_libdir}
+%{yast_yncludedir}
+%{yast_moduledir}
+%{yast_scrconfdir}
+%{_fillupdir}
+%{_datadir}/firstboot
 %doc %{yast_docdir}
 %license COPYING
-%dir /etc/YaST2/
-/etc/YaST2/*.xml
-%dir /usr/share/autoinstall
-%dir /usr/share/autoinstall/modules
-/usr/share/autoinstall/modules/firstboot.desktop
-%dir %{yast_schemadir}
-%dir %{yast_schemadir}/autoyast
-%dir %{yast_schemadir}/autoyast/rnc
-%{yast_schemadir}/autoyast/rnc/firstboot.rnc
+%{_sysconfdir}/YaST2
+%{_datadir}/autoinstall
+%{yast_schemadir}
 %{yast_icondir}
+%{yast_metainfodir}
+
+%changelog

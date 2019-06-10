@@ -35,7 +35,7 @@ module Yast
 
       @progress_orig = Progress.set(false)
 
-      Wizard.SetDesktopIcon("ntp-client")
+      Wizard.SetDesktopIcon("org.opensuse.yast.NTPClient")
 
       NtpClient.Read
 

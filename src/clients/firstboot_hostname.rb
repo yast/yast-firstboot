@@ -59,7 +59,7 @@ module Yast
         DNS.write_hostname = DNS.DefaultWriteHostname
       end
 
-      Wizard.SetDesktopIcon("dns")
+      Wizard.SetDesktopIcon("org.opensuse.yast.DNS")
       ret = HostnameDialog()
 
       if ret == :next
