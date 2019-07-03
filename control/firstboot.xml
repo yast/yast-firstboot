@@ -30,35 +30,6 @@
 	For more variables that can be in this section, look into the control file
 	(/etc/YaST2/control.xml or root directory of installation media)
 	-->
-
-	<!--
-	Definition of Automatic Configuration Steps follows - each step
-	runs non-interactive configuration. To enable steps defined in
-	Automatic Configuration, enable inst_automatic_configuration in the
-	workflow.
-	-->
-	<automatic_configuration config:type="list">
-	    <!-- Configure network -->
-	    <ac_step>
-		<text_id>ac_label_1</text_id>
-		<icon>yast-lan</icon>
-		<type>proposals</type>
-		<ac_items config:type="list">
-		    <ac_item>lan</ac_item>
-		</ac_items>
-	    </ac_step>
-	    <!--
-	    Configure printer (needs configured network for net-detection)
-	    -->
-	    <ac_step>
-		<text_id>ac_label_2</text_id>
-		<icon>yast-hwinfo</icon>
-		<type>proposals</type>
-		<ac_items config:type="list">
-		    <ac_item>printer</ac_item>
-		</ac_items>
-	    </ac_step>
-	</automatic_configuration>
     </globals>
     <proposals config:type="list">
         <proposal>
