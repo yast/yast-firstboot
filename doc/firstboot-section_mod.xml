@@ -216,23 +216,6 @@
 	variable in /etc/sysconfig/firstboot.
 	</para>
       </section>
-      <section>
-        <title>Using Automatic Configuration</title>
-	<para>
-	Since openSUSE11.0, installer does most part of the system configuration
-	automatically, without user interaction. This feature is also available
-	in firstboot stage. If you have the system installed and only partially
-	configured (e.g. because of different hardware on your computers),
-	enable inst_automatic_configuration step in the firstboot workflow.
-	In the "globals" section of your workflow description file
-	(firstboot.xml), define the steps that should be part of the
-	Automatic Configuration process.
-	</para>
-	<para>
-	For detailed information, see "Automatic Configuration" section of
-	<filename>/usr/share/doc/packages/yast2-installation/control-doc/index.html</filename> file, part of yast2-installation-devel-doc package.
-	</para>
-      </section>
     </section>
     <section>
       <title>Scripting</title>
