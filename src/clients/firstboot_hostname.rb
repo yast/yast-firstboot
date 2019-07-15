@@ -29,6 +29,19 @@ module Yast
   # YaST2-Network when the second stage was removed from the installation
   # process
   class FirstbootHostnameClient < Client
+    class << self
+      # @!method valid_dns_proposal=(value)
+      #   @param [Boolean] Whether a valid DNS proposal was done
+      attr_writer :valid_dns_proposal
+
+      # Determines whether a valid DNS proposal was done
+      #
+      # @return [Boolean] Returns true if a DNS proposal was done
+      def valid_dns_proposal
+        @valid_dns_proposal ||= false
+      end
+    end
+
     def main
       Yast.import "UI"
 
@@ -48,7 +61,7 @@ module Yast
 
       # only once, do not re-propose if user gets back to this dialog from
       # the previous screen - bnc#438124
-      if !DNS.proposal_valid
+      if !self.class.valid_dns_proposal
         DNS.Read # handles NetworkConfig too
         DNS.ProposeHostname # generate random hostname, if none known so far
 
@@ -68,7 +81,7 @@ module Yast
         Host.Write
 
         # do not let Lan override us, #152218
-        DNS.proposal_valid = true
+        self.class.valid_dns_proposal = true
 
         # In InstHostname writing was delayed to do it with the rest of
         # network configuration in lan_proposal.
