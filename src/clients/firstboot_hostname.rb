@@ -107,9 +107,8 @@ module Yast
         Frame(
           _("Hostname and Domain Name"),
           VBox(
-            HBox("HOSTNAME", HSpacing(1), "DOMAIN"),
-            Left("DHCP_HOSTNAME"),
-            Left("WRITE_HOSTNAME")
+            Left("HOSTNAME"),
+            Left("DHCP_HOSTNAME")
           )
         )
       )
@@ -125,7 +124,7 @@ module Yast
         "disable_buttons"    => GetInstArgs.enable_back ? [] : ["back_button"]
       )
 
-        if ret == :next
+      if ret == :next
         # Pre-populate resolv.conf search list with current domain name
         # but only if none exists so far
         current_domain = Ops.get_string(@hn_settings, "DOMAIN", "")
