@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul 15 16:05:34 UTC 2019 - Imobach Gonzalez Sosa <igonzalezsosa@suse.com>
+
+- Do not rely on the already dropped DNS.proposal_valid method
+  (related to bsc#1140199).
+- 4.2.1
+
+-------------------------------------------------------------------
 Sat Jun  8 01:20:29 UTC 2019 - Stasiek Michalski <hellcp@mailbox.org>
 
 - Use new schema of desktop files (boo#1084864)
