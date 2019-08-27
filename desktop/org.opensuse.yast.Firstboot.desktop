@@ -13,6 +13,7 @@ X-SuSE-YaST-AutoInst=all
 X-SuSE-YaST-Geometry=
 X-SuSE-YaST-SortKey=
 X-SuSE-YaST-AutoInstDataType=map
+X-SuSE-YaST-AutoInstResource=firstboot
 X-SuSE-YaST-AutoInstSchema=firstboot.rnc
 
 Exec=
