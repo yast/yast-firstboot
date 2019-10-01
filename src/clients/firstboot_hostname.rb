@@ -67,9 +67,6 @@ module Yast
 
         # propose settings
         DNS.dhcp_hostname = !Arch.is_laptop
-
-        # get default value, from control.xml
-        DNS.write_hostname = DNS.DefaultWriteHostname
       end
 
       Wizard.SetDesktopIcon("org.opensuse.yast.DNS")
