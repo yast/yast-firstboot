@@ -26,6 +26,7 @@ require "y2firstboot/clients/licenses"
 describe Y2Firstboot::Clients::Licenses do
   subject(:client) { described_class.new }
 
+  let(:directory) { "" }
   let(:firstboot_license_dir) { "" }
   let(:firstboot_novell_license_dir) { "" }
   let(:client_response) { :whatever }
@@ -44,53 +45,71 @@ describe Y2Firstboot::Clients::Licenses do
 
     allow(Yast::WFM).to receive(:CallFunction)
       .and_return(client_response)
+
+    allow(Yast::GetInstArgs).to receive(:argmap)
+      .and_return({"directory" => directory})
   end
 
   describe "#run" do
-    context "when FIRSTBOOT_LICENSE_DIR is defined" do
-      let(:firstboot_license_dir) { "/path/to/licenses" }
-      let(:firstboot_novell_license_dir) { "" }
+    context "when 'directory' argument is given" do
+      let(:directory) { "/path/to/somewhere" }
       let(:expected_arg) do
-        { "directories" => [firstboot_license_dir] }
+        { "directories" => [directory] }
       end
 
-      it "includes it as arg for InstLicense client" do
+      it "includes it as an argument for InstLicense client" do
         expect(Yast::WFM).to receive(:CallFunction)
-          .with("inst_license", array_including(hash_including(expected_arg)))
+          .with("inst_license", array_including(hash_including("directory" => directory)))
 
         subject.run
       end
+    end
+
+    shared_examples "calls client with needed directories" do |*defined_dir|
+      it "includes it in the 'directories' argument sent to InstLicense client" do
+        expect(Yast::WFM)
+          .to receive(:CallFunction)
+          .with(
+            "inst_license",
+            array_including(hash_including({ "directories" => defined_dir }))
+          )
+
+        subject.run
+      end
+
+      context "but the 'directory' argument was given" do
+        let(:directory) { "/path/to/somewhere" }
+
+        it "does not includes it in the 'directories' argument sent to InstLicense client" do
+          expect(Yast::WFM)
+            .to_not receive(:CallFunction)
+            .with(
+              "inst_license",
+              array_including(hash_including({ "directories" => defined_dir }))
+            )
+
+          subject.run
+        end
+      end
+    end
+
+    context "when FIRSTBOOT_LICENSE_DIR is defined" do
+      let(:firstboot_license_dir) { "/path/to/licenses" }
+
+      include_examples "calls client with needed directories", "/path/to/licenses"
     end
 
     context "when FIRSTBOOT_NOVELL_LICENSE_DIR is defined" do
-      let(:firstboot_license_dir) { "" }
       let(:firstboot_novell_license_dir) { "/path/to/novell/licenses" }
-      let(:expected_arg) do
-        { "directories" => [firstboot_novell_license_dir] }
-      end
 
-      it "includes it as arg for InstLicense client" do
-        expect(Yast::WFM).to receive(:CallFunction)
-          .with("inst_license", array_including(hash_including(expected_arg)))
-
-        subject.run
-      end
+      include_examples "calls client with needed directories", "/path/to/novell/licenses"
     end
 
     context "when both, FIRSTBOOT_LICENSE_DIR and FIRSTBOOT_NOVELL_LICENSE_DIR, are defined" do
-      let(:firstboot_license_dir) { "/path/to/licenses" }
-      let(:firstboot_novell_license_dir) { "/path/to/novell/licenses" }
-      let(:expected_arg) do
-        { "directories" => [firstboot_license_dir, firstboot_novell_license_dir] }
-      end
+      let(:firstboot_license_dir) { "/p/t/licenses" }
+      let(:firstboot_novell_license_dir) { "/p/t/n/licenses" }
 
-      it "includes them as arg for InstLicense client" do
-        # the matcher is also ensuring the right licenses order
-        expect(Yast::WFM).to receive(:CallFunction)
-          .with("inst_license", array_including(hash_including(expected_arg)))
-
-        subject.run
-      end
+      include_examples "calls client with needed directories", "/p/t/licenses", "/p/t/n/licenses"
     end
   end
 

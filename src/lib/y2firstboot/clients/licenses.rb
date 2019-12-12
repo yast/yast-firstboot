@@ -53,7 +53,7 @@ module Y2Firstboot
       def inst_license_args
         args = GetInstArgs.argmap
         args["action"] = refusal_action
-        args["directories"] = licenses_directories
+        args["directories"] = licenses_directories if args["directory"].to_s.empty?
 
         Builtins.y2milestone("inst_license options: %1", args)
 
@@ -69,9 +69,9 @@ module Y2Firstboot
 
       # Directories in which look for the license agreement texts
       #
-      # NOTE: if that result in an empty list, {Yast::InstLicenseClient} will do
-      # an extra attemp to look for the license agreement in the path given as
-      # "base_product_license_directory" global param through the control file.
+      # NOTE: if that result in an empty list and the "directory" argument was ommited too,
+      # {Yast::InstLicenseClient} will do an extra attemp to look for the license agreement in the
+      # path given as "base_product_license_directory" global param through the control file.
       #
       # @return [Array<String>] license agreement paths
       def licenses_directories
