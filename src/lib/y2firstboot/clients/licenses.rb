@@ -35,6 +35,8 @@ module Y2Firstboot
     class Licenses < Yast::Client
       def initialize
         textdomain "firstboot"
+
+        @args = GetInstArgs.argmap
       end
 
       def run
@@ -45,15 +47,16 @@ module Y2Firstboot
         result
       end
 
-    private
+      private
+
+      attr_accessor :args
 
       # Build, log, and returns args to be used for calling InstLicense client
       #
       # @return [Array]
       def inst_license_args
-        args = GetInstArgs.argmap
         args["action"] = refusal_action
-        args["directories"] = licenses_directories
+        args["directories"] = directories
 
         Builtins.y2milestone("inst_license options: %1", args)
 
@@ -69,12 +72,35 @@ module Y2Firstboot
 
       # Directories in which look for the license agreement texts
       #
-      # NOTE: if that result in an empty list, {Yast::InstLicenseClient} will do
-      # an extra attemp to look for the license agreement in the path given as
-      # "base_product_license_directory" global param through the control file.
+      # NOTE: if that result in an empty list, {Yast::InstLicenseClient} will do an extra attemp to
+      # look for the license agreement in the path given as "base_product_license_directory" global
+      # param through the control file.
       #
       # @return [Array<String>] license agreement paths
-      def licenses_directories
+      def directories
+        return module_license_directories if module_license_directories.any?
+
+        sysconfig_license_directories
+      end
+
+      # Directories defined by the module arguments
+      #
+      # NOTE: right now license module can only define a directory path, but it could be extended to
+      # support more than one (e.g., by a "directories" list).
+      #
+      # @return [Array<String>] license agreement paths
+      def module_license_directories
+        directories =  [
+          args["directory"]
+        ]
+
+        directories.map(&:to_s).reject(&:empty?)
+      end
+
+      # Directories defined in the sysconfig firstboot file
+      #
+      # @return [Array<String>] license agreement paths
+      def sysconfig_license_directories
         directories = [
           Misc.SysconfigRead(path(".sysconfig.firstboot.FIRSTBOOT_LICENSE_DIR"), ""),
           Misc.SysconfigRead(path(".sysconfig.firstboot.FIRSTBOOT_NOVELL_LICENSE_DIR"), "")
