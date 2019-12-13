@@ -53,19 +53,16 @@ describe Y2Firstboot::Clients::Licenses do
   describe "#run" do
     context "when 'directory' argument is given" do
       let(:directory) { "/path/to/somewhere" }
-      let(:expected_arg) do
-        { "directories" => [directory] }
-      end
 
-      it "includes it as an argument for InstLicense client" do
+      it "includes it in the 'directories' argument sent to InstLicense client" do
         expect(Yast::WFM).to receive(:CallFunction)
-          .with("inst_license", array_including(hash_including("directory" => directory)))
+          .with("inst_license", array_including(hash_including("directories" => [directory])))
 
         subject.run
       end
     end
 
-    shared_examples "calls client with needed directories" do |*defined_dir|
+    shared_examples "calls client giving the right directories" do |*defined_dir|
       it "includes it in the 'directories' argument sent to InstLicense client" do
         expect(Yast::WFM)
           .to receive(:CallFunction)
@@ -77,15 +74,15 @@ describe Y2Firstboot::Clients::Licenses do
         subject.run
       end
 
-      context "but the 'directory' argument was given" do
+      context "but the 'directory' module argument is given too" do
         let(:directory) { "/path/to/somewhere" }
 
-        it "does not includes it in the 'directories' argument sent to InstLicense client" do
+        it "includes only it in the 'directories' argument sent to InstLicense client" do
           expect(Yast::WFM)
-            .to_not receive(:CallFunction)
+            .to receive(:CallFunction)
             .with(
               "inst_license",
-              array_including(hash_including({ "directories" => defined_dir }))
+              array_including(hash_including({ "directories" => [directory] }))
             )
 
           subject.run
@@ -96,20 +93,20 @@ describe Y2Firstboot::Clients::Licenses do
     context "when FIRSTBOOT_LICENSE_DIR is defined" do
       let(:firstboot_license_dir) { "/path/to/licenses" }
 
-      include_examples "calls client with needed directories", "/path/to/licenses"
+      include_examples "calls client giving the right directories",  "/path/to/licenses"
     end
 
     context "when FIRSTBOOT_NOVELL_LICENSE_DIR is defined" do
       let(:firstboot_novell_license_dir) { "/path/to/novell/licenses" }
 
-      include_examples "calls client with needed directories", "/path/to/novell/licenses"
+      include_examples "calls client giving the right directories",  "/path/to/novell/licenses"
     end
 
     context "when both, FIRSTBOOT_LICENSE_DIR and FIRSTBOOT_NOVELL_LICENSE_DIR, are defined" do
       let(:firstboot_license_dir) { "/p/t/licenses" }
       let(:firstboot_novell_license_dir) { "/p/t/n/licenses" }
 
-      include_examples "calls client with needed directories", "/p/t/licenses", "/p/t/n/licenses"
+      include_examples "calls client giving the right directories", "/p/t/licenses", "/p/t/n/licenses"
     end
   end
 
