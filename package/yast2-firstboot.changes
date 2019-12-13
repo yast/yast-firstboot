@@ -4,7 +4,6 @@ Fri Dec 13 00:11:32 UTC 2019 - David Diaz <dgonzalez@suse.com>
 - Improve the "firstboot_licenses" client to give precedence to
   the directory argument, allowing to use it multiple times to show
   different licenses (bsc#1154708).
-- Add firstboot.rnc to the desktop file (related to bsc#1156905).
 - Remove the references to the already dropped automatic
   configuration feature (FATE#314695).
 - 4.1.9
