@@ -47,7 +47,7 @@ module Y2Firstboot
         result
       end
 
-      private
+    private
 
       attr_accessor :args
 
@@ -90,7 +90,7 @@ module Y2Firstboot
       #
       # @return [Array<String>] license agreement paths
       def module_license_directories
-        directories =  [
+        directories = [
           args["directory"]
         ]
 

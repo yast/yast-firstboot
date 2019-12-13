@@ -47,7 +47,7 @@ describe Y2Firstboot::Clients::Licenses do
       .and_return(client_response)
 
     allow(Yast::GetInstArgs).to receive(:argmap)
-      .and_return({"directory" => directory})
+      .and_return("directory" => directory)
   end
 
   describe "#run" do
@@ -68,7 +68,7 @@ describe Y2Firstboot::Clients::Licenses do
           .to receive(:CallFunction)
           .with(
             "inst_license",
-            array_including(hash_including({ "directories" => defined_dir }))
+            array_including(hash_including("directories" => defined_dir))
           )
 
         subject.run
@@ -82,7 +82,7 @@ describe Y2Firstboot::Clients::Licenses do
             .to receive(:CallFunction)
             .with(
               "inst_license",
-              array_including(hash_including({ "directories" => [directory] }))
+              array_including(hash_including("directories" => [directory]))
             )
 
           subject.run
@@ -91,22 +91,22 @@ describe Y2Firstboot::Clients::Licenses do
     end
 
     context "when FIRSTBOOT_LICENSE_DIR is defined" do
-      let(:firstboot_license_dir) { "/path/to/licenses" }
+      let(:firstboot_license_dir) { "/path/to/license" }
 
-      include_examples "calls client giving the right directories",  "/path/to/licenses"
+      include_examples "calls client giving the right directories", "/path/to/license"
     end
 
     context "when FIRSTBOOT_NOVELL_LICENSE_DIR is defined" do
-      let(:firstboot_novell_license_dir) { "/path/to/novell/licenses" }
+      let(:firstboot_novell_license_dir) { "/path/to/novell/license" }
 
-      include_examples "calls client giving the right directories",  "/path/to/novell/licenses"
+      include_examples "calls client giving the right directories", "/path/to/novell/license"
     end
 
     context "when both, FIRSTBOOT_LICENSE_DIR and FIRSTBOOT_NOVELL_LICENSE_DIR, are defined" do
-      let(:firstboot_license_dir) { "/p/t/licenses" }
-      let(:firstboot_novell_license_dir) { "/p/t/n/licenses" }
+      let(:firstboot_license_dir) { "/p/t/license" }
+      let(:firstboot_novell_license_dir) { "/p/t/n/license" }
 
-      include_examples "calls client giving the right directories", "/p/t/licenses", "/p/t/n/licenses"
+      include_examples "calls client giving the right directories", "/p/t/license", "/p/t/n/license"
     end
   end
 
