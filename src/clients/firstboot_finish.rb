@@ -76,11 +76,11 @@ module Yast
           "<p>The installation of &product; on your machine is complete.\nAfter clicking <b>Finish</b>, you can log in to the system.</p>\n"
         ) +
         # congratulation text 3/4
-        # Translators: If there exists a SuSE web-page for your language
+        # Translators: If there exists a SUSE web-page for your language
         # change the address accordingly. If in doubt leave the original.
         _("<p>Visit us at www.suse.com.</p>") +
         # congratulation text 4/4
-        _("<p>Have a lot of fun!<br>Your SuSE Development Team</p>")
+        _("<p>Have a lot of fun!<br>Your SUSE Development Team</p>")
 
 
       # If text exists, read it from file instead; it is expected to be richtext.
@@ -118,7 +118,7 @@ module Yast
         _(
           "<p>If you choose the default graphical desktop KDE, you can\n" +
             "adjust some KDE settings to your hardware. Also notice\n" +
-            "our SuSE Welcome Dialog.</p>\n"
+            "our SUSE Welcome Dialog.</p>\n"
         )
 
       if Firstboot.show_y2cc_checkbox
@@ -126,7 +126,7 @@ module Yast
         @help = Ops.add(
           @help,
           _(
-            "<p>If desired, experts can use the full range of SuSE's configuration\n" +
+            "<p>If desired, experts can use the full range of SUSE's configuration\n" +
               "modules at this time. Check <b>Start YaST Control Center</b> and it will start\n" +
               "after <b>Finish</b>. Note: The Control Center does not have a back button to\n" +
               "return to this installation sequence.</p>\n"
