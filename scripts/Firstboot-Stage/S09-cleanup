@@ -19,8 +19,8 @@ fi
 # 13.3) stop network and sshd
 if test ! -z "$Y2_NETWORK_ACTIVE" ; then
 	log "\tShutdown SSH daemon and network interfaces..."
-	test -z "$Y2_SSH_ACTIVE" && rcsshd stop
-	rcnetwork stop
+	test -z "$Y2_SSH_ACTIVE" && /usr/bin/systemctl stop sshd
+        /usr/bin/systemctl stop network
 fi
 
 stop_unicode
