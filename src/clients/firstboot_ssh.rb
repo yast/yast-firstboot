@@ -42,16 +42,17 @@ module Yast
 
       return :auto if GetInstArgs.going_back
 
+      # TODO: do not use shell script
       SCR.Execute(
         path(".target.bash"),
         "\n" +
-          "test -x /etc/init.d/sshd || exit 0;\n" +
+          "/usr/bin/systemctl list-units | /usr/bin/grep sshd || exit 0;\n" +
           "\n" +
-          "/etc/init.d/sshd status && export SSHD_IS_RUNNING=1;\n" +
+          "/usr/bin/systemctl status sshd && export SSHD_IS_RUNNING=1;\n" +
           "\n" +
-          "[ $SSHD_IS_RUNNING ] && /etc/init.d/sshd stop;\n" +
+          "[ $SSHD_IS_RUNNING ] && /usr/bin/systemctl stop sshd;\n" +
           "rm -f /etc/ssh/ssh_host*key*;\n" +
-          "[ $SSHD_IS_RUNNING ] && /etc/init.d/sshd start;\n"
+          "[ $SSHD_IS_RUNNING ] && /usr/bin/systemctl start sshd;\n"
       )
 
       :next
