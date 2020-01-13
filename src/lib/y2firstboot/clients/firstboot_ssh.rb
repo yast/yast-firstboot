@@ -17,6 +17,30 @@
 # current contact information at www.novell.com.
 # ------------------------------------------------------------------------------
 
-require "y2firstboot/clients/firstboot_ssh"
+Yast.import "GetInstArgs"
 
-Y2Firstboot::Clients::FirstbootSSH.new.run
+require "fileutils"
+require "yast2/systemd/service"
+
+module Y2Firstboot
+  module Clients
+    # class responsible for recreation of ssh keys during first boot run
+    class FirstbootSSH
+      def run
+        return :auto if Yast::GetInstArgs.going_back
+
+        service = Yast2::Systemd::Service.find("sshd")
+        return :next unless service # sshd not installed
+
+        running = service.running?
+        service.stop if running
+        Dir.glob("/etc/ssh/ssh_host*key*") do |file|
+          FileUtils.rm_f(file)
+        end
+        service.start if running
+
+        :next
+      end
+    end
+  end
+end
