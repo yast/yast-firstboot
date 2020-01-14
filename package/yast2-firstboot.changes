@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jan 14 08:24:30 UTC 2020 - Josef Reidinger <jreidinger@suse.com>
+
+- drop starting of hal as it is also obsolete and no longer exist
+  (jsc#SLE-10976)
+- 4.2.8
+
+-------------------------------------------------------------------
 Mon Jan 13 09:59:21 UTC 2020 - Josef Reidinger <jreidinger@suse.com>
 
 - drop deprecated network technologies (jsc#SLE-7753)
