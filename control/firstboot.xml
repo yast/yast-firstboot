@@ -157,6 +157,8 @@
                 <module>
                     <label>Finish Setup</label>
                     <name>inst_congratulate</name>
+                    <enable_back>no</enable_back>
+                    <enable_next>no</enable_next>
                 </module>
 
             </modules>

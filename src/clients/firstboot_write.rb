@@ -65,7 +65,7 @@ module Yast
       )
 
 
-      Progress.on
+      @progress_orig = Progress.set(false)
 
       Progress.New(
         # Headline for last dialog of first boot workflow
@@ -110,6 +110,8 @@ module Yast
       Firstboot.ExecuteScripts
       Builtins.sleep(100)
       Progress.Finish
+
+      Progress.set(@progress_orig)
 
       :next 
 

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Jan 14 11:02:28 UTC 2020 - Ludwig Nussel <lnussel@suse.de>
+
+- Don't use deprecated Progress.on
+- Don't allow to go back in congratulate screen
+- Don't try to set keyboard in WSL
+- 4.2.9
+
+-------------------------------------------------------------------
 Tue Jan 14 08:24:30 UTC 2020 - Josef Reidinger <jreidinger@suse.com>
 
 - drop starting of hal as it is also obsolete and no longer exist

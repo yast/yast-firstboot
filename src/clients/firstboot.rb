@@ -32,6 +32,7 @@ module Yast
       Yast.import "Pkg"
       textdomain "firstboot"
 
+      Yast.import "Arch"
       Yast.import "Directory"
       Yast.import "Mode"
       Yast.import "Stage"
@@ -59,7 +60,7 @@ module Yast
       # generated yet (the X server started by YaST-Firstboot doesn't seem to
       # be enough to trigger the systemd mechanism that generates it), let's
       # enforce the keyboard map if we are running in graphic mode (bsc#950335)
-      Keyboard.Set(Keyboard.current_kbd)
+      Keyboard.Set(Keyboard.current_kbd) unless Yast::Arch.is_wsl
 
       # initialize package callbacks, since some of the modules run in the
       # firstboot workflow expect them to be initialized (bug #335979)
