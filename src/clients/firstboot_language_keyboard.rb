@@ -172,6 +172,8 @@ module Yast
           break
         elsif @ret == :keyboard
           Keyboard.user_decision = true
+          # store keyboard selection to survive even redraw (bsc#1160164)
+          Keyboard.Set(UI.QueryWidget(Id(:keyboard), :Value) || "")
         elsif @ret == :next || @ret == :language
           @language = Convert.to_string(UI.QueryWidget(Id(:language), :Value))
           @keyboard = Convert.to_string(UI.QueryWidget(Id(:keyboard), :Value))
