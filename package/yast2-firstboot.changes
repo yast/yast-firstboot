@@ -1,8 +1,8 @@
 -------------------------------------------------------------------
 Fri Mar 13 13:15:39 UTC 2020 - Josef Reidinger <jreidinger@suse.com>
 
-- remember correctly keyboard if setting in keyboard language
-  screen setting first keyboard and then language (bsc#1160164)
+- remember the keyboard selection in the keyboard language dialog
+  when the language is selected after the keyboard (bsc#1160164)
 - 4.2.12
 
 -------------------------------------------------------------------
