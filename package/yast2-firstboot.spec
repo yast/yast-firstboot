@@ -60,6 +60,11 @@ created to personalize the system.
 
 %build
 %yast_build
+# enable registration by default on SLE (bsc#1162846)
+%if !0%{?is_opensuse}
+# lets explain this sed. At first it is address which match line with name registration and +1 for next line and then here change false to true
+sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
+%endif
 
 %install
 %yast_install
