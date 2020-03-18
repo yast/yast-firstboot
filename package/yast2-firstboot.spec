@@ -29,6 +29,7 @@ BuildRequires:  update-desktop-files
 BuildRequires:  docbook-xsl-stylesheets
 BuildRequires:  libxslt
 BuildRequires:  yast2-devtools >= 4.2.2
+BuildRequires:  ruby
 
 PreReq:         %fillup_prereq
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
@@ -62,7 +63,8 @@ created to personalize the system.
 %yast_build
 # enable registration by default on SLE (bsc#1162846)
 %if !0%{?is_opensuse}
-# lets explain this sed. At first it is address which match line with name registration and +1 for next line and then here change false to true
+# lets explain this sed. At first it is address which match line with name
+# registration and +1 for next line and then here change false to true
 sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
 %endif
 
@@ -72,6 +74,20 @@ sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
 
+%check
+# verify defaults for registration
+ruby -r rexml/document -e '
+  %if !0%{?is_opensuse}
+    expected = "true"
+  %else
+    expected = "false"
+  %endif
+  document = REXML::Document.new(File.new("control/firstboot.xml"))
+  # get value of enabled element in registration module in control.xml to verify it has expected value
+  if document.root.elements["//module[name[text()=\"registration\"]]"].elements["enabled"].get_text != expected
+    STDERR.puts "Wrong default for registration module"
+    exit 1
+  end'
 
 %post
 %{fillup_only -n firstboot}
