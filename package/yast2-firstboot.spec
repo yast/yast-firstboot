@@ -43,6 +43,9 @@ Requires:       yast2-network >= 4.2.14
 Requires:       yast2-ruby-bindings >= 1.0.0
 Requires:       yast2-configuration-management >= 4.1.3
 
+# bsc #1165646
+Recommends:     (icewm if libyui-qt)
+
 BuildArch:      noarch
 
 %description
