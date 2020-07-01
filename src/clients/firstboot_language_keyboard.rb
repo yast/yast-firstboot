@@ -232,6 +232,9 @@ module Yast
       if ret == :next
         Keyboard.Set(@keyboard)
 
+        # Store the current default before set it. Used as a fallback in case
+        # that there is no locale configured yet (bsc#1173498)
+        default_language = Language.default_language
         # Language has been set already.
         # On first run store users decision as default.
         Builtins.y2milestone("Resetting to default language")
@@ -258,7 +261,7 @@ module Yast
 
         # install language dependent packages now
         # Language::PackagesModified () does not work here as _on_entry variables are not set
-        if @language != Language.ReadLocaleConfLanguage
+        if @language != (Language.ReadLocaleConfLanguage || default_language)
           if !Language.PackagesInit([@language])
             # error message
             Report.Error(
