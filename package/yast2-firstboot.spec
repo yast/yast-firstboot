@@ -29,8 +29,8 @@ BuildRequires:  yast2-devtools >= 3.1.10
 
 # yast2/NeworkDevices -> yast2/NetworkInterfaces
 Requires:	yast2 >= 2.16.23
-# Language::SwitchToEnglishIfNeeded
-Requires:	yast2-country >= 2.19.5
+# Language::default_language
+Requires:	yast2-country >= 4.1.16
 # Rely on the YaST2-Firstboot.service for halting the system on failure
 Requires:	yast2-installation >= 4.1.2
 # network autoconfiguration
