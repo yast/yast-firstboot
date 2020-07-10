@@ -27,7 +27,6 @@ missing
 POTFILES
 
 # Documentation
-doc/*
 !doc/*.xml
 !doc/Makefile.am
 
