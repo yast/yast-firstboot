@@ -41,7 +41,7 @@ describe Y2Firstboot::Clients::Hostname do
       allow(client).to receive(:propose_hostname?).and_return(false)
       Yast::Lan.add_config(:yast, system_config)
       allow(client).to receive(:hostname_dialog)
-      allow(Yast::Lan).to receive(:write_config)
+      allow(client).to receive(:write_config)
       allow(client).to receive(:wicked?).and_return(wicked)
     end
 
@@ -82,7 +82,7 @@ describe Y2Firstboot::Clients::Hostname do
         end
 
         it "writes the config changes" do
-          expect(Yast::Lan).to receive(:write_config)
+          expect(client).to receive(:write_config)
 
           client.run
         end

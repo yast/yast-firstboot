@@ -83,7 +83,7 @@ module Y2Firstboot
           # In InstHostname writing was delayed to do it with the rest of
           # network configuration in lan_proposal.
           # In FirstbootHostname it's probably safer to do it right away.
-          Lan.write_config
+          write_config
         end
 
         ret
@@ -186,6 +186,11 @@ module Y2Firstboot
       # @return [Y2Network::Config]
       def yast_config
         Yast::Lan.yast_config
+      end
+
+      # Convenience method to write the config changes
+      def write_config
+        Yast::Lan.write_config
       end
     end
   end
