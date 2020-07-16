@@ -72,7 +72,7 @@ module Y2Firstboot
         end
 
         Wizard.SetDesktopIcon("org.opensuse.yast.DNS")
-        ret = HostnameDialog()
+        ret = hostname_dialog
 
         if ret == :next
           hostname_to_static_ips if wicked?
@@ -91,7 +91,7 @@ module Y2Firstboot
 
     private
 
-      def HostnameDialog
+      def hostname_dialog
         @hn_settings = InitSettings()
 
         functions = {
@@ -169,7 +169,7 @@ module Y2Firstboot
       # FIXME: is this correct at all? what if there are multiple static ips
       # without aliases.
       def hostname_to_static_ips
-        ips = static_ips.select {|ip| Yast::Host.names(ip).empty? }
+        ips = static_ips.select { |ip| Yast::Host.names(ip).empty? }
         ips.each { |i| Yast::Host.Update(DNS.hostname, DNS.hostname, i) }
       end
 
@@ -177,7 +177,7 @@ module Y2Firstboot
       #
       # @return [Array<String>]
       def static_ips
-        ips = yast_config&.connections&.map {|c| c.all_ips.map {|i| i.address&.address&.to_s } }
+        ips = yast_config&.connections&.map { |c| c.all_ips.map { |i| i.address&.address&.to_s } }
         (ips || []).flatten.compact
       end
 
