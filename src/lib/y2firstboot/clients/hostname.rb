@@ -151,7 +151,7 @@ module Y2Firstboot
         Yast::NetworkService.wicked?
       end
 
-      # Convenience method to generate a default hostname"
+      # Convenience method to generate a default hostname
       def propose_hostname
         Yast::DNS.static = "linux-#{String.Random(4)}"
       end
