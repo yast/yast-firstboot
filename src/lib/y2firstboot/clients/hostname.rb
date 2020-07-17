@@ -146,7 +146,7 @@ module Y2Firstboot
       #
       # @return [Boolean]
       def wicked?
-        Yast::NetworkService.wicked?
+        !!yast_config&.backend?(:wicked)
       end
 
       # Convenience method to generate a default hostname
