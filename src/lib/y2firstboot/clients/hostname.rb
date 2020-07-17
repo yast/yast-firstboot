@@ -66,7 +66,7 @@ module Y2Firstboot
         # the previous screen - bnc#438124
         if !self.class.valid_dns_proposal
           Lan.Read(:cache) # handles NetworkConfig too
-          propose_hostname if propose_hostname?
+          propose_hostname
         end
 
         Wizard.SetDesktopIcon("org.opensuse.yast.DNS")
@@ -151,6 +151,8 @@ module Y2Firstboot
 
       # Convenience method to generate a default hostname
       def propose_hostname
+        return unless propose_hostname?
+
         Yast::DNS.static = "linux-#{String.Random(4)}"
       end
 
