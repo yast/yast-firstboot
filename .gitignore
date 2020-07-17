@@ -17,6 +17,7 @@ install-sh
 pluglib-bindings.ami
 */.dep
 doc/autodocs
+doc/html
 
 # Generated
 missing

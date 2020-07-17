@@ -1,17 +1,25 @@
 # use the shared YaST defaults
 inherit_from:
-  /usr/share/YaST2/data/devtools/data/rubocop_yast_style.yml
+  /usr/share/YaST2/data/devtools/data/rubocop-0.71.0_yast_style.yml
+
+# We need to be sure that everything works fine before enabling it
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 # Don't enforce any particular name for block params
 SingleLineBlockParams:
   Enabled: false
 
-# Enforce if/unless at the end only for really short lines
-Style/IfUnlessModifier:
-  MaxLineLength: 60
+Metrics/BlockLength:
+  Max: 90
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 40
 
 AllCops:
   Exclude:
+    - 'package/*.spec'
     - 'src/modules/**/*'
     - 'src/include/**/*'
     - 'testsuite/**/*'
