@@ -1,4 +1,4 @@
-srcdir = File.expand_path("../../src", __FILE__)
+srcdir = File.expand_path("../src", __dir__)
 y2dirs = ENV.fetch("Y2DIR", "").split(":")
 ENV["Y2DIR"] = y2dirs.unshift(srcdir).join(":")
 
@@ -15,7 +15,7 @@ if ENV["COVERAGE"]
   end
 
   # for coverage we need to load all ruby files
-  src_location = File.expand_path("../../src", __FILE__)
+  src_location = File.expand_path("../src", __dir__)
   # track all ruby files under src
   SimpleCov.track_files("#{src_location}/**/*.rb")
 
