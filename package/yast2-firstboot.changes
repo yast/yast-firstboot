@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 16 09:15:57 UTC 2020 - Knut Anderssen <kanderssen@suse.com>
+
+- Fix firsboot_hostname client crash (bsc#1173298)
+- 4.2.15
+
+-------------------------------------------------------------------
 Wed Apr  8 15:15:32 UTC 2020 - Stefan Hundhammer <shundhammer@suse.com>
 
 - Recommend icewm if graphical installation (bsc#1165646)

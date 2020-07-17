@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # Copyright (c) [2018] SUSE LLC
 #
 # All Rights Reserved.
@@ -36,6 +34,7 @@ module Y2Firstboot
         configurator = Y2ConfigurationManagement::Configurators::Base.for(config)
         result = configurator.prepare(reverse: Yast::GetInstArgs.going_back)
         return result unless result == :finish
+
         provision ? :next : :abort
       end
 
@@ -48,6 +47,7 @@ module Y2Firstboot
         if !Yast::PackageSystem.CheckAndInstallPackages(configurator.packages.fetch("install", []))
           return false
         end
+
         Y2ConfigurationManagement::Clients::Provision.new.run
       end
 
@@ -63,8 +63,9 @@ module Y2Firstboot
       def config
         current_config = Y2ConfigurationManagement::Configurations::Base.current
         return current_config if current_config
+
         settings = Yast::ProductFeatures.GetSection("configuration_management")
-                                        .merge(FIXED_SETTINGS)
+          .merge(FIXED_SETTINGS)
         Y2ConfigurationManagement::Configurations::Base.current =
           Y2ConfigurationManagement::Configurations::Base.import(settings)
       end
@@ -72,6 +73,7 @@ module Y2Firstboot
       def configurator
         current_configurator = Y2ConfigurationManagement::Configurators::Base.current
         return current_configurator if current_configurator
+
         Y2ConfigurationManagement::Configurators::Base.current =
           Y2ConfigurationManagement::Configurators::Base.for(config)
       end
