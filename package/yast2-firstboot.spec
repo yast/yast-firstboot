@@ -32,8 +32,8 @@ BuildRequires:  yast2-devtools >= 4.2.2
 BuildRequires:  ruby
 
 PreReq:         %fillup_prereq
-# yast2/NeworkDevices -> yast2/NetworkInterfaces
-Requires:       yast2 >= 2.16.23
+# UI::Wizards::Layout
+Requires:       yast2 >= 4.3.16
 # Language::SwitchToEnglishIfNeeded
 Requires:       yast2-country >= 2.19.5
 # Rely on the YaST2-Firstboot.service for halting the system on failure
