@@ -23,6 +23,7 @@
 #
 # $Id$
 
+require "ui/wizards/layout"
 require "shellwords"
 
 module Yast
@@ -45,52 +46,55 @@ module Yast
       Yast.import "PackageCallbacksInit"
       Yast.import "Keyboard"
 
-      Wizard.OpenNextBackStepsDialog
-
       # Always force the mode (bsc#924278)
       Mode.SetMode("installation")
-      ProductControl.AddWizardSteps([{ "stage" => "firstboot", "mode" => "installation" }])
 
-      # Do log Report messages by default (#180862)
-      Report.LogMessages(true)
-      Report.LogErrors(true)
-      Report.LogWarnings(true)
+      layout = ::UI::Wizards::Layout.from_product_features
 
-      # Just in case /etc/X11/xorg.conf.d/00-keyboard.conf has not been
-      # generated yet (the X server started by YaST-Firstboot doesn't seem to
-      # be enough to trigger the systemd mechanism that generates it), let's
-      # enforce the keyboard map if we are running in graphic mode (bsc#950335)
-      Keyboard.Set(Keyboard.current_kbd) unless Yast::Arch.is_wsl
-
-      # initialize package callbacks, since some of the modules run in the
-      # firstboot workflow expect them to be initialized (bug #335979)
-      PackageCallbacksInit.InitPackageCallbacks
-
-      UI.SetProductName(Product.name)
-
-      @ret = ProductControl.Run
-      Builtins.y2milestone("ProductControl::Run() returned: %1", @ret)
-
-      Pkg.SourceFinishAll
-      Pkg.TargetFinish
-
-      if @ret == :next || @ret == :finish
-        @action = Misc.SysconfigRead(
-          path(".sysconfig.firstboot.FIRSTBOOT_FINISH_ACTION"),
-          ""
+      layout.open_wizard do
+        Yast::ProductControl.AddWizardSteps(
+          [{ "stage" => "firstboot", "mode" => "installation" }]
         )
-        if @action == "reboot"
-          SCR.Execute(
-            path(".target.bash"),
-            Builtins.sformat(
-              "/usr/bin/touch %1/firstboot_reboot_after_finish",
-              Directory.vardir.shellescape
-            )
+
+        # Do log Report messages by default (#180862)
+        Report.LogMessages(true)
+        Report.LogErrors(true)
+        Report.LogWarnings(true)
+
+        # Just in case /etc/X11/xorg.conf.d/00-keyboard.conf has not been
+        # generated yet (the X server started by YaST-Firstboot doesn't seem to
+        # be enough to trigger the systemd mechanism that generates it), let's
+        # enforce the keyboard map if we are running in graphic mode (bsc#950335)
+        Keyboard.Set(Keyboard.current_kbd) unless Yast::Arch.is_wsl
+
+        # initialize package callbacks, since some of the modules run in the
+        # firstboot workflow expect them to be initialized (bug #335979)
+        PackageCallbacksInit.InitPackageCallbacks
+
+        UI.SetProductName(Product.name)
+
+        @ret = ProductControl.Run
+        Builtins.y2milestone("ProductControl::Run() returned: %1", @ret)
+
+        Pkg.SourceFinishAll
+        Pkg.TargetFinish
+
+        if @ret == :next || @ret == :finish
+          @action = Misc.SysconfigRead(
+            path(".sysconfig.firstboot.FIRSTBOOT_FINISH_ACTION"),
+            ""
           )
+          if @action == "reboot"
+            SCR.Execute(
+              path(".target.bash"),
+              Builtins.sformat(
+                "/usr/bin/touch %1/firstboot_reboot_after_finish",
+                Directory.vardir.shellescape
+              )
+            )
+          end
         end
       end
-
-      UI.CloseDialog
 
       # handle abort
       if @ret == :abort
