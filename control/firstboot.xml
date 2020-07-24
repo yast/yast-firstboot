@@ -10,6 +10,11 @@
 
     <textdomain>firstboot</textdomain>
 
+	<!---
+	See https://github.com/yast/yast-installation/blob/master/doc/control-file.md for more
+	explanation about the control file settings.
+	-->
+
     <globals>
 
 	<!--
@@ -26,9 +31,18 @@
 	<!-- The default value of "Automatic Login" checkbox -->
 	<enable_autologin config:type="boolean">false</enable_autologin>
 
+	<!-- This option is deprecated in favor of installation-layout -->
+	<!-- <installation_ui>sidebar</installation_ui> -->
+
+	<!-- Configuration of the installation/firstboot layout -->
+	<installation_layout>
+		<mode>steps</mode>
+		<banner config:type="boolean">false</banner>
+	</installation_layout>
+
 	<!--
 	For more variables that can be in this section, look into the control file
-	(/etc/YaST2/control.xml or root directory of installation media)
+	(/etc/YaST2/control.xml or root directory of installation media).
 	-->
     </globals>
     <proposals config:type="list">
