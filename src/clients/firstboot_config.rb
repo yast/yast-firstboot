@@ -30,6 +30,9 @@
 
 #**
 # <h3>Configuration of firstboot</h3>
+
+require "yast2/popup"
+
 module Yast
   class FirstbootConfigClient < Client
     def main
@@ -137,8 +140,13 @@ module Yast
           )
           Ops.set(@orig_workflow, "modules", @modules)
           Ops.set(@all, ["workflows", 0], @orig_workflow)
-          XML.YCPToXMLFile(:firstboot, @all, "/tmp/firstboot.xml")
-          break
+          begin
+            XML.YCPToXMLFile(:firstboot, @all, "/tmp/firstboot.xml")
+            break
+          rescue XMLSerializationError => e
+            Yast2::Popup.show(_("Failed to create configuration file."),
+              headline: :error, details: e.message)
+          end
         end
       end
       Wizard.CloseDialog
