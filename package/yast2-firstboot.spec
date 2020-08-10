@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.3.3
+Version:        4.3.4
 Release:        0
 Summary:        YaST2 - Initial System Configuration
 Group:          System/YaST
@@ -45,6 +45,8 @@ Requires:       yast2-configuration-management >= 4.1.3
 
 # bsc #1165646
 Recommends:     (icewm if libyui-qt)
+
+Supplements:    autoyast(firstboot)
 
 BuildArch:      noarch
 
