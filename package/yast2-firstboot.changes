@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep 22 09:55:07 UTC 2020 - Steffen Winterfeldt <snwint@suse.com>
+
+- add test field to language & keyboard module (bsc#1174856)
+- 4.2.16
+
+-------------------------------------------------------------------
 Thu Jul 16 09:15:57 UTC 2020 - Knut Anderssen <kanderssen@suse.com>
 
 - Fix firsboot_hostname client crash (bsc#1173298)

@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.2.15
+Version:        4.2.16
 Release:        0
 Summary:        YaST2 - Initial System Configuration
 Group:          System/YaST
