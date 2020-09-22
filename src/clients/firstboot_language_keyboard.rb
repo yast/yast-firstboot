@@ -102,6 +102,12 @@ module Yast
               HSquash(Icon.Simple("yast-keyboard")),
               HSpacing(2),
               Left(@keyboardsel)
+            ),
+            VSpacing(1),
+            HBox(
+              HSquash(Icon.Simple("yast-keyboard")),
+              HSpacing(2),
+              Left(InputField(Opt(:hstretch), _("&Test")))
             )
           )
         ),
