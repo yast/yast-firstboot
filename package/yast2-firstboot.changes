@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Oct 14 10:36:28 UTC 2020 - Steffen Winterfeldt <snwint@suse.com>
+
+- use regular keyboard client for firstboot_keyboard (bsc#1174856)
+- 4.2.17
+
+-------------------------------------------------------------------
 Tue Sep 22 09:55:07 UTC 2020 - Steffen Winterfeldt <snwint@suse.com>
 
 - add test field to language & keyboard module (bsc#1174856)
