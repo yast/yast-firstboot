@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.3.5
+Version:        4.3.6
 Release:        0
 Summary:        YaST2 - Initial System Configuration
 Group:          System/YaST
@@ -35,7 +35,8 @@ PreReq:         %fillup_prereq
 # UI::Wizards::Layout
 Requires:       yast2 >= 4.3.16
 # Language::SwitchToEnglishIfNeeded
-Requires:       yast2-country >= 2.19.5
+# new keyboard client code layout needed
+Requires:       yast2-country >= 4.3.10
 # Rely on the YaST2-Firstboot.service for halting the system on failure
 Requires:       yast2-installation >= 4.1.2
 # Use Yast::Lan.write_config to write hostname changes
