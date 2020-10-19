@@ -23,6 +23,9 @@
 # Author	: Jiri Suchomel <jsuchome@suse.cz>
 # Purpose	: NTP configuration sequence to be run during firstboot
 #
+
+require "y2ntp_client/dialog/main"
+
 module Yast
   class FirstbootNtpClient < Client
     def main
@@ -31,7 +34,6 @@ module Yast
       Yast.import "Progress"
       Yast.import "Wizard"
 
-      Yast.include self, "ntp-client/wizards.rb"
 
       @progress_orig = Progress.set(false)
 
@@ -39,7 +41,7 @@ module Yast
 
       NtpClient.Read
 
-      @ret = SimpleSequence()
+      @ret = Y2NtpClient::Dialog::Main.new.run
       NtpClient.Write if @ret == :next
 
       Progress.set(@progress_orig)
