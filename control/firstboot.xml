@@ -115,6 +115,13 @@
                     <label>Network</label>
                     <name>inst_lan</name>
                     <enabled config:type="boolean">false</enabled>
+                    <!-- By default the network configuration sequence is
+                         skipped if the network is already configured -->
+                    <!-- Uncomment to force the run of the network configuration sequence.
+                      <arguments>
+                        <skip_detection config:type="boolean">true</skip_detection>
+                      </arguments>
+                    -->
                 </module>
                  <module>
                     <label>Automatic Configuration</label>
@@ -135,11 +142,6 @@
                     <label>Desktop</label>
                     <enabled config:type="boolean">false</enabled>
                     <name>firstboot_desktop</name>
-                </module>
-                <module>
-                    <label>Network</label>
-                    <name>inst_lan</name>
-                    <enabled config:type="boolean">false</enabled>
                 </module>
                 <module>
                     <label>Users</label>
