@@ -172,7 +172,7 @@
                 </module>
                 <module>
                     <label>Finish Setup</label>
-                    <name>inst_congratulate</name>
+                    <name>firstboot_finish</name>
                     <enable_back>no</enable_back>
                     <enable_next>yes</enable_next>
                 </module>

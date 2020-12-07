@@ -30,7 +30,6 @@
 module Yast
   class FirstbootFinishClient < Client
     def main
-      Yast.import "Pkg"
       Yast.import "UI"
       textdomain "firstboot"
 
@@ -42,13 +41,12 @@ module Yast
       Yast.import "Label"
       Yast.import "Firstboot"
       Yast.import "GetInstArgs"
+      Yast.import "Package"
 
       @display = UI.GetDisplayInfo
 
-      if !Ops.get_boolean(@display, "TextMode", true)
-        if !Pkg.IsProvided("yast2-control-center")
-          Firstboot.show_y2cc_checkbox = false
-        end
+      if !Package.Installed("yast2-control-center")
+        Firstboot.show_y2cc_checkbox = false
       end
 
       @space = Ops.get_boolean(@display, "TextMode", true) ? 1 : 3
