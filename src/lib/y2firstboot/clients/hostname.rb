@@ -39,8 +39,7 @@ module Y2Firstboot
     # process
     class Hostname < Yast::Client
       class << self
-        # @!method valid_dns_proposal=(value)
-        #   @param [Boolean] Whether a valid DNS proposal was done
+        # @attr_writer valid_dns_proposal [Boolean] Whether a valid DNS proposal was done
         attr_writer :valid_dns_proposal
 
         # Determines whether a valid DNS proposal was done
