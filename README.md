@@ -1,8 +1,13 @@
 YaST - System Configuration at First-Boot
 =========================================
 
-[![Travis Build](https://travis-ci.org/yast/yast-firstboot.svg?branch=master)](https://travis-ci.org/yast/yast-firstboot)
-[![Jenkins Build](http://img.shields.io/jenkins/s/https/ci.opensuse.org/yast-firstboot-master.svg)](https://ci.opensuse.org/view/Yast/job/yast-firstboot-master/)
+[![Workflow Status](https://github.com/yast/yast-firstboot/workflows/CI/badge.svg?branch=master)](
+https://github.com/yast/yast-firstboot/actions?query=branch%3Amaster)
+[![Jenkins Status](https://ci.opensuse.org/buildStatus/icon?job=yast-yast-firstboot-master)](
+https://ci.opensuse.org/view/Yast/job/yast-yast-firstboot-master/)
+[![Coverage Status](https://coveralls.io/repos/github/yast/yast-firstboot/badge.svg?branch=master)](
+https://coveralls.io/github/yast/yast-firstboot?branch=master)
+
 
 Description
 ===========
