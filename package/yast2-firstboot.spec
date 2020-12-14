@@ -16,7 +16,7 @@
 #
 
 Name:           yast2-firstboot
-Version:        4.3.9
+Version:        4.3.10
 Release:        0
 Summary:        YaST2 - Initial System Configuration
 Group:          System/YaST
@@ -40,7 +40,7 @@ Requires:       yast2-country >= 4.3.10
 # Rely on the YaST2-Firstboot.service for halting the system on failure
 Requires:       yast2-installation >= 4.1.2
 # Use Yast::Lan.write_config to write hostname changes
-Requires:       yast2-network >= 4.3.13
+Requires:       yast2-network >= 4.3.34
 Requires:       yast2-ruby-bindings >= 1.0.0
 Requires:       yast2-configuration-management >= 4.1.3
 
