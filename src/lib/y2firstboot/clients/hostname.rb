@@ -168,16 +168,9 @@ module Y2Firstboot
       # FIXME: is this correct at all? what if there are multiple static ips
       # without aliases.
       def hostname_to_static_ips
-        ips = static_ips.select { |ip| Yast::Host.names(ip).empty? }
-        ips.each { |i| Yast::Host.Update(DNS.hostname, DNS.hostname, i) }
-      end
-
-      # Convenience method to obtain all the configured static ips
-      #
-      # @return [Array<String>]
-      def static_ips
-        ips = yast_config&.connections&.map { |c| c.all_ips.map { |i| i.address&.address&.to_s } }
-        (ips || []).flatten.compact
+        (yast_config&.connections || []).select { |c| c.hostname.to_s.empty? }.map do |conn|
+          conn.hostname = DNS.hostname
+        end
       end
 
       # Convenience method to obtain the current network configuration
@@ -189,7 +182,7 @@ module Y2Firstboot
 
       # Convenience method to write the config changes
       def write_config
-        Yast::Lan.write_config
+        Yast::Lan.write_config(only: [:dns, :hostname, :connections])
       end
     end
   end
