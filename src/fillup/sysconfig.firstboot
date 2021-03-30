@@ -51,12 +51,6 @@ FIRSTBOOT_NOVELL_LICENSE_DIR=""
 # (but preffered way is to define the text in the control file)
 FIRSTBOOT_FINISH_FILE=""
 
-## Type:        yesno
-## Default:     "no"
-#
-# Show YaST Control Center Checkbox in finish dialog
-SHOW_Y2CC_CHECKBOX="no"
-
 ## Type:        string(halt,continue,abort)
 ## Default:     "halt"
 #

@@ -45,24 +45,7 @@ module Yast
 
       @display = UI.GetDisplayInfo
 
-      if !Package.Installed("yast2-control-center")
-        Firstboot.show_y2cc_checkbox = false
-      end
-
       @space = Ops.get_boolean(@display, "TextMode", true) ? 1 : 3
-
-      # Check box: Should the YaST2 control center automatically
-      # be started after this part of the installation is done?
-      # Translators: About 40 characters max,
-      # use newlines for longer translations.
-      @check_box_start_y2cc = Empty()
-      if Firstboot.show_y2cc_checkbox
-        @check_box_start_y2cc = CheckBox(
-          Id(:start_y2cc),
-          _("&Start YaST Control Center"),
-          false
-        )
-      end
 
       # caption for dialog "Congratulation Dialog"
       @caption = _("Configuration Completed")
@@ -101,36 +84,21 @@ module Yast
           RichText(@finish_text),
           HSpacing(Ops.multiply(2, @space))
         ),
-        VSpacing(@space),
-        @check_box_start_y2cc,
         VSpacing(2)
       )
 
-      # help 1/4 for dialog "Congratulation Dialog"
+      # help 1/3 for dialog "Congratulation Dialog"
       @help = _("<p>Your system is ready for use.</p>") +
-        # help 2/4 for dialog "Congratulation Dialog"
+        # help 2/3 for dialog "Congratulation Dialog"
         _(
           "<p><b>Finish</b> will close the YaST installation and continue\nto the login screen.</p>\n"
         ) +
-        # help 3/4 for dialog "Congratulation Dialog"
+        # help 3/3 for dialog "Congratulation Dialog"
         _(
           "<p>If you choose the default graphical desktop KDE, you can\n" +
             "adjust some KDE settings to your hardware. Also notice\n" +
             "our SUSE Welcome Dialog.</p>\n"
         )
-
-      if Firstboot.show_y2cc_checkbox
-        # help 4/4 for dialog "Congratulation Dialog"
-        @help = Ops.add(
-          @help,
-          _(
-            "<p>If desired, experts can use the full range of SUSE's configuration\n" +
-              "modules at this time. Check <b>Start YaST Control Center</b> and it will start\n" +
-              "after <b>Finish</b>. Note: The Control Center does not have a back button to\n" +
-              "return to this installation sequence.</p>\n"
-          )
-        )
-      end
 
       Wizard.SetContents(
         @caption,
@@ -157,13 +125,6 @@ module Yast
       end until @ret == :next || @ret == :back
 
       Wizard.RestoreNextButton
-
-      if @ret == :next &&
-          Convert.to_boolean(UI.QueryWidget(Id(:start_y2cc), :Value))
-        # Create empty /var/lib/YaST2/start_y2cc file to signal the calling script
-        # that the YaST2 control center should be started after the installation
-        SCR.Write(path(".target.string"), "/var/lib/YaST2/start_y2cc", "")
-      end
 
       deep_copy(@ret)
     end

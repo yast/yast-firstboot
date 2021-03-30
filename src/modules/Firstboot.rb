@@ -50,8 +50,6 @@ module Yast
 
       @no_text = _("No Text Available")
 
-      @show_y2cc_checkbox = false
-
       @language_changed = false
 
       # definition of firstboot sequence (and the default path)
@@ -80,10 +78,6 @@ module Yast
         )
         return
       end
-      @show_y2cc_checkbox = Misc.SysconfigRead(
-        path(".sysconfig.firstboot.SHOW_Y2CC_CHECKBOX"),
-        "no"
-      ) == "yes"
       @default_wm = Misc.SysconfigRead(
         path(".sysconfig.windowmanager.DEFAULT_WM"),
         "kde"
@@ -191,7 +185,6 @@ module Yast
       nil
     end
 
-    publish :variable => :show_y2cc_checkbox, :type => "boolean"
     publish :variable => :language_changed, :type => "boolean"
     publish :variable => :firstboot_control_file, :type => "string"
     publish :variable => :reconfig_file, :type => "string"
