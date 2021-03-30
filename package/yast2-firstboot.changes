@@ -1,8 +1,8 @@
 -------------------------------------------------------------------
 Tue Mar 30 12:19:47 UTC 2021 - Josef Reidinger <jreidinger@suse.com>
 
-- Drop starting YaST2 Control Center after first boot as it has
-  even more issues and running it after boot finish is works
+- Revent adding starting YaST2 Control Center after first boot as
+  it does not have production quality and just confuse users
   (bsc#1180266)
 - 4.3.11
 
