@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Mar 30 12:19:47 UTC 2021 - Josef Reidinger <jreidinger@suse.com>
+
+- Revert adding starting YaST2 Control Center after first boot as
+  it does not have production quality and just confuse users
+  (bsc#1180266)
+- 4.3.11
+
+-------------------------------------------------------------------
 Mon Dec 14 12:54:19 UTC 2020 - Knut Anderssen <kanderssen@suse.com>
 
 - Map the current static hostname only to the primary IP address
