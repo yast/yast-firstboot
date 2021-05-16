@@ -1,7 +1,7 @@
 #
 # spec file for package yast2-firstboot
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2021 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,40 +15,36 @@
 # Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
+
 Name:           yast2-firstboot
-Version:        4.4.0
+Version:        4.4.1
 Release:        0
 Summary:        YaST2 - Initial System Configuration
-Group:          System/YaST
 License:        GPL-2.0-only
-Url:            https://github.com/yast/yast-firstboot
-
+Group:          System/YaST
+URL:            https://github.com/yast/yast-firstboot
 Source0:        %{name}-%{version}.tar.bz2
-
-BuildRequires:  update-desktop-files
 BuildRequires:  docbook-xsl-stylesheets
+BuildRequires:  hicolor-icon-theme
 BuildRequires:  libxslt
-BuildRequires:  yast2-devtools >= 4.2.2
 BuildRequires:  ruby
-
-PreReq:         %fillup_prereq
+BuildRequires:  update-desktop-files
+BuildRequires:  yast2-devtools >= 4.2.2
 # UI::Wizards::Layout
 Requires:       yast2 >= 4.3.16
+# Use Yast::Lan.write_config to write hostname changes
+Requires:       yast2-configuration-management >= 4.1.3
 # Language::SwitchToEnglishIfNeeded
 # new keyboard client code layout needed
 Requires:       yast2-country >= 4.3.10
 # Rely on the YaST2-Firstboot.service for halting the system on failure
 Requires:       yast2-installation >= 4.1.2
-# Use Yast::Lan.write_config to write hostname changes
 Requires:       yast2-network >= 4.3.34
 Requires:       yast2-ruby-bindings >= 1.0.0
-Requires:       yast2-configuration-management >= 4.1.3
-
+PreReq:         %fillup_prereq
 # bsc #1165646
 Recommends:     (icewm if libyui-qt)
-
 Supplements:    autoyast(firstboot)
-
 BuildArch:      noarch
 
 %description
@@ -78,7 +74,7 @@ sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
 %yast_install
 %yast_metainfo
 
-mkdir -p $RPM_BUILD_ROOT/usr/share/firstboot/scripts
+mkdir -p %{buildroot}%{_datadir}/firstboot/scripts
 
 %check
 # verify defaults for registration
@@ -99,20 +95,19 @@ ruby -r rexml/document -e '
 %{fillup_only -n firstboot}
 
 %files
+%license COPYING
+%doc %{yast_docdir}
 %{yast_ystartupdir}
 %{yast_clientdir}
 %{yast_libdir}
 %{yast_yncludedir}
 %{yast_moduledir}
 %{yast_scrconfdir}
-%{_fillupdir}
-%{_datadir}/firstboot
-%doc %{yast_docdir}
-%license COPYING
-%{_sysconfdir}/YaST2
-%{_datadir}/autoinstall
 %{yast_schemadir}
-%{yast_icondir}
-%{yast_metainfodir}
+%{_fillupdir}/sysconfig.firstboot
+%{_datadir}/firstboot
+%{_datadir}/autoinstall
+%{_datadir}/icons/hicolor/*/apps/yast-firstboot*
+%{_sysconfdir}/YaST2
 
 %changelog
