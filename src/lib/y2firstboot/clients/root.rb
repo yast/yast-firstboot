@@ -21,17 +21,34 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
-require "users/dialogs/inst_root_first"
-Yast.import "UsersSimple"
+require "y2users/linux/writer"
+require "y2users/config_manager"
+require "y2users/clients/inst_root_first"
 
 module Y2Firstboot
   module Clients
-    # Client to set the root password
-    class Root < Yast::Client
-      def run
-        dialog_result = Yast::InstRootFirstDialog.new.run
-        Yast::UsersSimple.Write if dialog_result == :next
-        dialog_result
+    # Client for setting the root password
+    class Root < Y2Users::Clients::InstRootFirst
+    private
+
+      # Updates the target configuration and writes it to the system
+      #
+      # @see Y2Users::Clients::InstRootFirst#update_target_config
+      def update_target_config
+        super
+
+        writer = Y2Users::Linux::Writer.new(
+          Y2Users::ConfigManager.instance.target,
+          Y2Users::ConfigManager.instance.system(force_read: true)
+        )
+        writer.write
+      end
+
+      # System config, which contains all the current users on the system
+      #
+      # @return [Y2Users::Config]
+      def config
+        @config ||= Y2Users::ConfigManager.instance.system(force_read: true).copy
       end
     end
   end
