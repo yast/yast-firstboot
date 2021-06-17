@@ -88,6 +88,10 @@ module Y2Firstboot
 
     private
 
+      def ReallyAbortInst
+        Popup.ConfirmAbort(:incomplete)
+      end
+
       def hostname_dialog
         @hn_settings = InitSettings()
 
