@@ -88,13 +88,17 @@ module Y2Firstboot
 
     private
 
+      def really_abort_inst
+        Popup.ConfirmAbort(:incomplete)
+      end
+
       def hostname_dialog
         @hn_settings = InitSettings()
 
         functions = {
           "init"  => fun_ref(method(:InitHnWidget), "void (string)"),
           "store" => fun_ref(method(:StoreHnWidget), "void (string, map)"),
-          :abort  => fun_ref(method(:ReallyAbortInst), "boolean ()")
+          :abort  => fun_ref(method(:really_abort_inst), "boolean ()")
         }
         contents = HSquash(
           # Frame label
