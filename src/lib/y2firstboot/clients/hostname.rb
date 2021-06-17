@@ -88,7 +88,7 @@ module Y2Firstboot
 
     private
 
-      def ReallyAbortInst
+      def really_abort_inst
         Popup.ConfirmAbort(:incomplete)
       end
 
@@ -98,7 +98,7 @@ module Y2Firstboot
         functions = {
           "init"  => fun_ref(method(:InitHnWidget), "void (string)"),
           "store" => fun_ref(method(:StoreHnWidget), "void (string, map)"),
-          :abort  => fun_ref(method(:ReallyAbortInst), "boolean ()")
+          :abort  => fun_ref(method(:really_abort_inst), "boolean ()")
         }
         contents = HSquash(
           # Frame label
