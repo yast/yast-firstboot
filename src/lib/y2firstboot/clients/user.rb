@@ -69,9 +69,11 @@ module Y2Firstboot
         user.password = Y2Users::Password.create_plain("")
       end
 
+      # Writes config to the system
+      def write_config
         writer = Y2Users::Linux::Writer.new(
-          Y2Users::ConfigManager.instance.target,
-          Y2Users::ConfigManager.instance.system(force_read: true)
+          config,
+          Y2Users::ConfigManager.instance.system
         )
 
         writer.write

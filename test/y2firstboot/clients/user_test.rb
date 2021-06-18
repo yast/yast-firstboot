@@ -91,12 +91,6 @@ describe Y2Firstboot::Clients::User do
     end
 
     context "when dialog result is :next" do
-      it "updates the users target configuration" do
-        expect(config_manager).to receive(:target=).with(system_config_copy)
-
-        subject.run
-      end
-
       it "writes the users configuration" do
         expect(Y2Users::Linux::Writer).to receive(:new).with(system_config_copy, system_config)
         expect(writer).to receive(:write)
