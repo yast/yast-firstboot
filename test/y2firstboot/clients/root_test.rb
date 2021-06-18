@@ -24,23 +24,54 @@ require "y2firstboot/clients/root"
 describe Y2Firstboot::Clients::Root do
   subject(:client) { described_class.new }
 
+  let(:inst_root_dialog) { instance_double(Yast::InstRootFirstDialog, run: result) }
+  let(:result)           { :next }
+
+  let(:writer) { instance_double(Y2Users::Linux::Writer, write: []) }
+
+  let(:target_config)      { Y2Users::Config.new }
+  let(:system_config)      { Y2Users::Config.new }
+  let(:system_config_copy) { Y2Users::Config.new }
+  let(:config_manager)     { Y2Users::ConfigManager.instance }
+  let(:root_user)          { Y2Users::User.create_root }
+  let(:root_password)      { nil }
+
+  before do
+    root_user.password = root_password
+    allow(Yast::InstRootFirstDialog).to receive(:new).and_return(inst_root_dialog)
+
+    allow(Y2Users::Linux::Writer).to receive(:new).and_return(writer)
+
+    system_config_copy.attach([root_user])
+    allow(system_config).to receive(:copy).and_return(system_config_copy)
+    allow(config_manager).to receive(:target).and_return(target_config)
+    allow(config_manager).to receive(:system).and_return(system_config)
+  end
+
   describe "#run" do
-    let(:inst_root_dialog) { instance_double(Yast::InstRootFirstDialog, run: result) }
-    let(:writer) { instance_double(Y2Users::Linux::Writer, write: []) }
+    context "when root user has an encrypted password" do
+      let(:root_password) { Y2Users::Password.create_encrypted("s3cr3t") }
 
-    let(:target_config)      { Y2Users::Config.new }
-    let(:system_config)      { Y2Users::Config.new }
-    let(:system_config_copy) { Y2Users::Config.new }
-    let(:config_manager)     { Y2Users::ConfigManager.instance }
+      it "resets the root password" do
+        expect(root_user.password.value).to be_encrypted
 
-    before do
-      allow(Yast::InstRootFirstDialog).to receive(:new).and_return(inst_root_dialog)
+        subject.run
 
-      allow(Y2Users::Linux::Writer).to receive(:new).and_return(writer)
+        expect(root_user.password.value).to_not be_encrypted
+        expect(root_user.password_content).to be_empty
+      end
+    end
 
-      allow(system_config).to receive(:copy).and_return(system_config_copy)
-      allow(config_manager).to receive(:target).and_return(target_config)
-      allow(config_manager).to receive(:system).and_return(system_config)
+    context "when root user has a plain password" do
+      let(:root_password) { Y2Users::Password.create_plain("s3cr3t") }
+
+      it "does not reset the root password" do
+        expect(root_user.password_content).to eq("s3cr3t")
+
+        subject.run
+
+        expect(root_user.password_content).to eq("s3cr3t")
+      end
     end
 
     context "when inst_root_dialog result is :next" do

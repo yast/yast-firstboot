@@ -30,6 +30,7 @@ describe Y2Firstboot::Clients::User do
 
     let(:user)     { Y2Users::User.new(username) }
     let(:username) { "chamaleon" }
+    let(:password) { nil }
     let(:attached) { false }
 
     let(:system_config)      { Y2Users::Config.new }
@@ -39,6 +40,9 @@ describe Y2Firstboot::Clients::User do
     let(:writer) { instance_double(Y2Users::Linux::Writer, write: []) }
 
     before do
+      user.password = password
+      system_config_copy.attach([user])
+
       allow(Yast::InstUserFirstDialog).to receive(:new).and_return(dialog)
 
       allow(Y2Users::Linux::Writer).to receive(:new).and_return(writer)
@@ -48,6 +52,31 @@ describe Y2Firstboot::Clients::User do
 
       allow(system_config).to receive(:copy).and_return(system_config_copy)
       allow(config_manager).to receive(:system).and_return(system_config)
+    end
+
+    context "when user has an encrypted password" do
+      let(:password) { Y2Users::Password.create_encrypted("s3cr3t") }
+
+      it "resets the user password" do
+        expect(user.password.value).to be_encrypted
+
+        subject.run
+
+        expect(user.password.value).to_not be_encrypted
+        expect(user.password_content).to be_empty
+      end
+    end
+
+    context "when user has a plain password" do
+      let(:password) { Y2Users::Password.create_plain("s3cr3t") }
+
+      it "does not reset the user password" do
+        expect(user.password_content).to eq("s3cr3t")
+
+        subject.run
+
+        expect(user.password_content).to eq("s3cr3t")
+      end
     end
 
     it "executes the inst_user_first dialog" do
