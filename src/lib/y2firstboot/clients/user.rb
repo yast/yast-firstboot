@@ -45,11 +45,10 @@ module Y2Firstboot
 
         result = Yast::InstUserFirstDialog.new(config, user: user).run
 
-        if result == :next
-          # Keeps the user name for future reference. See {#user}
-          self.class.username = user.attached? ? user.name : nil
-          write_config
-        end
+        write_config if result == :next
+
+        # Updates the username reference. See {#user}
+        self.class.username = user.attached? ? user.name : nil
 
         result
       end

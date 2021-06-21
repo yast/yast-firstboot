@@ -97,40 +97,34 @@ describe Y2Firstboot::Clients::User do
 
         subject.run
       end
-
-      context "and user still attached to the config" do
-        let(:attached) { true }
-
-        it "saves the username for future reference" do
-          expect(described_class).to receive(:username=).with(username)
-
-          subject.run
-        end
-      end
-
-      context "but user is not attached to the config" do
-        let(:attached) { false }
-
-        it "deletes username reference" do
-          expect(described_class).to receive(:username=).with(nil)
-
-          subject.run
-        end
-      end
     end
 
     context "when dialog result is not :next" do
       let(:result) { :back }
 
-      it "does not modify stored username" do
-        expect(described_class).to_not receive(:username=)
-
-        subject.run
-      end
-
       it "does not write the users configuration" do
         expect(Y2Users::Linux::Writer).to_not receive(:new)
         expect(writer).to_not receive(:write)
+
+        subject.run
+      end
+    end
+
+    context "if user is attached" do
+      let(:attached) { true }
+
+      it "saves the username for future reference" do
+        expect(described_class).to receive(:username=).with(username)
+
+        subject.run
+      end
+    end
+
+    context "if user is not attached" do
+      let(:attached) { false }
+
+      it "deletes username reference" do
+        expect(described_class).to receive(:username=).with(nil)
 
         subject.run
       end
