@@ -30,7 +30,7 @@ module Y2Firstboot
   module Clients
     # Client for setting the root password
     class Root < Y2Users::Clients::InstRootFirst
-      # Overload {Y2Users::Clients::InstRootFirst#run} to wipe the encrypted password
+      # Overload Y2Users::Clients::InstRootFirst#run to wipe the encrypted password
       # @see #reset_password
       def run
         reset_password
