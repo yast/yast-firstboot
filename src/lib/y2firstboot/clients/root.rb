@@ -45,8 +45,8 @@ module Y2Firstboot
       # @note This method can be considered a sort of workaround for supporting
       # as much as possible a "clean" navigation through the Firstboot dialogs
       # when going back and forward (just in case the admin decides to offer
-      # such feature), EVEN THOUGH is not the intended behavior since Firstboot
-      # clients perform changes in the running system right away.
+      # such a feature), EVEN THOUGH is not the intended behavior since
+      # Firstboot clients perform changes in the running system right away.
       def reset_password
         return unless root_user.password&.value&.encrypted?
 
