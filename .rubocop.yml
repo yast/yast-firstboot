@@ -12,6 +12,8 @@ SingleLineBlockParams:
 
 Metrics/BlockLength:
   Max: 90
+  Exclude:
+    - 'test/**/*.rb'
 
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
