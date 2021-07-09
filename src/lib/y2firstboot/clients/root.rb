@@ -1,8 +1,4 @@
-#!/usr/bin/env ruby
-#
-# encoding: utf-8
-
-# Copyright (c) [2016] SUSE LLC
+# Copyright (c) [2016-2021] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -21,49 +17,90 @@
 # To contact SUSE LLC about this file by physical or electronic mail, you may
 # find current contact information at www.suse.com.
 
+require "yast"
 require "y2users/password"
 require "y2users/linux/writer"
 require "y2users/config_manager"
-require "y2users/clients/inst_root_first"
+require "users/dialogs/inst_root_first"
+require "y2firstboot/clients/user"
+
+Yast.import "GetInstArgs"
 
 module Y2Firstboot
   module Clients
     # Client for setting the root password
-    class Root < Y2Users::Clients::InstRootFirst
-      # Overload Y2Users::Clients::InstRootFirst#run to wipe the encrypted password
-      # @see #reset_password
+    class Root < Yast::Client
       def run
-        reset_password
+        return :auto unless run?
 
-        super
+        load_password
+
+        result = Yast::InstRootFirstDialog.new(root_user).run
+
+        if result == :next
+          write_config
+          save_password
+        end
+
+        result
       end
 
     private
 
-      # Wipes encrypted password
+      # Whether to run the client
       #
-      # @note This method can be considered a sort of workaround for supporting
-      # as much as possible a "clean" navigation through the Firstboot dialogs
-      # when going back and forward (just in case the admin decides to offer
-      # such a feature), EVEN THOUGH is not the intended behavior since
-      # Firstboot clients perform changes in the running system right away.
-      def reset_password
-        return unless root_user.password&.value&.encrypted?
-
-        root_user.password = Y2Users::Password.create_plain("")
+      # Note that this client should be automatically skipped when root was configured to use the
+      # same password as a user.
+      #
+      # @return [Boolean]
+      def run?
+        force? || !root_password_from_user?
       end
 
-      # Updates the target configuration and writes it to the system
+      # Whether the client is configured to always run it
       #
-      # @see Y2Users::Clients::InstRootFirst#update_target_config
-      def update_target_config
-        super
+      # @return [Boolean]
+      def force?
+        Yast::GetInstArgs.argmap.fetch("force", false)
+      end
 
+      # Whether the user password was used for root
+      #
+      # @see Y2Firstboot::Clients::User
+      #
+      # @return [Boolean]
+      def root_password_from_user?
+        Y2Firstboot::Clients::User.user_password == Y2Firstboot::Clients::User.root_password
+      end
+
+      # Writes the config to the system
+      def write_config
         writer = Y2Users::Linux::Writer.new(
-          Y2Users::ConfigManager.instance.target,
+          config,
           Y2Users::ConfigManager.instance.system
         )
         writer.write
+      end
+
+      # Loads the saved plain password of the root user
+      #
+      # This is needed for supporting a "clean" navigation through the Firstboot dialogs when going
+      # back and forward. See also {#save_password}.
+      def load_password
+        value = Y2Firstboot::Clients::User.root_password || ""
+        root_user.password = Y2Users::Password.create_plain(value)
+      end
+
+      # Saves the given root password
+      def save_password
+        Y2Firstboot::Clients::User.root_password = root_user.password_content
+      end
+
+      # The root user
+      #
+      # @return [Y2Users::User]
+      def root_user
+        @root_user ||= config.users.root
       end
 
       # System config, which contains all the current users on the system

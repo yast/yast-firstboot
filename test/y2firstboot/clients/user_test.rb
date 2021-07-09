@@ -1,5 +1,6 @@
 #!/usr/bin/env rspec
-# Copyright (c) [2018] SUSE LLC
+
+# Copyright (c) [2018-2021] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -25,108 +26,149 @@ describe Y2Firstboot::Clients::User do
   subject(:client) { described_class.new }
 
   describe "#run" do
-    let(:dialog) { instance_double(Yast::InstUserFirstDialog, run: result) }
-    let(:result) { :next }
-
-    let(:user)     { Y2Users::User.new(username) }
-    let(:username) { "chamaleon" }
-    let(:password) { nil }
-    let(:attached) { false }
-
-    let(:system_config)      { Y2Users::Config.new }
-    let(:system_config_copy) { Y2Users::Config.new }
-    let(:config_manager)     { Y2Users::ConfigManager.instance }
-
-    let(:writer) { instance_double(Y2Users::Linux::Writer, write: []) }
-
     before do
-      user.password = password
-      system_config_copy.attach([user])
-
       allow(Yast::InstUserFirstDialog).to receive(:new).and_return(dialog)
 
-      allow(Y2Users::Linux::Writer).to receive(:new).and_return(writer)
+      allow_any_instance_of(Y2Users::Linux::Writer).to receive(:write)
 
-      allow(subject).to receive(:user).and_return(user)
-      allow(user).to receive(:attached?).and_return(attached)
+      allow(Y2Users::ConfigManager.instance).to receive(:system).and_return(system_config)
 
-      allow(system_config).to receive(:copy).and_return(system_config_copy)
-      allow(config_manager).to receive(:system).and_return(system_config)
+      allow(system_config).to receive(:copy).and_return(config)
     end
 
-    context "when user has an encrypted password" do
-      let(:password) { Y2Users::Password.create_encrypted("s3cr3t") }
+    let(:system_config) { Y2Users::Config.new.attach(root) }
 
-      it "resets the user password" do
-        expect(user.password.value).to be_encrypted
+    let(:config) { system_config.copy.attach(user) }
 
-        subject.run
-
-        expect(user.password.value).to_not be_encrypted
-        expect(user.password_content).to be_empty
+    let(:root) do
+      Y2Users::User.create_root.tap do |root|
+        root.password = Y2Users::Password.create_encrypted("$xaadfd545dft")
       end
     end
 
-    context "when user has a plain password" do
-      let(:password) { Y2Users::Password.create_plain("s3cr3t") }
-
-      it "does not reset the user password" do
-        expect(user.password_content).to eq("s3cr3t")
-
-        subject.run
-
-        expect(user.password_content).to eq("s3cr3t")
+    let(:user) do
+      Y2Users::User.new("test").tap do |user|
+        user.password = Y2Users::Password.create_encrypted("$xa9545dft")
       end
     end
 
-    it "executes the inst_user_first dialog" do
-      expect(Yast::InstUserFirstDialog).to receive(:new).with(system_config_copy, user: user)
-      expect(dialog).to receive(:run)
+    let(:dialog) { instance_double(Yast::InstUserFirstDialog, run: dialog_result) }
 
-      subject.run
-    end
+    let(:dialog_result) { :back }
 
-    it "returns the dialog result" do
-      expect(subject.run).to eq(result)
-    end
+    context "if the client is executed for first time" do
+      before do
+        described_class.username = nil
+      end
 
-    context "when dialog result is :next" do
-      it "writes the users configuration" do
-        expect(Y2Users::Linux::Writer).to receive(:new).with(system_config_copy, system_config)
-        expect(writer).to receive(:write)
+      it "opens the dialog with a new user" do
+        expect(Yast::InstUserFirstDialog).to receive(:new) do |_config, params|
+          expect(params[:user].attached?).to eq(false)
+        end.and_return(dialog)
 
         subject.run
+      end
+
+      it "returns the dialog result" do
+        expect(subject.run).to eq(dialog_result)
+      end
+    end
+
+    context "if the client was already executed" do
+      before do
+        described_class.username = "test"
+        described_class.user_password = "S3cr3T"
+        described_class.root_password = "root-S3cr3T"
+      end
+
+      it "opens the dialog with the previously created user" do
+        expect(Yast::InstUserFirstDialog).to receive(:new) do |_config, params|
+          expect(params[:user].attached?).to eq(true)
+          expect(params[:user].name).to eq("test")
+        end.and_return(dialog)
+
+        subject.run
+      end
+
+      it "sets the saved plain password to the user" do
+        expect(Yast::InstUserFirstDialog).to receive(:new) do |_config, params|
+          expect(params[:user].password_content).to eq("S3cr3T")
+        end.and_return(dialog)
+
+        subject.run
+      end
+
+      it "sets the plain password to the root user" do
+        expect(Yast::InstUserFirstDialog).to receive(:new) do |config, _params|
+          expect(config.users.root.password_content).to eq("root-S3cr3T")
+        end.and_return(dialog)
+
+        subject.run
+      end
+
+      it "returns the dialog result" do
+        expect(subject.run).to eq(dialog_result)
+      end
+    end
+
+    context "when the dialog result is :next" do
+      let(:dialog_result) { :next }
+
+      before do
+        described_class.username = "test"
+      end
+
+      it "writes the config to the system" do
+        expect(Y2Users::Linux::Writer).to receive(:new)
+          .with(config, system_config).and_call_original
+
+        subject.run
+      end
+
+      it "updates the saved user values for the next run" do
+        expect(Yast::InstUserFirstDialog).to receive(:new) do |config, params|
+          user = params[:user]
+          user.name = "test2"
+          user.password = Y2Users::Password.create_plain("more-S3cr3T")
+          config.users.root.password = Y2Users::Password.create_plain("root-more-S3cr3T")
+        end.and_return(dialog)
+
+        subject.run
+
+        expect(described_class.username).to eq("test2")
+        expect(described_class.user_password).to eq("more-S3cr3T")
+        expect(described_class.root_password).to eq("root-more-S3cr3T")
       end
     end
 
     context "when dialog result is not :next" do
-      let(:result) { :back }
+      let(:dialog_result) { :back }
+
+      before do
+        described_class.username = "test"
+        described_class.user_password = "S3cr3T"
+        described_class.root_password = "root-S3cr3T"
+      end
 
       it "does not write the users configuration" do
         expect(Y2Users::Linux::Writer).to_not receive(:new)
-        expect(writer).to_not receive(:write)
 
         subject.run
       end
-    end
 
-    context "if user is attached" do
-      let(:attached) { true }
-
-      it "saves the username for future reference" do
-        expect(described_class).to receive(:username=).with(username)
-
-        subject.run
-      end
-    end
-
-    context "if user is not attached" do
-      let(:attached) { false }
-
-      it "deletes username reference" do
-        expect(described_class).to receive(:username=).with(nil)
+      it "does not update the saved user values for the next run" do
+        expect(Yast::InstUserFirstDialog).to receive(:new) do |config, params|
+          user = params[:user]
+          user.name = "test2"
+          user.password = Y2Users::Password.create_plain("more-S3cr3T")
+          config.users.root.password = Y2Users::Password.create_plain("more-root-S3cr3T")
+        end.and_return(dialog)
 
         subject.run
+
+        expect(described_class.username).to eq("test")
+        expect(described_class.user_password).to eq("S3cr3T")
+        expect(described_class.root_password).to eq("root-S3cr3T")
       end
     end
   end
