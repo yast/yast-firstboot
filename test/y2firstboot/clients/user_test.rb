@@ -118,6 +118,23 @@ describe Y2Firstboot::Clients::User do
         described_class.username = "test"
       end
 
+      context "if the user name does not match with the basename of the home directory" do
+        before do
+          user.home = "/home/test"
+        end
+
+        it "updates the home directory" do
+          expect(Yast::InstUserFirstDialog).to receive(:new) do |_, params|
+            user = params[:user]
+            user.name = "test2"
+          end.and_return(dialog)
+
+          subject.run
+
+          expect(user.home).to eq("/home/test2")
+        end
+      end
+
       it "writes the config to the system" do
         expect(Y2Users::Linux::Writer).to receive(:new)
           .with(config, system_config).and_call_original

@@ -22,6 +22,7 @@ require "y2users/password"
 require "y2users/linux/writer"
 require "y2users/config_manager"
 require "users/dialogs/inst_user_first"
+require "pathname"
 
 module Y2Firstboot
   module Clients
@@ -62,6 +63,7 @@ module Y2Firstboot
         result = Yast::InstUserFirstDialog.new(config, user: user).run
 
         if result == :next
+          update_user
           write_config
           save_values
         end
@@ -70,6 +72,17 @@ module Y2Firstboot
       end
 
     private
+
+      # Updates user values, if needed
+      #
+      # For example, the home directory is modified to keep it on sync with the user name.
+      def update_user
+        home_path = Pathname.new(user.home || "")
+
+        return if user.home.nil? || user.name == home_path.basename.to_s
+
+        user.home = home_path.dirname.join(user.name).to_s
+      end
 
       # Writes config to the system
       def write_config
