@@ -48,6 +48,7 @@ describe Y2Firstboot::Clients::User do
 
     let(:user) do
       Y2Users::User.new("test").tap do |user|
+        user.home = Y2Users::Home.new("/home/test")
         user.password = Y2Users::Password.create_encrypted("$xa9545dft")
       end
     end
@@ -120,7 +121,7 @@ describe Y2Firstboot::Clients::User do
 
       context "if the user name does not match with the basename of the home directory" do
         before do
-          user.home = "/home/test"
+          user.home.path = "/home/test"
         end
 
         it "updates the home directory" do
@@ -131,7 +132,7 @@ describe Y2Firstboot::Clients::User do
 
           subject.run
 
-          expect(user.home).to eq("/home/test2")
+          expect(user.home.path).to eq("/home/test2")
         end
       end
 
