@@ -124,32 +124,15 @@ describe Y2Firstboot::Clients::Root do
 
     context "when the dialog result is :next" do
       let(:dialog_result) { :next }
-      let(:commit_config) { Y2Users::CommitConfig.new }
-      let(:commit_config_collection) { Y2Users::CommitConfigCollection.new }
 
       before do
-        allow(Y2Users::CommitConfig).to receive(:new).and_return(commit_config)
-        allow(Y2Users::CommitConfigCollection).to receive(:new).and_return(commit_config_collection)
-
         Y2Firstboot::Clients::User.user_password = "S3cr3T"
         Y2Firstboot::Clients::User.root_password = "root-S3cr3T"
       end
 
-      it "prepares commit configuration" do
-        expect(commit_config).to receive(:username=).with("root")
-
-        expect(commit_config).to_not receive(:move_home=)
-        expect(commit_config).to_not receive(:use_skel=)
-        expect(commit_config).to_not receive(:adapt_home_ownership=)
-
-        expect(commit_config_collection).to receive(:add).with(commit_config)
-
-        subject.run
-      end
-
-      it "prepares and writes the config to the system" do
+      it "writes the config to the system" do
         expect(Y2Users::Linux::Writer).to receive(:new)
-          .with(config, system_config, commit_config_collection).and_call_original
+          .with(config, system_config).and_call_original
 
         subject.run
       end
