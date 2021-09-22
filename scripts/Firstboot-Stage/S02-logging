@@ -3,9 +3,14 @@ log "Starting S02-logging..."
 log "======================="
 
 #=============================================
-# 3) start syslog daemon
+# 3) start syslog daemon (when required)
 #---------------------------------------------
-/usr/bin/systemctl start syslog.socket
+if [[ $(/usr/bin/systemd-detect-virt) == 'wsl' ]];
+then
+	log "Running in WSL, not using systemctl."
+else
+	/usr/bin/systemctl start syslog.socket
+fi
 
 #=============================================
 # 3.1) set debug and logging options
