@@ -21,6 +21,8 @@ require "yast"
 require "y2users/password"
 require "y2users/linux/writer"
 require "y2users/config_manager"
+require "y2users/commit_config_collection"
+require "y2users/commit_config"
 require "users/dialogs/inst_root_first"
 require "y2firstboot/clients/user"
 
@@ -77,7 +79,8 @@ module Y2Firstboot
       def write_config
         writer = Y2Users::Linux::Writer.new(
           config,
-          Y2Users::ConfigManager.instance.system
+          Y2Users::ConfigManager.instance.system,
+          Y2Users::CommitConfigCollection.new.tap { |collection| collection.add(commit_config) }
         )
         writer.write
       end
@@ -94,6 +97,15 @@ module Y2Firstboot
       # Saves the given root password
       def save_password
         Y2Firstboot::Clients::User.root_password = root_user.password_content
+      end
+
+      # Build and return a {Y2Users::CommitConfig} for #root_user
+      #
+      # @return [Y2Users::CommitConfig]
+      def commit_config
+        Y2Users::CommitConfig.new.tap do |config|
+          config.username = root_user.name
+        end
       end
 
       # The root user

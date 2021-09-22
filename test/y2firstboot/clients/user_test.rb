@@ -114,9 +114,14 @@ describe Y2Firstboot::Clients::User do
 
     context "when the dialog result is :next" do
       let(:dialog_result) { :next }
+      let(:commit_config) { Y2Users::CommitConfig.new }
+      let(:commit_config_collection) { Y2Users::CommitConfigCollection.new }
 
       before do
         described_class.username = "test"
+
+        allow(Y2Users::CommitConfig).to receive(:new).and_return(commit_config)
+        allow(Y2Users::CommitConfigCollection).to receive(:new).and_return(commit_config_collection)
       end
 
       context "if the user name does not match with the basename of the home directory" do
@@ -136,9 +141,20 @@ describe Y2Firstboot::Clients::User do
         end
       end
 
+      it "prepares commit configuration" do
+        expect(commit_config).to receive(:username=).with(user.name)
+        expect(commit_config).to receive(:move_home=).with(true)
+        expect(commit_config).to receive(:adapt_home_ownership=).with(true)
+
+        expect(commit_config_collection).to receive(:add).with(commit_config)
+
+        subject.run
+      end
+
       it "writes the config to the system" do
         expect(Y2Users::Linux::Writer).to receive(:new)
-          .with(config, system_config).and_call_original
+          .with(config, system_config, commit_config_collection)
+          .and_call_original
 
         subject.run
       end

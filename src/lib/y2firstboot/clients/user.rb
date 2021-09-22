@@ -22,6 +22,8 @@ require "y2users/password"
 require "y2users/home"
 require "y2users/linux/writer"
 require "y2users/config_manager"
+require "y2users/commit_config_collection"
+require "y2users/commit_config"
 require "users/dialogs/inst_user_first"
 require "pathname"
 
@@ -91,7 +93,8 @@ module Y2Firstboot
       def write_config
         writer = Y2Users::Linux::Writer.new(
           config,
-          Y2Users::ConfigManager.instance.system
+          Y2Users::ConfigManager.instance.system,
+          Y2Users::CommitConfigCollection.new.tap { |collection| collection.add(commit_config) }
         )
 
         writer.write
@@ -157,6 +160,17 @@ module Y2Firstboot
       # @return [Y2Users::User]
       def root_user
         @root_user ||= config.users.root
+      end
+
+      # Build and return a {Y2Users::CommitConfig} for #user
+      #
+      # @return [Y2Users::CommitConfig]
+      def commit_config
+        Y2Users::CommitConfig.new.tap do |config|
+          config.username = user.name
+          config.move_home = true
+          config.adapt_home_ownership = true
+        end
       end
 
       # A copy of config holding all the users on the system
