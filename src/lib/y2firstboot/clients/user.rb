@@ -94,7 +94,7 @@ module Y2Firstboot
         writer = Y2Users::Linux::Writer.new(
           config,
           Y2Users::ConfigManager.instance.system,
-          Y2Users::CommitConfigCollection.new.tap { |collection| collection.add(commit_config) }
+          commit_configs
         )
 
         writer.write
@@ -162,14 +162,19 @@ module Y2Firstboot
         @root_user ||= config.users.root
       end
 
-      # Build and return a {Y2Users::CommitConfig} for #user
+      # Build and return a {Y2Users::CommitConfigCollection} holding
+      # the {Y2Users::CommitConfig} for #user
       #
       # @return [Y2Users::CommitConfig]
-      def commit_config
-        Y2Users::CommitConfig.new.tap do |config|
-          config.username = user.name
-          config.move_home = true
-          config.adapt_home_ownership = true
+      def commit_configs
+        Y2Users::CommitConfigCollection.new.tap do |collection|
+          config = Y2Users::CommitConfig.new.tap do |config|
+            config.username = user.name
+            config.move_home = true
+            config.adapt_home_ownership = true
+          end
+
+          collection.add(config)
         end
       end
 
