@@ -21,6 +21,8 @@
 
 require_relative "../../test_helper"
 require "y2firstboot/clients/user"
+require "y2users"
+require "y2users/linux/writer"
 
 describe Y2Firstboot::Clients::User do
   subject(:client) { described_class.new }
@@ -48,7 +50,6 @@ describe Y2Firstboot::Clients::User do
 
     let(:user) do
       Y2Users::User.new("test").tap do |user|
-        user.home = Y2Users::Home.new("/home/test")
         user.password = Y2Users::Password.create_encrypted("$xa9545dft")
       end
     end
@@ -114,47 +115,27 @@ describe Y2Firstboot::Clients::User do
 
     context "when the dialog result is :next" do
       let(:dialog_result) { :next }
-      let(:commit_config) { Y2Users::CommitConfig.new }
-      let(:commit_config_collection) { Y2Users::CommitConfigCollection.new }
 
       before do
         described_class.username = "test"
 
-        allow(Y2Users::CommitConfig).to receive(:new).and_return(commit_config)
-        allow(Y2Users::CommitConfigCollection).to receive(:new).and_return(commit_config_collection)
+        allow(writer).to receive(:write)
       end
 
-      context "if the user name does not match with the basename of the home directory" do
-        before do
-          user.home.path = "/home/test"
-        end
-
-        it "updates the home directory" do
-          expect(Yast::InstUserFirstDialog).to receive(:new) do |_, params|
-            user = params[:user]
-            user.name = "test2"
-          end.and_return(dialog)
-
-          subject.run
-
-          expect(user.home.path).to eq("/home/test2")
-        end
-      end
-
-      it "prepares commit configuration" do
-        expect(commit_config).to receive(:username=).with(user.name)
-        expect(commit_config).to receive(:move_home=).with(true)
-        expect(commit_config).to receive(:adapt_home_ownership=).with(true)
-
-        expect(commit_config_collection).to receive(:add).with(commit_config)
-
-        subject.run
-      end
+      let(:writer) { instance_double(Y2Users::Linux::Writer) }
 
       it "writes the config to the system" do
-        expect(Y2Users::Linux::Writer).to receive(:new)
-          .with(config, system_config, commit_config_collection)
-          .and_call_original
+        expect(Y2Users::Linux::Writer).to receive(:new) do |target, system, commit_configs|
+          expect(target).to eql(config)
+          expect(system).to eql(system_config)
+
+          commit_config = commit_configs.by_username(user.name)
+          expect(commit_config.move_home?).to eq(true)
+          expect(commit_config.adapt_home_ownership?).to eq(true)
+          expect(commit_config.home_without_skel?).to eq(false)
+        end.and_return(writer)
+
+        expect(writer).to receive(:write)
 
         subject.run
       end
@@ -185,7 +166,7 @@ describe Y2Firstboot::Clients::User do
       end
 
       it "does not write the users configuration" do
-        expect(Y2Users::Linux::Writer).to_not receive(:new)
+        expect_any_instance_of(Y2Users::Linux::Writer).to_not receive(:write)
 
         subject.run
       end

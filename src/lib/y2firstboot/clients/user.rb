@@ -19,7 +19,6 @@
 
 require "yast"
 require "y2users/password"
-require "y2users/home"
 require "y2users/linux/writer"
 require "y2users/config_manager"
 require "y2users/commit_config_collection"
@@ -66,7 +65,6 @@ module Y2Firstboot
         result = Yast::InstUserFirstDialog.new(config, user: user).run
 
         if result == :next
-          update_user
           write_config
           save_values
         end
@@ -75,19 +73,6 @@ module Y2Firstboot
       end
 
     private
-
-      # Updates user values, if needed
-      #
-      # For example, the home directory is modified to keep it on sync with the user name.
-      def update_user
-        user.home ||= Y2Users::Home.new("")
-
-        home_path = Pathname.new(user.home.path || "")
-
-        return if user.home.path.nil? || user.name == home_path.basename.to_s
-
-        user.home.path = home_path.dirname.join(user.name).to_s
-      end
 
       # Writes config to the system
       def write_config
@@ -162,19 +147,19 @@ module Y2Firstboot
         @root_user ||= config.users.root
       end
 
-      # Build and return a {Y2Users::CommitConfigCollection} holding
-      # the {Y2Users::CommitConfig} for #user
+      # Builds the commit configs to use when writing users
       #
-      # @return [Y2Users::CommitConfig]
+      # @return [Y2Users::CommitConfigCollection]
       def commit_configs
         Y2Users::CommitConfigCollection.new.tap do |collection|
-          config = Y2Users::CommitConfig.new.tap do |config|
+          commit_config = Y2Users::CommitConfig.new.tap do |config|
             config.username = user.name
             config.move_home = true
             config.adapt_home_ownership = true
+            config.home_without_skel = false
           end
 
-          collection.add(config)
+          collection.add(commit_config)
         end
       end
 
