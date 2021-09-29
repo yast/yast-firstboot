@@ -152,11 +152,17 @@ module Y2Firstboot
       # @return [Y2Users::CommitConfigCollection]
       def commit_configs
         Y2Users::CommitConfigCollection.new.tap do |collection|
+          # Configure the actions to perform when committing a user. If the user is being created,
+          # then its home should content the skel files (#home_without_skel). In case of editing a
+          # user and its home path has changed (i.e., because the user name was modified), then the
+          # current home content should be moved to the new path (#move_home option). And, if the
+          # new home path already exists, then the user should be set as owner of the existing
+          # directory (#adapt_home_ownership option).
           commit_config = Y2Users::CommitConfig.new.tap do |config|
             config.username = user.name
+            config.home_without_skel = false
             config.move_home = true
             config.adapt_home_ownership = true
-            config.home_without_skel = false
           end
 
           collection.add(commit_config)
