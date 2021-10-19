@@ -131,6 +131,7 @@ describe Y2Firstboot::Clients::User do
 
           commit_config = commit_configs.by_username(user.name)
           expect(commit_config.move_home?).to eq(true)
+          expect(commit_config.remove_home?).to eq(true)
           expect(commit_config.adapt_home_ownership?).to eq(true)
           expect(commit_config.home_without_skel?).to eq(false)
         end.and_return(writer)

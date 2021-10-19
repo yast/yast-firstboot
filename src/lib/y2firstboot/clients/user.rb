@@ -152,17 +152,25 @@ module Y2Firstboot
       # @return [Y2Users::CommitConfigCollection]
       def commit_configs
         Y2Users::CommitConfigCollection.new.tap do |collection|
-          # Configure the actions to perform when committing a user. If the user is being created,
-          # then its home should content the skel files (#home_without_skel). In case of editing a
-          # user and its home path has changed (i.e., because the user name was modified), then the
-          # current home content should be moved to the new path (#move_home option). And, if the
-          # new home path already exists, then the user should be set as owner of the existing
-          # directory (#adapt_home_ownership option).
+          # Configure the actions to perform when committing a user.
+          #
+          #   - If the user is being created, its home should content the skel files
+          #   (#home_without_skel).
+          #   - In case of editing a user and its home path has changed (i.e., because the user
+          #   name was modified), then the current home content should be moved to the new path
+          #   (#move_home option). Additionally, if the new home path already exists, then the user
+          #   should be set as owner of the existing directory (#adapt_home_ownership option).
+          #   - When deleting the user (i.e., when going back to skip the user creation after
+          #   creating it), its home must be removed too (#remove_home).
           commit_config = Y2Users::CommitConfig.new.tap do |config|
             config.username = user.name
             config.home_without_skel = false
             config.move_home = true
             config.adapt_home_ownership = true
+            # WARNING: this can lead to a undesired situation if using firstboot in an already
+            # initialized system with the user home previously created. However, this is quite
+            # unexpected scenario for this client and firstboot module in general.
+            config.remove_home = true
           end
 
           collection.add(commit_config)
