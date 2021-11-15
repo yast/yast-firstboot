@@ -21,6 +21,8 @@ require "yast"
 require "y2users/password"
 require "y2users/linux/writer"
 require "y2users/config_manager"
+require "y2users/commit_config_collection"
+require "y2users/commit_config"
 require "users/dialogs/inst_user_first"
 require "pathname"
 
@@ -63,7 +65,6 @@ module Y2Firstboot
         result = Yast::InstUserFirstDialog.new(config, user: user).run
 
         if result == :next
-          update_user
           write_config
           save_values
         end
@@ -73,22 +74,12 @@ module Y2Firstboot
 
     private
 
-      # Updates user values, if needed
-      #
-      # For example, the home directory is modified to keep it on sync with the user name.
-      def update_user
-        home_path = Pathname.new(user.home || "")
-
-        return if user.home.nil? || user.name == home_path.basename.to_s
-
-        user.home = home_path.dirname.join(user.name).to_s
-      end
-
       # Writes config to the system
       def write_config
         writer = Y2Users::Linux::Writer.new(
           config,
-          Y2Users::ConfigManager.instance.system
+          Y2Users::ConfigManager.instance.system,
+          commit_configs
         )
 
         writer.write
@@ -154,6 +145,36 @@ module Y2Firstboot
       # @return [Y2Users::User]
       def root_user
         @root_user ||= config.users.root
+      end
+
+      # Builds the commit configs to use when writing users
+      #
+      # @return [Y2Users::CommitConfigCollection]
+      def commit_configs
+        Y2Users::CommitConfigCollection.new.tap do |collection|
+          # Configure the actions to perform when committing a user.
+          #
+          #   - If the user is being created, its home should content the skel files
+          #   (#home_without_skel).
+          #   - In case of editing a user and its home path has changed (i.e., because the user
+          #   name was modified), then the current home content should be moved to the new path
+          #   (#move_home option). Additionally, if the new home path already exists, then the user
+          #   should be set as owner of the existing directory (#adapt_home_ownership option).
+          #   - When deleting the user (i.e., when going back to skip the user creation after
+          #   creating it), its home must be removed too (#remove_home).
+          commit_config = Y2Users::CommitConfig.new.tap do |config|
+            config.username = user.name
+            config.home_without_skel = false
+            config.move_home = true
+            config.adapt_home_ownership = true
+            # WARNING: this can lead to a undesired situation if using firstboot in an already
+            # initialized system with the user home previously created. However, this is quite
+            # unexpected scenario for this client and firstboot module in general.
+            config.remove_home = true
+          end
+
+          collection.add(commit_config)
+        end
       end
 
       # A copy of config holding all the users on the system

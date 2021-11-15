@@ -21,6 +21,8 @@
 
 require_relative "../../test_helper"
 require "y2firstboot/clients/user"
+require "y2users"
+require "y2users/linux/writer"
 
 describe Y2Firstboot::Clients::User do
   subject(:client) { described_class.new }
@@ -116,28 +118,25 @@ describe Y2Firstboot::Clients::User do
 
       before do
         described_class.username = "test"
+
+        allow(writer).to receive(:write)
       end
 
-      context "if the user name does not match with the basename of the home directory" do
-        before do
-          user.home = "/home/test"
-        end
-
-        it "updates the home directory" do
-          expect(Yast::InstUserFirstDialog).to receive(:new) do |_, params|
-            user = params[:user]
-            user.name = "test2"
-          end.and_return(dialog)
-
-          subject.run
-
-          expect(user.home).to eq("/home/test2")
-        end
-      end
+      let(:writer) { instance_double(Y2Users::Linux::Writer) }
 
       it "writes the config to the system" do
-        expect(Y2Users::Linux::Writer).to receive(:new)
-          .with(config, system_config).and_call_original
+        expect(Y2Users::Linux::Writer).to receive(:new) do |target, system, commit_configs|
+          expect(target).to eql(config)
+          expect(system).to eql(system_config)
+
+          commit_config = commit_configs.by_username(user.name)
+          expect(commit_config.move_home?).to eq(true)
+          expect(commit_config.remove_home?).to eq(true)
+          expect(commit_config.adapt_home_ownership?).to eq(true)
+          expect(commit_config.home_without_skel?).to eq(false)
+        end.and_return(writer)
+
+        expect(writer).to receive(:write)
 
         subject.run
       end
@@ -168,7 +167,7 @@ describe Y2Firstboot::Clients::User do
       end
 
       it "does not write the users configuration" do
-        expect(Y2Users::Linux::Writer).to_not receive(:new)
+        expect_any_instance_of(Y2Users::Linux::Writer).to_not receive(:write)
 
         subject.run
       end
