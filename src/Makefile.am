@@ -25,7 +25,8 @@ client_DATA = \
   clients/firstboot_hostname.rb \
   clients/firstboot_root.rb \
   clients/firstboot_user.rb \
-  clients/firstboot_configuration_management.rb
+  clients/firstboot_configuration_management.rb \
+  clients/firstboot_wsl.rb
 
 yncludedir = @yncludedir@/firstboot
 ynclude_DATA = \
@@ -48,7 +49,8 @@ ylibclient_DATA = \
   lib/y2firstboot/clients/hostname.rb \
   lib/y2firstboot/clients/root.rb \
   lib/y2firstboot/clients/user.rb \
-  lib/y2firstboot/clients/licenses.rb
+  lib/y2firstboot/clients/licenses.rb \
+  lib/y2firstboot/clients/wsl.rb
 
 symbolicdir = @icondir@/hicolor/symbolic/apps
 symbolic_DATA = \
