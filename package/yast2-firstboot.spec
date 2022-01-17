@@ -17,7 +17,7 @@
 
 
 Name:           yast2-firstboot
-Version:        4.4.6
+Version:        4.4.7
 Release:        0
 Summary:        YaST2 - Initial System Configuration
 License:        GPL-2.0-only
@@ -58,6 +58,14 @@ deployments where the system in the image is completely configured,
 however some last steps like root password and user logins have to be
 created to personalize the system.
 
+%package wsl
+Summary: YaST2 firstboot settings for WSL images
+
+Requires: %{name} = %{version}
+
+%description wsl
+YaST2 firstboot settings for WSL images
+
 %prep
 %setup -q
 
@@ -75,6 +83,11 @@ sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
 %yast_metainfo
 
 mkdir -p %{buildroot}%{_datadir}/firstboot/scripts
+
+mkdir -p %{buildroot}/usr/share/YaST2/data
+
+install -m 644 wsl/firstboot.xml %{buildroot}/etc/YaST2/firstboot-wsl.xml
+install -m 644 wsl/welcome.txt %{buildroot}/usr/share/YaST2/data
 
 %check
 # verify defaults for registration
@@ -94,6 +107,12 @@ ruby -r rexml/document -e '
 %post
 %{fillup_only -n firstboot}
 
+%post wsl
+sed -i -E 's/(FIRSTBOOT_CONTROL_FILE=).+/\1"\/etc\/YaST2\/firstboot-wsl.xml"/' /etc/sysconfig/firstboot
+
+%postun wsl
+sed -i -E 's/(FIRSTBOOT_CONTROL_FILE=).+/\1""/' /etc/sysconfig/firstboot
+
 %files
 %license COPYING
 %doc %{yast_docdir}
@@ -109,5 +128,9 @@ ruby -r rexml/document -e '
 %{_datadir}/autoinstall
 %{_datadir}/icons/hicolor/*/apps/yast-firstboot*
 %{_sysconfdir}/YaST2
+
+%files wsl
+/etc/YaST2/firstboot-wsl.xml
+/usr/share/YaST2/data/welcome.txt
 
 %changelog

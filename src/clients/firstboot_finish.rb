@@ -42,6 +42,7 @@ module Yast
       Yast.import "Firstboot"
       Yast.import "GetInstArgs"
       Yast.import "Package"
+      Yast.import "ProductControl"
 
       @display = UI.GetDisplayInfo
 
@@ -50,8 +51,12 @@ module Yast
       # caption for dialog "Congratulation Dialog"
       @caption = _("Configuration Completed")
 
+      congratulate = ProductControl.GetTranslatedText("congratulate")
+
+      @text = congratulate unless congratulate.empty?
+
       # congratulation text 1/4
-      @text = _("<p><b>Congratulations!</b></p>") +
+      @text ||= _("<p><b>Congratulations!</b></p>") +
         # congratulation text 2/4
         _(
           "<p>The installation of &product; on your machine is complete.\nAfter clicking <b>Finish</b>, you can log in to the system.</p>\n"
