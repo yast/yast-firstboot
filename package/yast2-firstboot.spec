@@ -84,10 +84,10 @@ sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
 
 mkdir -p %{buildroot}%{_datadir}/firstboot/scripts
 
-mkdir -p %{buildroot}/usr/share/YaST2/data
+mkdir -p %{buildroot}%{yast_ydatadir}
 
-install -m 644 wsl/firstboot.xml %{buildroot}/etc/YaST2/firstboot-wsl.xml
-install -m 644 wsl/welcome.txt %{buildroot}/usr/share/YaST2/data
+install -m 644 wsl/firstboot.xml %{buildroot}%{_sysconfdir}/YaST2/firstboot-wsl.xml
+install -m 644 wsl/welcome.txt %{buildroot}%{yast_ydatadir}
 
 %check
 # verify defaults for registration
@@ -127,10 +127,11 @@ sed -i -E 's/(FIRSTBOOT_CONTROL_FILE=).+/\1""/' /etc/sysconfig/firstboot
 %{_datadir}/firstboot
 %{_datadir}/autoinstall
 %{_datadir}/icons/hicolor/*/apps/yast-firstboot*
-%{_sysconfdir}/YaST2
+%dir %{_sysconfdir}/YaST2
+%{_sysconfdir}/YaST2/firstboot.xml
 
 %files wsl
-/etc/YaST2/firstboot-wsl.xml
-/usr/share/YaST2/data/welcome.txt
+%{_sysconfdir}/YaST2/firstboot-wsl.xml
+%{yast_ydatadir}/welcome.txt
 
 %changelog
