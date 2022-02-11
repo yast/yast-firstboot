@@ -86,7 +86,7 @@ mkdir -p %{buildroot}%{_datadir}/firstboot/scripts
 
 mkdir -p %{buildroot}%{yast_ydatadir}
 
-install -m 644 wsl/firstboot.xml %{buildroot}%{_sysconfdir}/YaST2/firstboot-wsl.xml
+install -m 644 control/firstboot.xml %{buildroot}%{_sysconfdir}/YaST2/firstboot-wsl.xml
 install -m 644 wsl/welcome.txt %{buildroot}%{yast_ydatadir}
 
 %check
