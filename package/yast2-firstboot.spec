@@ -76,6 +76,7 @@ YaST2 firstboot settings for WSL images
 # lets explain this sed. At first it is address which match line with name
 # registration and +1 for next line and then here change false to true
 sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
+sed -i '/<name>registration/,+1s/false/true/' wsl/firstboot.xml
 %endif
 
 %install
