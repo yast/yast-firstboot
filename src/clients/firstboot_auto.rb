@@ -61,19 +61,19 @@ module Yast
         Firstboot.Import({ "firstboot_enabled" => false })
         @ret = {}
       elsif @func == "Change"
-        # dialog caption
+        # TRANSLATORS: dialog caption
         @caption = _("Firstboot Configuration")
         @contents = HBox(
           VBox(
             Label(
-              # text label, describing the check box meaning
+              # TRANSLATORS: text label, describing the check box meaning
               # keep in 2 lines with roughly the same length
               _(
                 "Check Enable Firstboot Sequence here to start YaST\nfirstboot utility on the first boot after configuration.\n"
               )
             ),
             VSpacing(),
-            # check box label
+            # TRANSLATORS: check box label
             CheckBox(
               Id(:enable),
               _("Enable Firstboot Sequence"),
@@ -82,7 +82,7 @@ module Yast
           )
         )
         Wizard.CreateDialog
-        # help text
+        # TRANSLATORS: help text
         Wizard.SetContentsButtons(
           @caption,
           @contents,

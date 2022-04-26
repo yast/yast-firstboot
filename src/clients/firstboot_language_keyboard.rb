@@ -68,13 +68,13 @@ module Yast
       # ----------------------------------------------------------------------
       # Build dialog
       # ----------------------------------------------------------------------
-      # heading text
+      # TRANSLATORS: heading text
       @heading_text = _("Language and Keyboard Layout")
 
       @languagesel = ComboBox(
         Id(:language),
         Opt(:notify, :hstretch),
-        # combo box label
+        # TRANSLATORS: combo box label
         _("&Language"),
         Language.GetLanguageItems(:first_screen)
       )
@@ -82,7 +82,7 @@ module Yast
       @keyboardsel = ComboBox(
         Id(:keyboard),
         Opt(:notify, :hstretch),
-        # combo box label
+        # TRANSLATORS: combo box label
         _("&Keyboard Layout"),
         Keyboard.GetKeyboardItems
       )
@@ -107,6 +107,7 @@ module Yast
             HBox(
               HSquash(Icon.Simple("yast-keyboard")),
               HSpacing(2),
+              # TRANSLATORS: input field label
               Left(InputField(Opt(:hstretch), _("&Test")))
             )
           )
@@ -115,20 +116,20 @@ module Yast
         VWeight(3, VStretch())
       )
 
-      # help text for firstboot language + keyboard screen
+      # TRANSLATORS: help text for firstboot language + keyboard screen
       @help_text = _(
         "<p>\n" +
           "Choose the <b>Language</b> and the <b>Keyboard Layout</b> to be used during\n" +
           "configuration and in the installed system.\n" +
           "</p>\n"
       ) +
-        # help text, continued
+        # TRANSLATORS: help text, continued
         _(
           "<p>\n" +
             "Click <b>Next</b> to proceed to the next dialog.\n" +
             "</p>\n"
         ) +
-        # help text, continued
+        # TRANSLATORS: help text, continued
         _(
           "<p>\n" +
             "Select <b>Abort</b> to abort the\n" +
@@ -268,7 +269,7 @@ module Yast
         # Language::PackagesModified () does not work here as _on_entry variables are not set
         if @language != Language.ReadLocaleConfLanguage
           if !Language.PackagesInit([@language])
-            # error message
+            # TRANSLATORS: error message
             Report.Error(
               _("There is not enough space to install all additional packages.")
             )
