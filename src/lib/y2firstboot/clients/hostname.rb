@@ -101,7 +101,7 @@ module Y2Firstboot
           :abort  => fun_ref(method(:really_abort_inst), "boolean ()")
         }
         contents = HSquash(
-          # Frame label
+          # TRANSLATORS: Frame label
           Frame(
             _("Hostname and Domain Name"),
             MarginBox(
@@ -118,7 +118,7 @@ module Y2Firstboot
         ret = CWM.ShowAndRun(
           "widget_descr"       => @widget_descr_dns,
           "contents"           => contents,
-          # dialog caption
+          # TRANSLATORS: dialog caption
           "caption"            => _("Hostname"),
           "back_button"        => Label.BackButton,
           "next_button"        => Label.NextButton,

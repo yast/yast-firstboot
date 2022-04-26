@@ -84,7 +84,7 @@ module Yast
         HStretch(),
         VBox(
           VWeight(30, VStretch()),
-          # translators: dialog text
+          # TRANSLATORS: dialog text
           Left(
             Label(
               _(
@@ -101,14 +101,14 @@ module Yast
       )
 
 
-      # help text fro desktop dialog
+      # TRANSLATORS: help text for desktop dialog
       @desktop_help_text = _(
         "<p><h3>Desktop Selections</h3>\n" +
           "This system has more than one desktop environment installed. Select\n" +
           "the desktop to enable as the default desktop.</p>"
       )
 
-      # translators: dialog title
+      # TRANSLATORS: dialog title
       Wizard.SetContents(
         _("Select Your Default Desktop"),
         @ask_desktop_dialog,

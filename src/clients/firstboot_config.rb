@@ -48,19 +48,27 @@ module Yast
 
       XmlSetup()
 
+      # TRANSLATORS: label (used in a table)
       @empty_label = _("Empty")
+      # TRANSLATORS: label (used in a table)
       @enabled = _("Enabled")
+      # TRANSLATORS: label (used in a table)
       @disabled = _("Disabled")
 
       @modules = ProductControl.getModules("normal", "firstboot", :all)
       @items = []
-      @help = _("Help")
+      # TODO: add a nice help text here...
+      @help = ""
 
       Wizard.CreateDialog
+      # TRANSLATORS: dialog caption
       @caption = _("First Boot Configuration")
 
+      # TRANSLATORS: button label
       @upButtonLabel = _("&Up")
+      # TRANSLATORS: button label
       @downButtonLabel = _("D&own")
+      # TRANSLATORS: button label
       @enableButtonLabel = _("Enab&le or Disable")
 
       @contents = Top(
@@ -68,7 +76,16 @@ module Yast
           Table(
             Id(:table),
             Opt(:keepSorting),
-            Header(_("Step"), _("Label"), _("Module Name"), _("Status")),
+            Header(
+              # TRANSLATORS: table header
+              _("Step"),
+              # TRANSLATORS: table header
+              _("Label"),
+              # TRANSLATORS: table header
+              _("Module Name"),
+              # TRANSLATORS: table header
+              _("Status")
+            ),
             @items
           ),
           VBox(
@@ -144,6 +161,7 @@ module Yast
             XML.YCPToXMLFile(:firstboot, @all, "/tmp/firstboot.xml")
             break
           rescue XMLSerializationError => e
+            # TRANSLATORS: error message
             Yast2::Popup.show(_("Failed to create configuration file."),
               headline: :error, details: e.message)
           end

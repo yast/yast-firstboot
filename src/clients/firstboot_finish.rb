@@ -48,24 +48,24 @@ module Yast
 
       @space = Ops.get_boolean(@display, "TextMode", true) ? 1 : 3
 
-      # caption for dialog "Congratulation Dialog"
+      # TRANSLATORS: caption for dialog "Congratulation Dialog"
       @caption = _("Configuration Completed")
 
       congratulate = ProductControl.GetTranslatedText("congratulate")
 
       @text = congratulate unless congratulate.empty?
 
-      # congratulation text 1/4
+      # TRANSLATORS: congratulation text 1/4
       @text ||= _("<p><b>Congratulations!</b></p>") +
-        # congratulation text 2/4
+        # TRANSLATORS: congratulation text 2/4
         _(
           "<p>The installation of &product; on your machine is complete.\nAfter clicking <b>Finish</b>, you can log in to the system.</p>\n"
         ) +
-        # congratulation text 3/4
+        # TRANSLATORS: congratulation text 3/4
         # Translators: If there exists a SUSE web-page for your language
         # change the address accordingly. If in doubt leave the original.
         _("<p>Visit us at www.suse.com.</p>") +
-        # congratulation text 4/4
+        # TRANSLATORS: congratulation text 4/4
         _("<p>Have a lot of fun!<br>Your SUSE Development Team</p>")
 
 
@@ -92,13 +92,13 @@ module Yast
         VSpacing(2)
       )
 
-      # help 1/3 for dialog "Congratulation Dialog"
+      # TRANSLATORS: help 1/3 for dialog "Congratulation Dialog"
       @help = _("<p>Your system is ready for use.</p>") +
-        # help 2/3 for dialog "Congratulation Dialog"
+        # TRANSLATORS: help 2/3 for dialog "Congratulation Dialog"
         _(
           "<p><b>Finish</b> will close the YaST installation and continue\nto the login screen.</p>\n"
         ) +
-        # help 3/3 for dialog "Congratulation Dialog"
+        # TRANSLATORS: help 3/3 for dialog "Congratulation Dialog"
         _(
           "<p>If you choose the default graphical desktop KDE, you can\n" +
             "adjust some KDE settings to your hardware. Also notice\n" +

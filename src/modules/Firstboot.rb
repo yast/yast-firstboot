@@ -48,8 +48,6 @@ module Yast
 
       @script_dir = ""
 
-      @no_text = _("No Text Available")
-
       @language_changed = false
 
       # definition of firstboot sequence (and the default path)
@@ -162,10 +160,10 @@ module Yast
     # @return summary
     def Summary
       summary =
-        # summary item
+        # TRANSLATORS: summary item
         Summary.AddHeader("", _("Firstboot configuration disabled"))
       if @firstboot_enabled
-        # summary item
+        # TRANSLATORS: summary item
         summary = Summary.AddHeader("", _("Firstboot configuration enabled"))
       end
       summary

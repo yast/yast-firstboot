@@ -118,7 +118,7 @@ module Yast
             end
           end
           if !@firstboot_keyboard
-            # popup text
+            # TRANSLATORS: popup text
             Popup.Message(
               _(
                 "Your language setting has been changed.\n" +

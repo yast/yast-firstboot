@@ -43,21 +43,21 @@ module Yast
       return :back if GetInstArgs.going_back
 
       @progress_stages = [
-        # progress stages
+        # TRANSLATORS: progress stage
         _("Update configuration"),
-        # progress stages
+        # TRANSLATORS: progress stage
         _("Prepare system for first login")
       ]
 
       @progress_descriptions = [
-        # progress stages
+        # TRANSLATORS: progress description
         _("Updating configuration..."),
-        # progress stages
+        # TRANSLATORS: progress description
         _("Preparing system for first login...")
       ]
 
 
-      # Help text for last dialog of base installation
+      # TRANSLATORS: Help text for last dialog of base installation
       @help_text = _(
         "<p>\n" +
           "Please wait while the system is being configured.\n" +
@@ -68,7 +68,7 @@ module Yast
       @progress_orig = Progress.set(false)
 
       Progress.New(
-        # Headline for last dialog of first boot workflow
+        # TRANSLATORS: Headline for last dialog of first boot workflow
         _("Completing the System Configuration"),
         "", # Initial progress bar label - not empty (reserve space!)
         2, # progress bar length
