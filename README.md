@@ -16,6 +16,14 @@ This is a special YaST module that allows users to configure pre-installed
 systems to match their needs, e.g., language, network settings, root password,
 etc.
 
+See:
+
+- [YaST Firstboot][oswiki] on the openSUSE wiki
+- [Deploying Customized Preinstallations][slesdoc] in the SLES15-SP4 Deployment Guide
+
+[oswiki]: https://en.opensuse.org/YaST_Firstboot
+[slesdoc]: https://documentation.suse.com/sles/15-SP4/html/SLES-all/cha-deployment-firstboot.html
+
 The workflow is defined in a
 [control file](control/firstboot.xml),
 which uses the same format as the
