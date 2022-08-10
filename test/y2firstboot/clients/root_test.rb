@@ -83,6 +83,19 @@ describe Y2Firstboot::Clients::Root do
         allow(Yast::GetInstArgs).to receive(:argmap).and_return("force" => false)
       end
 
+      context "and the first user password was not set either" do
+        before do
+          Y2Firstboot::Clients::User.user_password = nil
+          Y2Firstboot::Clients::User.root_password = nil
+        end
+
+        it "opens the dialog for configuring root" do
+          expect(dialog).to receive(:run)
+
+          subject.run
+        end
+      end
+
       context "and the user password was used for root" do
         before do
           Y2Firstboot::Clients::User.user_password = "S3cr3T"
