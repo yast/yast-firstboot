@@ -70,7 +70,11 @@ module Y2Firstboot
       #
       # @return [Boolean]
       def root_password_from_user?
-        Y2Firstboot::Clients::User.user_password == Y2Firstboot::Clients::User.root_password
+        user_password = Y2Firstboot::Clients::User.user_password
+
+        return false unless user_password
+
+        user_password == Y2Firstboot::Clients::User.root_password
       end
 
       # Writes the config to the system
