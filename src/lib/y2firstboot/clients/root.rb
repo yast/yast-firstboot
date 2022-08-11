@@ -72,7 +72,9 @@ module Y2Firstboot
       def root_password_from_user?
         user_password = Y2Firstboot::Clients::User.user_password
 
-        user_password && user_password == Y2Firstboot::Clients::User.root_password
+        return false unless user_password
+
+        user_password == Y2Firstboot::Clients::User.root_password
       end
 
       # Writes the config to the system
