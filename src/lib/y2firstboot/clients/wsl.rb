@@ -21,6 +21,7 @@ require "yast"
 require "yast2/execute"
 require "y2firstboot/clients/user"
 require "etc"
+require "registration/yaml_product"
 
 Yast.import "GetInstArgs"
 
@@ -33,6 +34,7 @@ module Y2Firstboot
 
         write_wsl_user
         setup_machine_id
+        switch_product
 
         :next
       end
@@ -59,6 +61,18 @@ module Y2Firstboot
         # systemd-machine-id-setup is smart enough to only populate /etc/machine-id when empty or
         # missing
         Yast::Execute.locally("/usr/bin/systemd-machine-id-setup")
+      end
+
+      def switch_product
+        yaml_product = ::Registration::YamlProduct.selected_product
+        return unless yaml_product
+
+        return if yaml_product["name"] == "SLES" # sles is already selected in WSL
+
+        Yast::Pkg.ResolvableRemove("SLES", :product)
+        Yast::Pkg.ResolvableInstall(yaml_product["name"], :product)
+        # TODO: add also wsl graphic pattern if wanted
+        # TODO: check if pkg commit is done later or if it is needed here
       end
     end
   end
