@@ -18,27 +18,25 @@
 # find current contact information at www.suse.com.
 
 require "yast"
+require "y2firstboot/config"
 require "y2firstboot/dialogs/wsl_product_selection"
-require "registration/yaml_product"
+require "registration/yaml_products_reader"
 
 module Y2Firstboot
   module Clients
     class WSLProductSelection < Yast::Client
-      class << self
-        attr_accessor :product
-
-        attr_accessor :wsl_gui_pattern
-      end
-
       def run
         return :next if products.none?
 
-        dialog = Dialogs::WSLProductSelection.new(products, default_product: default_product)
+        dialog = Dialogs::WSLProductSelection.new(products,
+          default_product: product,
+          wsl_gui_pattern: wsl_gui_pattern?)
+
         result = dialog.run
 
         if result == :next
-          Registration::YamlProduct.select_product(dialog.product.id)
-          self.class.wsl_gui_pattern = dialog.wsl_gui_pattern
+          self.product = dialog.product
+          self.wsl_gui_pattern = dialog.wsl_gui_pattern
         end
 
         result
@@ -46,19 +44,36 @@ module Y2Firstboot
 
     private
 
-      def default_product
-        Registration::YamlProduct.selected_product["name"]
+      def product
+        Config.instance.product || default_product
       end
 
-      # FIXME: read products from yaml file
-      def products
-        products = Registration::YamlProduct.available_products
-        products.map do |p|
-          FakeProduct.new(p["name"], p["display_name"])
+      def product=(value)
+        Config.instance.product = value
+      end
+
+      def wsl_gui_pattern?
+        Config.instance.patterns.include?("wsl_gui")
+      end
+
+      def wsl_gui_pattern=(value)
+        if value
+          Config.instance.patterns.push("wsl_gui").uniq!
+        else
+          Config.instance.patterns.delete("wsl_gui")
         end
       end
 
-      FakeProduct = Struct.new(:id, :label)
+      def default_product
+        return nil if products.none?
+
+        default = products.find { |p| p["default"] } || products.first
+        default["name"]
+      end
+
+      def products
+        @products ||= Registration::YamlProductsReader.new.read
+      end
     end
   end
 end

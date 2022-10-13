@@ -21,7 +21,7 @@ require "yast"
 require "yast2/execute"
 require "y2firstboot/clients/user"
 require "etc"
-require "registration/yaml_product"
+require "y2firstboot/config"
 
 Yast.import "GetInstArgs"
 
@@ -35,6 +35,7 @@ module Y2Firstboot
         write_wsl_user
         setup_machine_id
         switch_product
+        install_patterns
 
         :next
       end
@@ -64,15 +65,24 @@ module Y2Firstboot
       end
 
       def switch_product
-        yaml_product = ::Registration::YamlProduct.selected_product
-        return unless yaml_product
+        product = Y2Firstboot::Config.instance.product
 
-        return if yaml_product["name"] == "SLES" # sles is already selected in WSL
+        return if installed_product && installed_product.name == product
 
-        Yast::Pkg.ResolvableRemove("SLES", :product)
-        Yast::Pkg.ResolvableInstall(yaml_product["name"], :product)
-        # TODO: add also wsl graphic pattern if wanted
+        Yast::Pkg.ResolvableRemove(installed_product.name, :product) if installed_product
+        Yast::Pkg.ResolvableInstall(product, :product) if product
         # TODO: check if pkg commit is done later or if it is needed here
+      end
+
+      def install_patterns
+        return unless Y2Firstboot::Config.instance.patterns.include?("wsl_gui")
+
+        Yast::Pkg.ResolvableInstall("wsl_gui", :pattern)
+      end
+
+      def installed_product
+        @installed_product ||=
+          Y2Packager::Resolvable.find(kind: :product, status: :installed, category: "base").first
       end
     end
   end

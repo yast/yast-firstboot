@@ -31,12 +31,13 @@ module Y2Firstboot
 
       attr_reader :wsl_gui_pattern
 
-      def initialize(products, default_product: nil)
+      def initialize(products, default_product: nil, wsl_gui_pattern: false)
         textdomain "firstboot"
 
         super()
         @products = products
-        @default_product = default_product || products.first
+        @product = default_product || products.first&.fetch("name")
+        @wsl_gui_pattern = wsl_gui_pattern
       end
 
       def next_handler
@@ -63,7 +64,7 @@ module Y2Firstboot
               )
             ),
             VSpacing(2),
-            Left(CheckBox(Id(:wsl_gui_pattern), _("Install WSL GUI pattern"), false))
+            Left(CheckBox(Id(:wsl_gui_pattern), _("Install WSL GUI pattern"), wsl_gui_pattern))
           )
         )
       end
@@ -78,17 +79,19 @@ module Y2Firstboot
 
       attr_reader :products
 
-      attr_reader :default_product
-
       def item_for(product)
-        Left(RadioButton(Id(product.id), product.label, product.id == default_product.id))
+        Left(
+          RadioButton(
+            Id(product["name"]),
+            product["display_name"],
+            product["name"] == self.product
+          )
+        )
       end
 
       def save
         @wsl_gui_pattern = Yast::UI.QueryWidget(Id(:wsl_gui_pattern), :Value)
-
-        product_id = Yast::UI.QueryWidget(Id(:product_selector), :Value)
-        @product = products.find { |p| p.id == product_id }
+        @product = Yast::UI.QueryWidget(Id(:product_selector), :Value)
       end
     end
   end
