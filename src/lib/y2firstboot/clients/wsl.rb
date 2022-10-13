@@ -21,7 +21,7 @@ require "yast"
 require "yast2/execute"
 require "y2firstboot/clients/user"
 require "etc"
-require "y2firstboot/config"
+require "y2firstboot/wsl_config"
 
 Yast.import "GetInstArgs"
 
@@ -29,6 +29,8 @@ module Y2Firstboot
   module Clients
     # Client to set up required configuration for WSL
     class WSL < Yast::Client
+      include Yast::Logger
+
       def run
         return :back if Yast::GetInstArgs.going_back
 
@@ -65,24 +67,34 @@ module Y2Firstboot
       end
 
       def switch_product
-        product = Y2Firstboot::Config.instance.product
+        product = with_registration { Registration::Storage::InstallationOptions.instance.product }
+        return unless product
 
         return if installed_product && installed_product.name == product
 
         Yast::Pkg.ResolvableRemove(installed_product.name, :product) if installed_product
-        Yast::Pkg.ResolvableInstall(product, :product) if product
+        Yast::Pkg.ResolvableInstall(product, :product)
         # TODO: check if pkg commit is done later or if it is needed here
       end
 
-      def install_patterns
-        return unless Y2Firstboot::Config.instance.patterns.include?("wsl_gui")
-
-        Yast::Pkg.ResolvableInstall("wsl_gui", :pattern)
+      # Runs a block ensuring that registration is correctly loaded
+      def with_registration
+        require "registration/storage"
+        yield
+      rescue LoadError
+        log.warn("Registration cannot be loaded. Make sure yast2-registration is installed.")
+        nil
       end
 
       def installed_product
         @installed_product ||=
           Y2Packager::Resolvable.find(kind: :product, status: :installed, category: "base").first
+      end
+
+      def install_patterns
+        Y2Firstboot::WSLConfig.instance.patterns.each do |pattern|
+          Yast::Pkg.ResolvableInstall(pattern, :pattern)
+        end
       end
     end
   end

@@ -18,9 +18,10 @@
 # find current contact information at www.suse.com.
 
 require "yast"
-require "y2firstboot/config"
+require "y2firstboot/wsl_config"
 require "y2firstboot/dialogs/wsl_product_selection"
 require "registration/yaml_products_reader"
+require "registration/storage"
 
 module Y2Firstboot
   module Clients
@@ -45,22 +46,22 @@ module Y2Firstboot
     private
 
       def product
-        Config.instance.product || default_product
+        Registration::Storage::InstallationOptions.instance.product || default_product
       end
 
       def product=(value)
-        Config.instance.product = value
+        Registration::Storage::InstallationOptions.instance.product = value
       end
 
       def wsl_gui_pattern?
-        Config.instance.patterns.include?("wsl_gui")
+        WSLConfig.instance.patterns.include?("wsl_gui")
       end
 
       def wsl_gui_pattern=(value)
         if value
-          Config.instance.patterns.push("wsl_gui").uniq!
+          WSLConfig.instance.patterns.push("wsl_gui").uniq!
         else
-          Config.instance.patterns.delete("wsl_gui")
+          WSLConfig.instance.patterns.delete("wsl_gui")
         end
       end
 
