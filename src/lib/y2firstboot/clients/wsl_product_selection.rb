@@ -19,6 +19,7 @@
 
 require "yast"
 require "y2firstboot/dialogs/wsl_product_selection"
+require "registration/yaml_product"
 
 module Y2Firstboot
   module Clients
@@ -36,7 +37,7 @@ module Y2Firstboot
         result = dialog.run
 
         if result == :next
-          self.class.product = dialog.product
+          Registration::YamlProduct.select_product(dialog.product.id)
           self.class.wsl_gui_pattern = dialog.wsl_gui_pattern
         end
 
@@ -46,15 +47,15 @@ module Y2Firstboot
     private
 
       def default_product
-        products.find { |p| p.id == :sles }
+        Registration::YamlProduct.selected_product["name"]
       end
 
       # FIXME: read products from yaml file
       def products
-        [
-          FakeProduct.new(:sles, "SUSE Linux Entreprise Server SP4"),
-          FakeProduct.new(:sled, "SUSE Linux Entreprise Desktop SP4")
-        ]
+        products = Registration::YamlProduct.available_products
+        products.map do |p|
+          FakeProduct.new(p["name"], p["display_name"])
+        end
       end
 
       FakeProduct = Struct.new(:id, :label)
