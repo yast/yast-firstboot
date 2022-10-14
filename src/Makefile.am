@@ -54,9 +54,11 @@ ylibclient_DATA = \
   lib/y2firstboot/clients/wsl.rb \
   lib/y2firstboot/clients/wsl_product_selection.rb
 
+ylibdir = "${yast2dir}/lib/y2firstboot"
 ylib_DATA = \
   lib/y2firstboot/wsl_config.rb
 
+ylibdialogsdir = "${yast2dir}/lib/y2firstboot/dialogs"
 ylibdialogs_DATA = \
   lib/y2firstboot/dialogs/wsl_product_selection.rb
 
