@@ -29,8 +29,6 @@ module Y2Firstboot
   module Clients
     # Client to set up required configuration for WSL
     class WSL < Yast::Client
-      include Yast::Logger
-
       def run
         return :back if Yast::GetInstArgs.going_back
 

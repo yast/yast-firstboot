@@ -45,7 +45,7 @@ module Y2Firstboot
       def save(product:, wsl_gui_pattern:)
         self.product = product
         self.wsl_gui_pattern = wsl_gui_pattern
-        self.update_force_registration
+        self.update_registration
       end
 
       def product
@@ -68,10 +68,12 @@ module Y2Firstboot
         end
       end
 
-      def update_force_registration
-        force = WSLConfig.instance.product_switched? || wsl_gui_pattern?
+      def update_registration
+        force_registration = WSLConfig.instance.product_switched? || wsl_gui_pattern?
+        yaml_product = products.find { |p| p["name"] == WSLConfig.instance.product }
 
-        Registration::Storage::InstallationOptions.instance.force_registration = force
+        Registration::Storage::InstallationOptions.instance.force_registration = force_registration
+        Registration::Storage::InstallationOptions.instance.yaml_product = yaml_product
       end
 
       def default_product
