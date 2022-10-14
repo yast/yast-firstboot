@@ -63,16 +63,18 @@ module Y2Firstboot
                 *items
               )
             ),
-            VSpacing(2),
+            VSpacing(1),
+            Label(_("The WSL GUI pattern provides some needed packages for\n" \
+              "a better experience with graphical applications on WSL.")),
             Left(CheckBox(Id(:wsl_gui_pattern), _("Install WSL GUI pattern"), wsl_gui_pattern))
           )
         )
       end
 
-      # TODO
       def help_text
-        _("The WSL GUI pattern installs some needed dependencies for " \
-          "a nice out-of-the-box experience with GUI applications on WSL.")
+        _("Select the product to use with Windows Subsystem for Linux (WSL). \n\n" \
+          "Registering the product might be required in order to configure the selected product. " \
+          "Registration is also required to install the WSL GUI pattern.")
       end
 
       private
