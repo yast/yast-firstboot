@@ -67,32 +67,14 @@ module Y2Firstboot
       end
 
       def switch_product
-        product = ensure_require("registration/storage") do
-          Registration::Storage::InstallationOptions.instance.product
-        end
+        return unless Y2Firstboot::WSLConfig.instance.product_switched?
 
-        return unless product
+        product = Y2Firstboot::WSLConfig.instance.product
+        installed_product = Y2Firstboot::WSLConfig.instance.installed_product
 
-        return if installed_product && installed_product.name == product
-
-        Yast::Pkg.ResolvableRemove(installed_product.name, :product) if installed_product
+        Yast::Pkg.ResolvableRemove(installed_product, :product) if installed_product
         Yast::Pkg.ResolvableInstall(product, :product)
         # TODO: check if pkg commit is done later or if it is needed here
-      end
-
-      def installed_product
-        @installed_product ||= ensure_require("registration/sw_mgmt") do
-          Registration::SwMgmt.base_installed_product
-        end
-      end
-
-      # Runs a block ensuring that the required files are correctly loaded
-      def ensure_require(files)
-        files.each { |f| require(f) }
-        yield
-      rescue LoadError => e
-        log.warn("Required files cannot be loaded: #{e.message}")
-        nil
       end
 
       def install_patterns

@@ -35,22 +35,25 @@ module Y2Firstboot
 
         result = dialog.run
 
-        if result == :next
-          self.product = dialog.product
-          self.wsl_gui_pattern = dialog.wsl_gui_pattern
-        end
+        save(product: dialog.product, wsl_gui_pattern: dialog.wsl_gui_pattern) if result == :next
 
         result
       end
 
     private
 
+      def save(product:, wsl_gui_pattern:)
+        self.product = product
+        self.wsl_gui_pattern = wsl_gui_pattern
+        self.update_force_registration
+      end
+
       def product
-        Registration::Storage::InstallationOptions.instance.product || default_product
+        WSLConfig.instance.product || default_product
       end
 
       def product=(value)
-        Registration::Storage::InstallationOptions.instance.product = value
+        WSLConfig.instance.product = value
       end
 
       def wsl_gui_pattern?
@@ -63,6 +66,12 @@ module Y2Firstboot
         else
           WSLConfig.instance.patterns.delete("wsl_gui")
         end
+      end
+
+      def update_force_registration
+        force = WSLConfig.instance.product_switched? || wsl_gui_pattern?
+
+        Registration::Storage::InstallationOptions.instance.force_registration = force
       end
 
       def default_product

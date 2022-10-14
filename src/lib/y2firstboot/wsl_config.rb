@@ -18,15 +18,43 @@
 # find current contact information at www.suse.com.
 
 require "singleton"
+require "y2packager/resolvable"
 
 module Y2Firstboot
   class WSLConfig
     include Singleton
 
+    attr_accessor :product
+
     attr_accessor :patterns
 
     def initialize
       @patterns = []
+    end
+
+    def product_switched?
+      return false unless installed_product && product
+
+      installed_product != product
+    end
+
+    def installed_product
+      @installed_product ||= find_installed_product&.name
+    end
+
+    private
+
+    def find_installed_product
+      init_package_system
+
+      Y2Packager::Resolvable.find(kind: :product, status: :installed, category: "base").first
+    end
+
+    def init_package_system
+      Yast.import "PackageSystem"
+
+      Yast::PackageSystem.EnsureTargetInit
+      Yast::PackageSystem.EnsureSourceInit
     end
   end
 end
