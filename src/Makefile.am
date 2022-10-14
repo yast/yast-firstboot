@@ -26,7 +26,8 @@ client_DATA = \
   clients/firstboot_root.rb \
   clients/firstboot_user.rb \
   clients/firstboot_configuration_management.rb \
-  clients/firstboot_wsl.rb
+  clients/firstboot_wsl.rb \
+  clients/firstboot_wsl_product_selection.rb
 
 yncludedir = @yncludedir@/firstboot
 ynclude_DATA = \
@@ -50,7 +51,14 @@ ylibclient_DATA = \
   lib/y2firstboot/clients/root.rb \
   lib/y2firstboot/clients/user.rb \
   lib/y2firstboot/clients/licenses.rb \
-  lib/y2firstboot/clients/wsl.rb
+  lib/y2firstboot/clients/wsl.rb \
+  lib/y2firstboot/clients/wsl_product_selection.rb
+
+ylib_DATA = \
+  lib/y2firstboot/wsl_config.rb
+
+ylibdialogs_DATA = \
+  lib/y2firstboot/dialogs/wsl_product_selection.rb
 
 symbolicdir = @icondir@/hicolor/symbolic/apps
 symbolic_DATA = \
@@ -59,6 +67,6 @@ scalabledir = @icondir@/hicolor/scalable/apps
 scalable_DATA = \
   icons/hicolor/scalable/apps/yast-firstboot.svg
 
-EXTRA_DIST = $(module_DATA) $(client_DATA) $(ynclude_DATA) $(scrconf_DATA) $(schemafiles_DATA) $(fillup_DATA) $(ylibclient_DATA) $(symbolic_DATA) $(scalable_DATA)
+EXTRA_DIST = $(module_DATA) $(client_DATA) $(ynclude_DATA) $(scrconf_DATA) $(schemafiles_DATA) $(fillup_DATA) $(ylibclient_DATA) ${ylib_DATA} ${ylibdialogs_DATA} $(symbolic_DATA) $(scalable_DATA)
 
 include $(top_srcdir)/Makefile.am.common
