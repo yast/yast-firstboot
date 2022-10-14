@@ -67,7 +67,10 @@ module Y2Firstboot
       end
 
       def switch_product
-        product = with_registration { Registration::Storage::InstallationOptions.instance.product }
+        product = ensure_require("registration/storage") do
+          Registration::Storage::InstallationOptions.instance.product
+        end
+
         return unless product
 
         return if installed_product && installed_product.name == product
@@ -77,18 +80,19 @@ module Y2Firstboot
         # TODO: check if pkg commit is done later or if it is needed here
       end
 
-      # Runs a block ensuring that registration is correctly loaded
-      def with_registration
-        require "registration/storage"
-        yield
-      rescue LoadError
-        log.warn("Registration cannot be loaded. Make sure yast2-registration is installed.")
-        nil
+      def installed_product
+        @installed_product ||= ensure_require("registration/sw_mgmt") do
+          Registration::SwMgmt.base_installed_product
+        end
       end
 
-      def installed_product
-        @installed_product ||=
-          Y2Packager::Resolvable.find(kind: :product, status: :installed, category: "base").first
+      # Runs a block ensuring that the required files are correctly loaded
+      def ensure_require(files)
+        files.each { |f| require(f) }
+        yield
+      rescue LoadError => e
+        log.warn("Required files cannot be loaded: #{e.message}")
+        nil
       end
 
       def install_patterns
