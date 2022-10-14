@@ -155,6 +155,11 @@
                     <name>firstboot_root</name>
                 </module>
                 <module>
+                    <label>Product Selection</label>
+                    <name>firstboot_wsl_product_selection</name>
+                    <enabled config:type="boolean">false</enabled>
+                </module>
+                <module>
                     <label>Customer Center</label>
                     <name>registration</name>
                     <enabled config:type="boolean">false</enabled>
