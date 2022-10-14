@@ -77,6 +77,7 @@ YaST2 firstboot settings for WSL images
 # registration and +1 for next line and then here change false to true
 sed -i '/<name>registration/,+1s/false/true/' control/firstboot.xml
 sed -i '/<name>registration/,+1s/false/true/' wsl/firstboot.xml
+sed -i '/<name>firstboot_wsl_product_selection/,+1s/false/true/' wsl/firstboot.xml
 %endif
 
 %install
