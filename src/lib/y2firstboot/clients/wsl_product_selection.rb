@@ -45,7 +45,7 @@ module Y2Firstboot
       def save(product:, wsl_gui_pattern:)
         self.product = product
         self.wsl_gui_pattern = wsl_gui_pattern
-        self.update_registration
+        update_registration
       end
 
       def product
