@@ -21,35 +21,51 @@ require "singleton"
 require "y2packager/resolvable"
 
 module Y2Firstboot
+  # Configuration for WSL firstboot
   class WSLConfig
     include Singleton
 
+    # Name of the product to use with WSL
+    #
+    # @return [String, nil]
     attr_accessor :product
 
+    # Patterns to install as part of the WSL configuration
+    #
+    # @return [Array<String>]
     attr_accessor :patterns
 
     def initialize
       @patterns = []
     end
 
+    # Whether the selected product is not the installed product
+    #
+    # @return [Boolean]
     def product_switched?
       return false unless installed_product && product
 
       installed_product != product
     end
 
+    # Current installed product
+    #
+    # @return [String, nil]
     def installed_product
       @installed_product ||= find_installed_product&.name
     end
 
-    private
+  private
 
+    # Finds the currently installed product
+    #
+    # @return [Y2Packager::Resolvable, nil]
     def find_installed_product
       init_package_system
-
       Y2Packager::Resolvable.find(kind: :product, status: :installed, category: "base").first
     end
 
+    # Initializes the package system
     def init_package_system
       Yast.import "PackageSystem"
 

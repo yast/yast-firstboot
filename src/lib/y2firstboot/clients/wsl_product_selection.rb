@@ -25,7 +25,13 @@ require "registration/storage"
 
 module Y2Firstboot
   module Clients
+    # Client for selecting the product to use with WSL (jsc#PED-1380)
+    #
+    # It also allows to indicate whether to install WSL GUI pattern (jsc#PM-3439).
     class WSLProductSelection < Yast::Client
+      # Runs the client
+      #
+      # @return [Symbol]
       def run
         return :next if products.none?
 
@@ -42,24 +48,46 @@ module Y2Firstboot
 
     private
 
+      # Saves changes
+      #
+      # @param product [String] Name of the selected product
+      # @param wsl_gui_pattern [Boolean] Whether to install WSL GUI pattern
       def save(product:, wsl_gui_pattern:)
         self.product = product
         self.wsl_gui_pattern = wsl_gui_pattern
         update_registration
       end
 
+      # Name of the product to use
+      #
+      # @see {ẂSLConfig}
+      #
+      # @return [String]
       def product
         WSLConfig.instance.product || default_product
       end
 
+      # Sets the product to use
+      #
+      # @see {ẂSLConfig}
+      #
+      # @param value [String] Name of the product
       def product=(value)
         WSLConfig.instance.product = value
       end
 
+      # Whether the WSL GUI pattern should be installed
+      #
+      # @see {ẂSLConfig}
+      #
+      # @return [Boolean]
       def wsl_gui_pattern?
         WSLConfig.instance.patterns.include?("wsl_gui")
       end
 
+      # Sets whether to install the WSL GUI pattern
+      #
+      # @param value [Boolean]
       def wsl_gui_pattern=(value)
         if value
           WSLConfig.instance.patterns.push("wsl_gui").uniq!
@@ -68,6 +96,12 @@ module Y2Firstboot
         end
       end
 
+      # Updates values stored in registration
+      #
+      # Those values indicates to registration what product was selected and whether the product
+      # has to be registered.
+      #
+      # @see {Registration::Storage::InstallationOptions}
       def update_registration
         force_registration = WSLConfig.instance.product_switched? || wsl_gui_pattern?
         yaml_product = products.find { |p| p["name"] == WSLConfig.instance.product }
@@ -76,6 +110,9 @@ module Y2Firstboot
         Registration::Storage::InstallationOptions.instance.yaml_product = yaml_product
       end
 
+      # Name of the default product to use from YAML file
+      #
+      # @return [String]
       def default_product
         return nil if products.none?
 
@@ -83,6 +120,9 @@ module Y2Firstboot
         default["name"]
       end
 
+      # All products from YAML file
+      #
+      # @return [Array<Hash>]
       def products
         @products ||= Registration::YamlProductsReader.new.read
       end

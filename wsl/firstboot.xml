@@ -177,7 +177,7 @@
                     <enable_next>no</enable_next>
                 </module>
                 <module>
-                    <label>Finish WSL Setup</label>
+                    <label>Package Installation</label>
                     <name>inst_rpmcopy</name>
                     <enable_back>no</enable_back>
                     <enable_next>no</enable_next>

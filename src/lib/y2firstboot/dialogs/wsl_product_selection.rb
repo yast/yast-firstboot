@@ -24,13 +24,25 @@ Yast.import "UI"
 
 module Y2Firstboot
   module Dialogs
+    # Dialog for selecting the product to use with WSL
     class WSLProductSelection < ::UI::InstallationDialog
       include Yast::I18n
 
+      # Name of the selected product
+      #
+      # @return [String]
       attr_reader :product
 
+      # Whether the WSL GUI pattern was selected
+      #
+      # @return [Boolean]
       attr_reader :wsl_gui_pattern
 
+      # Constructor
+      #
+      # @param products [Array<Hash>] All possible products
+      # @param default_product [String] Name of the product selected by default
+      # @param wsl_gui_pattern [Boolean] Whether WSL GUI pattern is selected by default
       def initialize(products, default_product: nil, wsl_gui_pattern: false)
         textdomain "firstboot"
 
@@ -45,7 +57,7 @@ module Y2Firstboot
         super
       end
 
-      protected
+    protected
 
       def dialog_title
         _("Product Selection")
@@ -77,8 +89,11 @@ module Y2Firstboot
           "Registration is also required to install the WSL GUI pattern.")
       end
 
-      private
+    private
 
+      # All possible products to select
+      #
+      # @return [Array<Hash>]
       attr_reader :products
 
       def item_for(product)
