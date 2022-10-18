@@ -45,8 +45,10 @@ module Y2Firstboot
     def product_switched?
       return false unless installed_product && product
 
+      # "version_version" contains the version without the release number ("15.4"),
+      # unlike the "version" attribute ("15.4-0")
       installed_product.name != product["name"] ||
-        installed_product.version != product["version"]
+        installed_product.version_version != product["version"]
     end
 
     # Current installed product

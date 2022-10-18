@@ -47,7 +47,13 @@ describe Y2Firstboot::WSLConfig do
     end
 
     context "when there is an installed product" do
-      let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES", version: "15.4") }
+      let(:installed_product) do
+        double(
+          Y2Packager::Resolvable,
+          name:            "SLES",
+          version_version: "15.4"
+        )
+      end
 
       context "and there is no selected product" do
         let(:product) { nil }
