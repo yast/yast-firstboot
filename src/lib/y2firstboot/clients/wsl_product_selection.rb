@@ -29,7 +29,7 @@ module Y2Firstboot
     class WSLProductSelection < Yast::Client
       # Runs the client
       #
-      # @throw [RuntimeError] see {#require_registration}.
+      # @raise [RuntimeError] see {#require_registration}.
       #
       # @return [Symbol]
       def run
@@ -65,7 +65,7 @@ module Y2Firstboot
 
       # Product to use
       #
-      # @see {ẂSLConfig}
+      # @see ẂSLConfig
       #
       # @return [Hash]
       def product
@@ -74,7 +74,7 @@ module Y2Firstboot
 
       # Sets the product to use
       #
-      # @see {ẂSLConfig}
+      # @see ẂSLConfig
       #
       # @param value [Hash] A product
       def product=(value)
@@ -83,7 +83,7 @@ module Y2Firstboot
 
       # Whether the WSL GUI pattern should be installed
       #
-      # @see {ẂSLConfig}
+      # @see ẂSLConfig
       #
       # @return [Boolean]
       def wsl_gui_pattern?
@@ -106,7 +106,7 @@ module Y2Firstboot
       # Those values indicates to registration what product was selected and whether the product
       # has to be registered.
       #
-      # @see {Registration::Storage::InstallationOptions}
+      # @see Registration::Storage::InstallationOptions
       def update_registration
         yaml_product = WSLConfig.instance.product
         force_registration = WSLConfig.instance.product_switched? || wsl_gui_pattern?
@@ -135,7 +135,7 @@ module Y2Firstboot
       #
       # @note yast2-registration might not be available for some products (e.g., openSUSE).
       #
-      # @throw [RuntimeError] if yast2-registration files cannot be loaded
+      # @raise [RuntimeError] if yast2-registration files cannot be loaded
       def require_registration
         require "registration/yaml_products_reader"
         require "registration/storage"
