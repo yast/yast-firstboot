@@ -128,7 +128,7 @@ module Y2Firstboot
       #
       # @return [Array<Hash>]
       def products
-        @products ||= Registration::YamlProductsReader.new("/tmp/products.yml").read
+        @products ||= Registration::YamlProductsReader.new.read
       end
 
       # Tries to require yast2-registration files

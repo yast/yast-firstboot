@@ -84,7 +84,7 @@ module Y2Firstboot
       end
 
       def help_text
-        _("Select the product to use with Windows Subsystem for Linux (WSL). \n\n" \
+        _("Select the product to use with Windows Subsystem for Linux (WSL).\n\n" \
           "Registering the product might be required in order to configure the selected product. " \
           "Registration is also required to install the WSL GUI pattern.")
       end
@@ -120,8 +120,8 @@ module Y2Firstboot
       def save
         @wsl_gui_pattern = Yast::UI.QueryWidget(Id(:wsl_gui_pattern), :Value)
 
-        name, version = Yast::UI.QueryWidget(Id(:product_selector), :Value).split(":")
-        @product = products.find { |p| p["name"] == name && p["version"] == version }
+        selected_id = Yast::UI.QueryWidget(Id(:product_selector), :Value)
+        @product = products.find { |p| item_id(p) == selected_id }
       end
     end
   end
