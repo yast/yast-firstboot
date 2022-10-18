@@ -20,8 +20,6 @@
 require "yast"
 require "y2firstboot/wsl_config"
 require "y2firstboot/dialogs/wsl_product_selection"
-require "registration/yaml_products_reader"
-require "registration/storage"
 
 module Y2Firstboot
   module Clients
@@ -31,8 +29,12 @@ module Y2Firstboot
     class WSLProductSelection < Yast::Client
       # Runs the client
       #
+      # @throw [RuntimeError] see {#require_registration}.
+      #
       # @return [Symbol]
       def run
+        require_registration
+
         return :next if products.none?
 
         dialog = Dialogs::WSLProductSelection.new(products,
@@ -126,7 +128,19 @@ module Y2Firstboot
       #
       # @return [Array<Hash>]
       def products
-        @products ||= Registration::YamlProductsReader.new.read
+        @products ||= Registration::YamlProductsReader.new("/tmp/products.yml").read
+      end
+
+      # Tries to require yast2-registration files
+      #
+      # @note yast2-registration might not be available for some products (e.g., openSUSE).
+      #
+      # @throw [RuntimeError] if yast2-registration files cannot be loaded
+      def require_registration
+        require "registration/yaml_products_reader"
+        require "registration/storage"
+      rescue LoadError
+        raise "yast2-registration >= 4.4.23 required"
       end
     end
   end
