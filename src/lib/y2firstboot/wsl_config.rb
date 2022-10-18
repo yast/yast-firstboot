@@ -25,9 +25,9 @@ module Y2Firstboot
   class WSLConfig
     include Singleton
 
-    # Name of the product to use with WSL
+    # Product to use with WSL
     #
-    # @return [String, nil]
+    # @return [Hash, nil]
     attr_accessor :product
 
     # Patterns to install as part of the WSL configuration
@@ -45,14 +45,15 @@ module Y2Firstboot
     def product_switched?
       return false unless installed_product && product
 
-      installed_product != product
+      installed_product.name != product["name"] ||
+        installed_product.version != product["version"]
     end
 
     # Current installed product
     #
-    # @return [String, nil]
+    # @return [Y2Packager::Resolvable, nil]
     def installed_product
-      @installed_product ||= find_installed_product&.name
+      @installed_product ||= find_installed_product
     end
 
   private

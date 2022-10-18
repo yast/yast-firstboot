@@ -64,7 +64,7 @@ module Y2Firstboot
         Yast::Execute.locally("/usr/bin/systemd-machine-id-setup")
       end
 
-      # Performs changes in order to install the selected product
+      # Performs changes in order to remove the current product and install the selected product
       # (see client wsl_product_selection)
       def switch_product
         return unless Y2Firstboot::WSLConfig.instance.product_switched?
@@ -72,8 +72,8 @@ module Y2Firstboot
         product = Y2Firstboot::WSLConfig.instance.product
         installed_product = Y2Firstboot::WSLConfig.instance.installed_product
 
-        Yast::Pkg.ResolvableRemove(installed_product, :product) if installed_product
-        Yast::Pkg.ResolvableInstall(product, :product)
+        Yast::Pkg.ResolvableRemove(installed_product.name, :product) if installed_product
+        Yast::Pkg.ResolvableInstall(product["name"], :product)
       end
 
       # Installs the selected patterns

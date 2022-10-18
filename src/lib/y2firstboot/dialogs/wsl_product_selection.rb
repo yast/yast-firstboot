@@ -28,9 +28,9 @@ module Y2Firstboot
     class WSLProductSelection < ::UI::InstallationDialog
       include Yast::I18n
 
-      # Name of the selected product
+      # Selected product
       #
-      # @return [String]
+      # @return [Hash]
       attr_reader :product
 
       # Whether the WSL GUI pattern was selected
@@ -41,14 +41,14 @@ module Y2Firstboot
       # Constructor
       #
       # @param products [Array<Hash>] All possible products
-      # @param default_product [String] Name of the product selected by default
+      # @param default_product [Hash] Product selected by default
       # @param wsl_gui_pattern [Boolean] Whether WSL GUI pattern is selected by default
       def initialize(products, default_product: nil, wsl_gui_pattern: false)
         textdomain "firstboot"
 
         super()
         @products = products
-        @product = default_product || products.first&.fetch("name")
+        @product = default_product || products.first
         @wsl_gui_pattern = wsl_gui_pattern
       end
 
@@ -96,19 +96,32 @@ module Y2Firstboot
       # @return [Array<Hash>]
       attr_reader :products
 
+      # Radio button for selecting a product
+      #
+      # @param product [Hash]
       def item_for(product)
         Left(
           RadioButton(
-            Id(product["name"]),
+            Id(item_id(product)),
             product["display_name"],
-            product["name"] == self.product
+            item_id(product) == item_id(self.product)
           )
         )
       end
 
+      # Id for the radio button
+      #
+      # @param product [Hash]
+      # @return [String]
+      def item_id(product)
+        "#{product["name"]}:#{product["version"]}"
+      end
+
       def save
         @wsl_gui_pattern = Yast::UI.QueryWidget(Id(:wsl_gui_pattern), :Value)
-        @product = Yast::UI.QueryWidget(Id(:product_selector), :Value)
+
+        name, version = Yast::UI.QueryWidget(Id(:product_selector), :Value).split(":")
+        @product = products.find { |p| p["name"] == name && p["version"] == version }
       end
     end
   end

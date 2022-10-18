@@ -48,9 +48,12 @@ module Y2Firstboot
 
     private
 
+      WSL_GUI_PATTERN = "wsl_gui".freeze
+      private_constant :WSL_GUI_PATTERN
+
       # Saves changes
       #
-      # @param product [String] Name of the selected product
+      # @param product [Hash] Selected product
       # @param wsl_gui_pattern [Boolean] Whether to install WSL GUI pattern
       def save(product:, wsl_gui_pattern:)
         self.product = product
@@ -58,11 +61,11 @@ module Y2Firstboot
         update_registration
       end
 
-      # Name of the product to use
+      # Product to use
       #
       # @see {ẂSLConfig}
       #
-      # @return [String]
+      # @return [Hash]
       def product
         WSLConfig.instance.product || default_product
       end
@@ -71,7 +74,7 @@ module Y2Firstboot
       #
       # @see {ẂSLConfig}
       #
-      # @param value [String] Name of the product
+      # @param value [Hash] A product
       def product=(value)
         WSLConfig.instance.product = value
       end
@@ -82,7 +85,7 @@ module Y2Firstboot
       #
       # @return [Boolean]
       def wsl_gui_pattern?
-        WSLConfig.instance.patterns.include?("wsl_gui")
+        WSLConfig.instance.patterns.include?(WSL_GUI_PATTERN)
       end
 
       # Sets whether to install the WSL GUI pattern
@@ -90,9 +93,9 @@ module Y2Firstboot
       # @param value [Boolean]
       def wsl_gui_pattern=(value)
         if value
-          WSLConfig.instance.patterns.push("wsl_gui").uniq!
+          WSLConfig.instance.patterns.push(WSL_GUI_PATTERN).uniq!
         else
-          WSLConfig.instance.patterns.delete("wsl_gui")
+          WSLConfig.instance.patterns.delete(WSL_GUI_PATTERN)
         end
       end
 
@@ -103,11 +106,11 @@ module Y2Firstboot
       #
       # @see {Registration::Storage::InstallationOptions}
       def update_registration
+        yaml_product = WSLConfig.instance.product
         force_registration = WSLConfig.instance.product_switched? || wsl_gui_pattern?
-        yaml_product = products.find { |p| p["name"] == WSLConfig.instance.product }
 
-        Registration::Storage::InstallationOptions.instance.force_registration = force_registration
         Registration::Storage::InstallationOptions.instance.yaml_product = yaml_product
+        Registration::Storage::InstallationOptions.instance.force_registration = force_registration
       end
 
       # Name of the default product to use from YAML file
@@ -116,8 +119,7 @@ module Y2Firstboot
       def default_product
         return nil if products.none?
 
-        default = products.find { |p| p["default"] } || products.first
-        default["name"]
+        products.find { |p| p["default"] } || products.first
       end
 
       # All products from YAML file

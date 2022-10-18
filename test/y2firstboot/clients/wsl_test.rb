@@ -105,8 +105,8 @@ describe Y2Firstboot::Clients::WSL do
       end
 
       context "when the product was switched" do
-        let(:installed_product) { "SLES" }
-        let(:product) { "SLED" }
+        let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES", version: "15.4") }
+        let(:product) { { "name" => "SLED", "version" => "15.4" } }
 
         it "removes the installed product" do
           expect(Yast::Pkg).to receive(:ResolvableRemove).with("SLES", :product)
@@ -122,8 +122,8 @@ describe Y2Firstboot::Clients::WSL do
       end
 
       context "when the product was not switched" do
-        let(:installed_product) { "SLES" }
-        let(:product) { "SLES" }
+        let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES", version: "15.4") }
+        let(:product) { { "name" => "SLES", "version" => "15.4" } }
 
         it "does remove the installed product" do
           expect(Yast::Pkg).to_not receive(:ResolvableRemove).with("SLES", :product)

@@ -47,7 +47,7 @@ describe Y2Firstboot::WSLConfig do
     end
 
     context "when there is an installed product" do
-      let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES") }
+      let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES", version: "15.4") }
 
       context "and there is no selected product" do
         let(:product) { nil }
@@ -58,15 +58,23 @@ describe Y2Firstboot::WSLConfig do
       end
 
       context "and the selected product is the installed product" do
-        let(:product) { "SLES" }
+        let(:product) { { "name" => "SLES", "version" => "15.4" } }
 
         it "returns false" do
           expect(subject.product_switched?).to eq(false)
         end
       end
 
+      context "and the selected product is the installed product with different version" do
+        let(:product) { { "name" => "SLES", "version" => "15.3" } }
+
+        it "returns true" do
+          expect(subject.product_switched?).to eq(true)
+        end
+      end
+
       context "and the selected product is not the installed product" do
-        let(:product) { "SLED" }
+        let(:product) { { "name" => "SLED", "version" => "15.4" } }
 
         it "returns true" do
           expect(subject.product_switched?).to eq(true)
@@ -89,8 +97,8 @@ describe Y2Firstboot::WSLConfig do
     context "when there is an installed product" do
       let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES") }
 
-      it "returns the name of the installed product" do
-        expect(subject.installed_product).to eq("SLES")
+      it "returns the installed product" do
+        expect(subject.installed_product.name).to eq("SLES")
       end
     end
 
