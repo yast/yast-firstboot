@@ -24,6 +24,7 @@ require "etc"
 require "y2firstboot/wsl_config"
 
 Yast.import "GetInstArgs"
+Yast.import "Report"
 
 module Y2Firstboot
   module Clients
@@ -80,7 +81,11 @@ module Y2Firstboot
       # (see client wsl_product_selection)
       def install_patterns
         Y2Firstboot::WSLConfig.instance.patterns.each do |pattern|
-          Yast::Pkg.ResolvableInstall(pattern, :pattern)
+          next if Yast::Pkg.ResolvableInstall(pattern, :pattern)
+
+          # TRANSLATORS: Error message, %s is a pattern name
+          Yast::Report.Error(_("Cannot select pattern\n\"%s\" to install.\n" \
+            "Some software might be missing.") % pattern)
         end
       end
     end

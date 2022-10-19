@@ -157,7 +157,20 @@ describe Y2Firstboot::Clients::WSL do
 
         it "installs the selected patterns" do
           expect(Yast::Pkg).to receive(:ResolvableInstall).with("wsl_gui", :pattern)
+            .and_return(true)
           expect(Yast::Pkg).to receive(:ResolvableInstall).with("test", :pattern)
+            .and_return(true)
+
+          subject.run
+        end
+
+        it "reports an error when a pattern cannot be installed" do
+          expect(Yast::Pkg).to receive(:ResolvableInstall).with("wsl_gui", :pattern)
+            .and_return(false)
+          expect(Yast::Pkg).to receive(:ResolvableInstall).with("test", :pattern)
+            .and_return(true)
+
+          expect(Yast::Report).to receive(:Error).with(/wsl_gui/)
 
           subject.run
         end
