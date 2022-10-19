@@ -19,6 +19,7 @@
 
 require "yast"
 require "ui/installation_dialog"
+require "y2firstboot/wsl_config"
 
 Yast.import "UI"
 
@@ -60,6 +61,7 @@ module Y2Firstboot
     protected
 
       def dialog_title
+        # TRANSLATORS: dialog title
         _("Product Selection")
       end
 
@@ -71,22 +73,32 @@ module Y2Firstboot
             RadioButtonGroup(
               Id(:product_selector),
               VBox(
-                Left(Label(_("Select the product to use"))),
+                # TRANSLATORS: dialog heading
+                Left(Heading(_("Select the product to use"))),
+                VSpacing(1),
                 *items
               )
             ),
-            VSpacing(1),
+            VSpacing(2),
+            # TRANSLATORS:
             Label(_("The WSL GUI pattern provides some needed packages for\n" \
-              "a better experience with graphical applications on WSL.")),
-            Left(CheckBox(Id(:wsl_gui_pattern), _("Install WSL GUI pattern"), wsl_gui_pattern))
+              "a better experience with graphical applications in WSL.")),
+            VSpacing(1),
+            # TRANSLATORS: check box label
+            Left(CheckBox(Id(:wsl_gui_pattern),
+              _("Install WSL GUI pattern (requires registration)"),
+              wsl_gui_pattern))
           )
         )
       end
 
       def help_text
-        _("Select the product to use with Windows Subsystem for Linux (WSL).\n\n" \
-          "Registering the product might be required in order to configure the selected product. " \
-          "Registration is also required to install the WSL GUI pattern.")
+        # TRANSLATORS: help text (1/2)
+        _("<p>Select the product to use with Windows Subsystem for Linux (WSL). " \
+          "Some products might require registration.</p>") +
+          # TRANSLATORS: help text (2/2)
+          _("<p>To use graphical programs in WSL you need to install the WSL GUI pattern. " \
+              "In that case the system needs to be registered as well.</p>")
       end
 
     private
@@ -103,7 +115,7 @@ module Y2Firstboot
         Left(
           RadioButton(
             Id(item_id(product)),
-            product["display_name"],
+            product_label(product),
             item_id(product) == item_id(self.product)
           )
         )
@@ -115,6 +127,21 @@ module Y2Firstboot
       # @return [String]
       def item_id(product)
         "#{product["name"]}:#{product["version"]}"
+      end
+
+      def product_label(product)
+        label = product["display_name"]
+
+        installed_product = WSLConfig.instance.installed_product
+        if installed_product.name != product["name"] ||
+            installed_product.version_version != product["version"]
+
+          # TRANSLATORS: suffix displayed for the products which require registration,
+          # %s is a product name like "SUSE Linux Enterprise Server 15 SP4"
+          label = _("%s (requires registration)") % label
+        end
+
+        label
       end
 
       def save

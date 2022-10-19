@@ -53,6 +53,12 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
   let(:default_product) { sled }
   let(:wsl_gui_pattern) { false }
 
+  let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES", version_version: "15.4") }
+  before do
+    allow(Y2Firstboot::WSLConfig.instance).to receive(:installed_product)
+      .and_return(installed_product)
+  end
+
   describe "#dialog_content" do
     it "shows radio button box for selecting the product" do
       widget = find_widget(:product_selector, subject.send(:dialog_content))
