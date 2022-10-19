@@ -30,6 +30,11 @@ module Y2Firstboot
   module Clients
     # Client to set up required configuration for WSL
     class WSL < Yast::Client
+      def initialize
+        textdomain "firstboot"
+        super
+      end
+
       def run
         return :back if Yast::GetInstArgs.going_back
 
