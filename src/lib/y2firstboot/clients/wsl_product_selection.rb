@@ -35,7 +35,7 @@ module Y2Firstboot
       def run
         require_registration
 
-        return :next if products.none?
+        return :auto if products.none?
 
         dialog = Dialogs::WSLProductSelection.new(products,
           default_product: product,

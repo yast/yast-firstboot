@@ -83,8 +83,8 @@ describe Y2Firstboot::Clients::WSLProductSelection do
           expect(Y2Firstboot::WSLConfig.instance.patterns).to contain_exactly("test")
         end
 
-        it "returns :next" do
-          expect(subject.run).to eq(:next)
+        it "returns :auto" do
+          expect(subject.run).to eq(:auto)
         end
       end
 
