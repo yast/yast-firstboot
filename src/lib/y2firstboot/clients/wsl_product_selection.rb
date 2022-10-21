@@ -140,7 +140,7 @@ module Y2Firstboot
         require "registration/yaml_products_reader"
         require "registration/storage"
       rescue LoadError
-        raise "yast2-registration >= 4.4.23 required"
+        raise "yast2-registration >= 4.5.6 required"
       end
     end
   end
