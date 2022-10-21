@@ -21,6 +21,7 @@
 
 require_relative "../../test_helper"
 require "y2firstboot/clients/wsl"
+require "y2firstboot/wsl_config"
 
 describe Y2Firstboot::Clients::WSL do
   subject(:client) { described_class.new }
@@ -36,6 +37,15 @@ describe Y2Firstboot::Clients::WSL do
       allow(File).to receive(:write)
 
       allow(Yast::Execute).to receive(:locally)
+
+      allow(Y2Firstboot::WSLConfig.instance)
+        .to receive(:installed_product).and_return(installed_product)
+
+      allow(Y2Firstboot::WSLConfig.instance)
+        .to receive(:product).and_return(product)
+
+      allow(Yast::Pkg).to receive(:ResolvableRemove)
+      allow(Yast::Pkg).to receive(:ResolvableInstall)
     end
 
     let(:going_back) { nil }
@@ -43,6 +53,10 @@ describe Y2Firstboot::Clients::WSL do
     let(:username) { nil }
 
     let(:user) { nil }
+
+    let(:installed_product) { nil }
+
+    let(:product) { nil }
 
     context "when going back from another client" do
       let(:going_back) { true }
@@ -85,6 +99,78 @@ describe Y2Firstboot::Clients::WSL do
 
         it "does not write to /run/wsl_firstboot_uid" do
           expect(File).to_not receive(:write).with("/run/wsl_firstboot_uid", anything)
+
+          subject.run
+        end
+      end
+
+      context "when the product was switched" do
+        let(:installed_product) do
+          double(
+            Y2Packager::Resolvable,
+            name:            "SLES",
+            version_version: "15.4"
+          )
+        end
+        let(:product) { { "name" => "SLED", "version" => "15.4" } }
+
+        it "removes the installed product" do
+          expect(Yast::Pkg).to receive(:ResolvableRemove).with("SLES", :product)
+
+          subject.run
+        end
+
+        it "installs the selected product" do
+          expect(Yast::Pkg).to receive(:ResolvableInstall).with("SLED", :product)
+
+          subject.run
+        end
+      end
+
+      context "when the product was not switched" do
+        let(:installed_product) do
+          double(
+            Y2Packager::Resolvable,
+            name:            "SLES",
+            version_version: "15.4"
+          )
+        end
+        let(:product) { { "name" => "SLES", "version" => "15.4" } }
+
+        it "does remove the installed product" do
+          expect(Yast::Pkg).to_not receive(:ResolvableRemove).with("SLES", :product)
+
+          subject.run
+        end
+
+        it "does not install another product" do
+          expect(Yast::Pkg).to_not receive(:ResolvableInstall).with(anything, :product)
+
+          subject.run
+        end
+      end
+
+      context "when there are selected patterns" do
+        before do
+          Y2Firstboot::WSLConfig.instance.patterns = ["wsl_gui", "test"]
+        end
+
+        it "installs the selected patterns" do
+          expect(Yast::Pkg).to receive(:ResolvableInstall).with("wsl_gui", :pattern)
+            .and_return(true)
+          expect(Yast::Pkg).to receive(:ResolvableInstall).with("test", :pattern)
+            .and_return(true)
+
+          subject.run
+        end
+
+        it "reports an error when a pattern cannot be installed" do
+          expect(Yast::Pkg).to receive(:ResolvableInstall).with("wsl_gui", :pattern)
+            .and_return(false)
+          expect(Yast::Pkg).to receive(:ResolvableInstall).with("test", :pattern)
+            .and_return(true)
+
+          expect(Yast::Report).to receive(:Error).with(/wsl_gui/)
 
           subject.run
         end
