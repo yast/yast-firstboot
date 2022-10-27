@@ -42,6 +42,8 @@ module Y2Firstboot
         setup_machine_id
         switch_product
         install_patterns
+        # and now call just once solver to compute deps of new software
+        Yast::Pkg.PkgSolve(false)
 
         :next
       end
