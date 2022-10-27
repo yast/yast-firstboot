@@ -46,6 +46,7 @@ describe Y2Firstboot::Clients::WSL do
 
       allow(Yast::Pkg).to receive(:ResolvableRemove)
       allow(Yast::Pkg).to receive(:ResolvableInstall)
+      allow(Yast::Pkg).to receive(:PkgSolve)
     end
 
     let(:going_back) { nil }
@@ -174,6 +175,12 @@ describe Y2Firstboot::Clients::WSL do
 
           subject.run
         end
+      end
+
+      it "always call solver just once to compute properly dependencies of changes" do
+        expect(Yast::Pkg).to receive(:PkgSolve).with(false)
+
+        subject.run
       end
     end
   end
