@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Mar 13 09:14:01 UTC 2023 - Ladislav Slezák <lslezak@suse.com>
+
+- Removed unnecessary executable flag from several files
+  (bsc#1209094)
+- 4.5.6
+
+-------------------------------------------------------------------
 Thu Oct 27 08:21:44 UTC 2022 - Josef Reidinger <jreidinger@suse.com>
 
 - Compute properly dependencies of WSL GUI pattern (jsc#PM-3439)
