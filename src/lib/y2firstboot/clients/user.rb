@@ -21,7 +21,7 @@ require "yast"
 require "y2users/password"
 require "y2users/linux/writer"
 require "y2users/config_manager"
-require "y2users/commit_config_collection"
+require "y2users/user_commit_config"
 require "y2users/commit_config"
 require "users/dialogs/inst_user_first"
 require "pathname"
@@ -79,7 +79,7 @@ module Y2Firstboot
         writer = Y2Users::Linux::Writer.new(
           config,
           Y2Users::ConfigManager.instance.system,
-          commit_configs
+          commit_config
         )
 
         writer.write
@@ -147,11 +147,11 @@ module Y2Firstboot
         @root_user ||= config.users.root
       end
 
-      # Builds the commit configs to use when writing users
+      # Builds the commit config to use when writing users
       #
-      # @return [Y2Users::CommitConfigCollection]
-      def commit_configs
-        Y2Users::CommitConfigCollection.new.tap do |collection|
+      # @return [Y2Users::CommitConfig]
+      def commit_config
+        Y2Users::CommitConfig.new.tap do |commit_config|
           # Configure the actions to perform when committing a user.
           #
           #   - If the user is being created, its home should content the skel files
@@ -162,7 +162,7 @@ module Y2Firstboot
           #   should be set as owner of the existing directory (#adapt_home_ownership option).
           #   - When deleting the user (i.e., when going back to skip the user creation after
           #   creating it), its home must be removed too (#remove_home).
-          commit_config = Y2Users::CommitConfig.new.tap do |config|
+          user_config = Y2Users::UserCommitConfig.new.tap do |config|
             config.username = user.name
             config.home_without_skel = false
             config.move_home = true
@@ -173,7 +173,7 @@ module Y2Firstboot
             config.remove_home = true
           end
 
-          collection.add(commit_config)
+          commit_config.user_configs.add(user_config)
         end
       end
 
