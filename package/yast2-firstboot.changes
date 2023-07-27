@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jul 27 08:28:30 UTC 2023 - José Iván López González <jlopez@suse.com>
+
+- Adapt users client to the changes in yast2-users (related to
+  bsc#1206627).
+- 4.4.12
+
+-------------------------------------------------------------------
 Thu Oct 27 08:21:44 UTC 2022 - Josef Reidinger <jreidinger@suse.com>
 
 - Compute properly dependencies of WSL GUI pattern (jsc#PM-3439)
