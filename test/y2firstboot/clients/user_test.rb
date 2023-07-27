@@ -1,6 +1,6 @@
 #!/usr/bin/env rspec
 
-# Copyright (c) [2018-2021] SUSE LLC
+# Copyright (c) [2018-2023] SUSE LLC
 #
 # All Rights Reserved.
 #
@@ -125,15 +125,15 @@ describe Y2Firstboot::Clients::User do
       let(:writer) { instance_double(Y2Users::Linux::Writer) }
 
       it "writes the config to the system" do
-        expect(Y2Users::Linux::Writer).to receive(:new) do |target, system, commit_configs|
+        expect(Y2Users::Linux::Writer).to receive(:new) do |target, system, commit_config|
           expect(target).to eql(config)
           expect(system).to eql(system_config)
 
-          commit_config = commit_configs.by_username(user.name)
-          expect(commit_config.move_home?).to eq(true)
-          expect(commit_config.remove_home?).to eq(true)
-          expect(commit_config.adapt_home_ownership?).to eq(true)
-          expect(commit_config.home_without_skel?).to eq(false)
+          user_config = commit_config.user_configs.by_username(user.name)
+          expect(user_config.move_home?).to eq(true)
+          expect(user_config.remove_home?).to eq(true)
+          expect(user_config.adapt_home_ownership?).to eq(true)
+          expect(user_config.home_without_skel?).to eq(false)
         end.and_return(writer)
 
         expect(writer).to receive(:write)
