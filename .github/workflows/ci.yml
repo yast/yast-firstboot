@@ -23,7 +23,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Dependencies
-      run: zypper --non-interactive install --no-recommends yast2-configuration-management
+      run: zypper --non-interactive install --no-recommends yast2-configuration-management yast2-users
 
     # just for easier debugging...
     - name: Inspect Installed Packages
