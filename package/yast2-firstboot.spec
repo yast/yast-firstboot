@@ -47,6 +47,9 @@ Recommends:     (icewm if libyui-qt)
 Supplements:    autoyast(firstboot)
 BuildArch:      noarch
 
+# New API for Y2Users::CommitConfig
+Conflicts:	yast2-users < 4.4.15
+
 %description
 The YaST firstboot utility runs after installation is completed.  It
 guides the user through a series of steps that allows for easier
