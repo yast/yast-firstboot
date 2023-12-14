@@ -43,10 +43,9 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
 
   subject do
     described_class.new(products,
-      default_product: default_product,
-      wsl_gui_pattern: wsl_gui_pattern,
-      wsl_systemd_pattern: wsl_systemd_pattern
-      )
+      default_product:     default_product,
+      wsl_gui_pattern:     wsl_gui_pattern,
+      wsl_systemd_pattern: wsl_systemd_pattern)
   end
 
   let(:products) { [sles, sled] }
@@ -141,7 +140,8 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
     before do
       allow(Yast::UI).to receive(:QueryWidget).and_call_original
       allow(Yast::UI).to receive(:QueryWidget).with(Id(:wsl_gui_pattern), :Value).and_return(true)
-      allow(Yast::UI).to receive(:QueryWidget).with(Id(:wsl_systemd_pattern), :Value).and_return(true)
+      allow(Yast::UI).to receive(:QueryWidget).with(Id(:wsl_systemd_pattern), :Value)
+        .and_return(true)
       allow(Yast::UI).to receive(:QueryWidget).with(Id(:product_selector), :Value)
         .and_return("SLES:15.4")
     end

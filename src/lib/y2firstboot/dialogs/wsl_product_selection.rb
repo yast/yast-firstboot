@@ -49,7 +49,9 @@ module Y2Firstboot
       # @param products [Array<Hash>] All possible products
       # @param default_product [Hash] Product selected by default
       # @param wsl_gui_pattern [Boolean] Whether WSL GUI pattern is selected by default
-      def initialize(products, default_product: nil, wsl_gui_pattern: false, wsl_systemd_pattern: false)
+      # @param wsl_systemd_pattern [Boolean] Whether WSL systemd pattern is selected by default
+      def initialize(products, default_product: nil, wsl_gui_pattern: false,
+        wsl_systemd_pattern: false)
         textdomain "firstboot"
 
         super()
@@ -111,10 +113,12 @@ module Y2Firstboot
         _("<p>Select the product to use with Windows Subsystem for Linux (WSL). " \
           "Some products might require registration.</p>") +
           # TRANSLATORS: help text (2/3)
-          _("<p>For smoother experience with graphical programs in WSL the WSL GUI pattern provides recommended config, tools and libraries. " \
+          _("<p>For smoother experience with graphical programs in WSL " \
+              "the WSL GUI pattern provides recommended config, tools and libraries. " \
               "In that case the system needs to be registered as well.</p>") +
           # TRANSLATORS: help text (3/3)
-          _("<p>For enablement of systemd in WSL the WSL systemd pattern provides wsl.conf and /sbin/init adjustments. " \
+          _("<p>For enablement of systemd in WSL the WSL systemd pattern provides wsl.conf " \
+              "and /sbin/init adjustments. " \
               "In that case the system needs to be registered as well.</p>")
       end
 

@@ -104,9 +104,9 @@ describe Y2Firstboot::Clients::WSLProductSelection do
 
         let(:dialog) do
           instance_double(Y2Firstboot::Dialogs::WSLProductSelection,
-            run:             dialog_result,
-            product:         selected_product,
-            wsl_gui_pattern: wsl_gui_pattern,
+            run:                 dialog_result,
+            product:             selected_product,
+            wsl_gui_pattern:     wsl_gui_pattern,
             wsl_systemd_pattern: wsl_systemd_pattern)
         end
 

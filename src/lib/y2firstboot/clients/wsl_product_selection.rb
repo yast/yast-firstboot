@@ -38,15 +38,15 @@ module Y2Firstboot
         return :auto if products.none?
 
         dialog = Dialogs::WSLProductSelection.new(products,
-          default_product: product,
-          wsl_gui_pattern: wsl_gui_pattern?,
+          default_product:     product,
+          wsl_gui_pattern:     wsl_gui_pattern?,
           wsl_systemd_pattern: wsl_systemd_pattern?)
 
         result = dialog.run
 
         if result == :next
-          save(product: dialog.product,
-               wsl_gui_pattern: dialog.wsl_gui_pattern,
+          save(product:             dialog.product,
+               wsl_gui_pattern:     dialog.wsl_gui_pattern,
                wsl_systemd_pattern: dialog.wsl_systemd_pattern)
         end
 
@@ -137,7 +137,8 @@ module Y2Firstboot
       # @see Registration::Storage::InstallationOptions
       def update_registration
         yaml_product = WSLConfig.instance.product
-        force_registration = WSLConfig.instance.product_switched? || wsl_gui_pattern? | wsl_systemd_pattern?
+        force_registration = WSLConfig.instance.product_switched? ||
+          wsl_gui_pattern? || wsl_systemd_pattern?
 
         Registration::Storage::InstallationOptions.instance.yaml_product = yaml_product
         Registration::Storage::InstallationOptions.instance.force_registration = force_registration
