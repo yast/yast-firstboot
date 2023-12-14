@@ -39,11 +39,16 @@ module Y2Firstboot
 
         dialog = Dialogs::WSLProductSelection.new(products,
           default_product: product,
-          wsl_gui_pattern: wsl_gui_pattern?)
+          wsl_gui_pattern: wsl_gui_pattern?,
+          wsl_systemd_pattern: wsl_systemd_pattern?)
 
         result = dialog.run
 
-        save(product: dialog.product, wsl_gui_pattern: dialog.wsl_gui_pattern) if result == :next
+        if result == :next
+          save(product: dialog.product,
+               wsl_gui_pattern: dialog.wsl_gui_pattern,
+               wsl_systemd_pattern: dialog.wsl_systemd_pattern)
+        end
 
         result
       end
@@ -52,14 +57,17 @@ module Y2Firstboot
 
       WSL_GUI_PATTERN = "wsl_gui".freeze
       private_constant :WSL_GUI_PATTERN
+      WSL_SYSTEMD_PATTERN = "wsl_systemd".freeze
+      private_constant :WSL_SYSTEMD_PATTERN
 
       # Saves changes
       #
       # @param product [Hash] Selected product
       # @param wsl_gui_pattern [Boolean] Whether to install WSL GUI pattern
-      def save(product:, wsl_gui_pattern:)
+      def save(product:, wsl_gui_pattern:, wsl_systemd_pattern:)
         self.product = product
         self.wsl_gui_pattern = wsl_gui_pattern
+        self.wsl_systemd_pattern = wsl_systemd_pattern
         update_registration
       end
 
@@ -101,6 +109,26 @@ module Y2Firstboot
         end
       end
 
+      # Whether the WSL systemd pattern should be installed
+      #
+      # @see ẂSLConfig
+      #
+      # @return [Boolean]
+      def wsl_systemd_pattern?
+        WSLConfig.instance.patterns.include?(WSL_SYSTEMD_PATTERN)
+      end
+
+      # Sets whether to install the WSL systemd pattern
+      #
+      # @param value [Boolean]
+      def wsl_systemd_pattern=(value)
+        if value
+          WSLConfig.instance.patterns.push(WSL_SYSTEMD_PATTERN).uniq!
+        else
+          WSLConfig.instance.patterns.delete(WSL_SYSTEMD_PATTERN)
+        end
+      end
+
       # Updates values stored in registration
       #
       # Those values indicates to registration what product was selected and whether the product
@@ -109,7 +137,7 @@ module Y2Firstboot
       # @see Registration::Storage::InstallationOptions
       def update_registration
         yaml_product = WSLConfig.instance.product
-        force_registration = WSLConfig.instance.product_switched? || wsl_gui_pattern?
+        force_registration = WSLConfig.instance.product_switched? || wsl_gui_pattern? | wsl_systemd_pattern?
 
         Registration::Storage::InstallationOptions.instance.yaml_product = yaml_product
         Registration::Storage::InstallationOptions.instance.force_registration = force_registration

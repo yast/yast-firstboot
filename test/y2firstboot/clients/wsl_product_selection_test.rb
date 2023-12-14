@@ -106,12 +106,14 @@ describe Y2Firstboot::Clients::WSLProductSelection do
           instance_double(Y2Firstboot::Dialogs::WSLProductSelection,
             run:             dialog_result,
             product:         selected_product,
-            wsl_gui_pattern: wsl_gui_pattern)
+            wsl_gui_pattern: wsl_gui_pattern,
+            wsl_systemd_pattern: wsl_systemd_pattern)
         end
 
         let(:dialog_result) { :abort }
         let(:selected_product) { nil }
         let(:wsl_gui_pattern) { nil }
+        let(:wsl_systemd_pattern) { nil }
 
         let(:product_switched) { false }
 
@@ -159,6 +161,34 @@ describe Y2Firstboot::Clients::WSLProductSelection do
             end
           end
 
+          context "if the WSL systemd pattern was selected" do
+            let(:wsl_systemd_pattern) { true }
+
+            before do
+              Y2Firstboot::WSLConfig.instance.patterns = []
+            end
+
+            it "stores the WSL systemd pattern in the WSL config" do
+              subject.run
+
+              expect(Y2Firstboot::WSLConfig.instance.patterns).to include("wsl_systemd")
+            end
+          end
+
+          context "if the WSL systemd pattern was not selected" do
+            let(:wsl_systemd_pattern) { false }
+
+            before do
+              Y2Firstboot::WSLConfig.instance.patterns = ["wsl_systemd"]
+            end
+
+            it "does not store the WSL systemd pattern in the WSL config" do
+              subject.run
+
+              expect(Y2Firstboot::WSLConfig.instance.patterns).to_not include("wsl_systemd")
+            end
+          end
+
           it "updates the product in registration storage" do
             Registration::Storage::InstallationOptions.instance.yaml_product = nil
 
@@ -170,6 +200,7 @@ describe Y2Firstboot::Clients::WSLProductSelection do
           context "if the product was switched" do
             let(:product_switched) { true }
             let(:wsl_gui_pattern) { false }
+            let(:wsl_systemd_pattern) { false }
 
             it "updates registration storage to force registration" do
               Registration::Storage::InstallationOptions.instance.force_registration = false
@@ -200,13 +231,30 @@ describe Y2Firstboot::Clients::WSLProductSelection do
             context "and the WSL GUI pattern was not selected" do
               let(:wsl_gui_pattern) { false }
 
-              it "updates registration storage to not force registration" do
-                Registration::Storage::InstallationOptions.instance.force_registration = true
+              context "and the WSL systemd pattern was selected" do
+                let(:wsl_systemd_pattern) { true }
 
-                subject.run
+                it "updates registration storage to force registration" do
+                  Registration::Storage::InstallationOptions.instance.force_registration = false
 
-                expect(Registration::Storage::InstallationOptions.instance.force_registration)
-                  .to eq(false)
+                  subject.run
+
+                  expect(Registration::Storage::InstallationOptions.instance.force_registration)
+                    .to eq(true)
+                end
+              end
+
+              context "and the WSL systemd pattern was not selected" do
+                let(:wsl_systemd_pattern) { false }
+
+                it "updates registration storage to not force registration" do
+                  Registration::Storage::InstallationOptions.instance.force_registration = true
+
+                  subject.run
+
+                  expect(Registration::Storage::InstallationOptions.instance.force_registration)
+                    .to eq(false)
+                end
               end
             end
           end
