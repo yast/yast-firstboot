@@ -96,9 +96,10 @@ module Y2Firstboot
             Left(CheckBox(Id(:wsl_gui_pattern),
               _("Install WSL GUI pattern (requires registration)"),
               wsl_gui_pattern)),
+            VSpacing(2),
             # TRANSLATORS:
-            Label(_("The WSL systemd pattern provides wsl.conf adjustment and init symlink for\n" \
-              "a systemd enablement in WSL.")),
+            Label(_("The WSL systemd pattern provides wsl.conf adjustment\n" \
+              "and init symlink for a systemd enablement in WSL.")),
             VSpacing(1),
             # TRANSLATORS: check box label
             Left(CheckBox(Id(:wsl_systemd_pattern),
