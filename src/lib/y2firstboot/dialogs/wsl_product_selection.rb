@@ -124,7 +124,7 @@ module Y2Firstboot
           _("<p>For enablement of systemd in WSL the WSL systemd pattern provides wsl.conf " \
               "and /sbin/init adjustments. " \
               "In that case the system needs to be registered as well. " \
-              "Also be aware that systemd enablement is in effect only after relaunch.</p>")
+              "Relaunch is required to use systemd.</p>")
       end
 
     private
