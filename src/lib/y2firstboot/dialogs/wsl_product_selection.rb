@@ -89,8 +89,8 @@ module Y2Firstboot
             ),
             VSpacing(2),
             # TRANSLATORS:
-            Label(_("The WSL GUI pattern provides some needed packages for\n" \
-              "a better experience with graphical applications in WSL.")),
+            Left(Label(_("The WSL GUI pattern provides some needed packages for\n" \
+              "a better experience with graphical applications in WSL."))),
             VSpacing(1),
             # TRANSLATORS: check box label
             Left(CheckBox(Id(:wsl_gui_pattern),
@@ -98,8 +98,8 @@ module Y2Firstboot
               wsl_gui_pattern)),
             VSpacing(2),
             # TRANSLATORS:
-            Label(_("The WSL systemd pattern provides wsl.conf adjustment\n" \
-              "and init symlink for a systemd enablement in WSL.")),
+            Left(Label(_("The WSL systemd pattern provides wsl.conf adjustment\n" \
+              "and init symlink for systemd enablement in WSL."))),
             VSpacing(1),
             # TRANSLATORS: check box label
             Left(CheckBox(Id(:wsl_systemd_pattern),
@@ -120,7 +120,8 @@ module Y2Firstboot
           # TRANSLATORS: help text (3/3)
           _("<p>For enablement of systemd in WSL the WSL systemd pattern provides wsl.conf " \
               "and /sbin/init adjustments. " \
-              "In that case the system needs to be registered as well.</p>")
+              "In that case the system needs to be registered as well. " \
+              "Also be aware that systemd enablement is in effect only after relaunch.</p>")
       end
 
     private
