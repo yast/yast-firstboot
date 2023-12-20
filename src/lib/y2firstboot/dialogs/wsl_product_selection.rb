@@ -73,6 +73,8 @@ module Y2Firstboot
         _("Product Selection")
       end
 
+      # disable rubocop metrics as yast ui is constructed with methods
+      # rubocop:disable Metrics/AbcSize
       def dialog_content
         items = products.map { |p| item_for(p) }
 
@@ -108,6 +110,7 @@ module Y2Firstboot
           )
         )
       end
+      # rubocop:enable Metrics/AbcSize
 
       def help_text
         # TRANSLATORS: help text (1/3)
