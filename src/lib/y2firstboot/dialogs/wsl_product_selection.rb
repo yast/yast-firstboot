@@ -39,18 +39,26 @@ module Y2Firstboot
       # @return [Boolean]
       attr_reader :wsl_gui_pattern
 
+      # Whether the WSL systemd pattern was selected
+      #
+      # @return [Boolean]
+      attr_reader :wsl_systemd_pattern
+
       # Constructor
       #
       # @param products [Array<Hash>] All possible products
       # @param default_product [Hash] Product selected by default
       # @param wsl_gui_pattern [Boolean] Whether WSL GUI pattern is selected by default
-      def initialize(products, default_product: nil, wsl_gui_pattern: false)
+      # @param wsl_systemd_pattern [Boolean] Whether WSL systemd pattern is selected by default
+      def initialize(products, default_product: nil, wsl_gui_pattern: false,
+        wsl_systemd_pattern: false)
         textdomain "firstboot"
 
         super()
         @products = products
         @product = default_product || products.first
         @wsl_gui_pattern = wsl_gui_pattern
+        @wsl_systemd_pattern = wsl_systemd_pattern
       end
 
       def next_handler
@@ -65,6 +73,8 @@ module Y2Firstboot
         _("Product Selection")
       end
 
+      # disable rubocop metrics as yast ui is constructed with methods
+      # rubocop:disable Metrics/AbcSize
       def dialog_content
         items = products.map { |p| item_for(p) }
 
@@ -81,24 +91,40 @@ module Y2Firstboot
             ),
             VSpacing(2),
             # TRANSLATORS:
-            Label(_("The WSL GUI pattern provides some needed packages for\n" \
-              "a better experience with graphical applications in WSL.")),
+            Left(Label(_("The WSL GUI pattern provides some needed packages for\n" \
+              "a better experience with graphical applications in WSL."))),
             VSpacing(1),
             # TRANSLATORS: check box label
             Left(CheckBox(Id(:wsl_gui_pattern),
               _("Install WSL GUI pattern (requires registration)"),
-              wsl_gui_pattern))
+              wsl_gui_pattern)),
+            VSpacing(2),
+            # TRANSLATORS:
+            Left(Label(_("The WSL systemd pattern provides wsl.conf adjustment\n" \
+              "and init symlink for systemd enablement in WSL."))),
+            VSpacing(1),
+            # TRANSLATORS: check box label
+            Left(CheckBox(Id(:wsl_systemd_pattern),
+              _("Install WSL systemd pattern (requires registration)"),
+              wsl_systemd_pattern))
           )
         )
       end
+      # rubocop:enable Metrics/AbcSize
 
       def help_text
-        # TRANSLATORS: help text (1/2)
+        # TRANSLATORS: help text (1/3)
         _("<p>Select the product to use with Windows Subsystem for Linux (WSL). " \
           "Some products might require registration.</p>") +
-          # TRANSLATORS: help text (2/2)
-          _("<p>To use graphical programs in WSL you need to install the WSL GUI pattern. " \
-              "In that case the system needs to be registered as well.</p>")
+          # TRANSLATORS: help text (2/3)
+          _("<p>For smoother experience with graphical programs in WSL " \
+              "the WSL GUI pattern provides recommended config, tools and libraries. " \
+              "In that case the system needs to be registered as well.</p>") +
+          # TRANSLATORS: help text (3/3)
+          _("<p>For enablement of systemd in WSL the WSL systemd pattern provides wsl.conf " \
+              "and /sbin/init adjustments. " \
+              "In that case the system needs to be registered as well. " \
+              "Relaunch is required to use systemd.</p>")
       end
 
     private
@@ -146,6 +172,7 @@ module Y2Firstboot
 
       def save
         @wsl_gui_pattern = Yast::UI.QueryWidget(Id(:wsl_gui_pattern), :Value)
+        @wsl_systemd_pattern = Yast::UI.QueryWidget(Id(:wsl_systemd_pattern), :Value)
 
         selected_id = Yast::UI.QueryWidget(Id(:product_selector), :Value)
         @product = products.find { |p| item_id(p) == selected_id }
