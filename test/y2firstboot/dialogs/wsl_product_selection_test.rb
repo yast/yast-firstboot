@@ -43,7 +43,9 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
 
   subject do
     described_class.new(products,
-      default_product: default_product, wsl_gui_pattern: wsl_gui_pattern)
+      default_product:     default_product,
+      wsl_gui_pattern:     wsl_gui_pattern,
+      wsl_systemd_pattern: wsl_systemd_pattern)
   end
 
   let(:products) { [sles, sled] }
@@ -52,6 +54,7 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
 
   let(:default_product) { sled }
   let(:wsl_gui_pattern) { false }
+  let(:wsl_systemd_pattern) { false }
 
   let(:installed_product) { double(Y2Packager::Resolvable, name: "SLES", version_version: "15.4") }
   before do
@@ -76,6 +79,12 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
 
     it "shows a check box for selecting the WSL GUI pattern" do
       widget = find_widget(:wsl_gui_pattern, subject.send(:dialog_content))
+
+      expect(widget).to_not be_nil
+    end
+
+    it "shows a check box for selecting the WSL systemd pattern" do
+      widget = find_widget(:wsl_systemd_pattern, subject.send(:dialog_content))
 
       expect(widget).to_not be_nil
     end
@@ -105,12 +114,34 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
         expect(widget.params.last).to eq(false)
       end
     end
+
+    context "when WSL systemd pattern is indicated as selected" do
+      let(:wsl_systemd_pattern) { true }
+
+      it "selects WSL systemd pattern checkbox by default" do
+        widget = find_widget(:wsl_systemd_pattern, subject.send(:dialog_content))
+
+        expect(widget.params.last).to eq(true)
+      end
+    end
+
+    context "when WSL systemd pattern is not indicated as selected" do
+      let(:wsl_systemd_pattern) { false }
+
+      it "does not select WSL systemd pattern checkbox by default" do
+        widget = find_widget(:wsl_systemd_pattern, subject.send(:dialog_content))
+
+        expect(widget.params.last).to eq(false)
+      end
+    end
   end
 
   describe "#next_handler" do
     before do
       allow(Yast::UI).to receive(:QueryWidget).and_call_original
       allow(Yast::UI).to receive(:QueryWidget).with(Id(:wsl_gui_pattern), :Value).and_return(true)
+      allow(Yast::UI).to receive(:QueryWidget).with(Id(:wsl_systemd_pattern), :Value)
+        .and_return(true)
       allow(Yast::UI).to receive(:QueryWidget).with(Id(:product_selector), :Value)
         .and_return("SLES:15.4")
     end
@@ -121,6 +152,14 @@ describe Y2Firstboot::Dialogs::WSLProductSelection do
       subject.next_handler
 
       expect(subject.wsl_gui_pattern).to eq(true)
+    end
+
+    it "saves whether the WSL GUI pattern checkbox was selected" do
+      expect(subject.wsl_systemd_pattern).to eq(false)
+
+      subject.next_handler
+
+      expect(subject.wsl_systemd_pattern).to eq(true)
     end
 
     it "saves the selected product" do
