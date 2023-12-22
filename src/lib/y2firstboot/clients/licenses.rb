@@ -34,6 +34,7 @@ module Y2Firstboot
       def initialize
         textdomain "firstboot"
 
+        super
         @args = GetInstArgs.argmap
       end
 
