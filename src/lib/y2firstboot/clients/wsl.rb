@@ -92,7 +92,7 @@ module Y2Firstboot
 
           # TRANSLATORS: Error message, %s is a pattern name
           Yast::Report.Error(_("Cannot select pattern\n\"%s\" to install.\n" \
-            "Some software might be missing.") % pattern)
+                               "Some software might be missing.") % pattern)
         end
       end
     end
