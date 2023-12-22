@@ -46,8 +46,8 @@ module Y2Firstboot
 
         if result == :next
           save(product:             dialog.product,
-               wsl_gui_pattern:     dialog.wsl_gui_pattern,
-               wsl_systemd_pattern: dialog.wsl_systemd_pattern)
+            wsl_gui_pattern:     dialog.wsl_gui_pattern,
+            wsl_systemd_pattern: dialog.wsl_systemd_pattern)
         end
 
         result

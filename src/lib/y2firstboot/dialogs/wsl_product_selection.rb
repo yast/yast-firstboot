@@ -92,7 +92,7 @@ module Y2Firstboot
             VSpacing(2),
             # TRANSLATORS:
             Left(Label(_("The WSL GUI pattern provides some needed packages for\n" \
-              "a better experience with graphical applications in WSL."))),
+                         "a better experience with graphical applications in WSL."))),
             VSpacing(1),
             # TRANSLATORS: check box label
             Left(CheckBox(Id(:wsl_gui_pattern),
@@ -101,7 +101,7 @@ module Y2Firstboot
             VSpacing(2),
             # TRANSLATORS:
             Left(Label(_("The WSL systemd pattern provides wsl.conf adjustment\n" \
-              "and init symlink for systemd enablement in WSL."))),
+                         "and init symlink for systemd enablement in WSL."))),
             VSpacing(1),
             # TRANSLATORS: check box label
             Left(CheckBox(Id(:wsl_systemd_pattern),
@@ -118,13 +118,13 @@ module Y2Firstboot
           "Some products might require registration.</p>") +
           # TRANSLATORS: help text (2/3)
           _("<p>For smoother experience with graphical programs in WSL " \
-              "the WSL GUI pattern provides recommended config, tools and libraries. " \
-              "In that case the system needs to be registered as well.</p>") +
+            "the WSL GUI pattern provides recommended config, tools and libraries. " \
+            "In that case the system needs to be registered as well.</p>") +
           # TRANSLATORS: help text (3/3)
           _("<p>For enablement of systemd in WSL the WSL systemd pattern provides wsl.conf " \
-              "and /sbin/init adjustments. " \
-              "In that case the system needs to be registered as well. " \
-              "Relaunch is required to use systemd.</p>")
+            "and /sbin/init adjustments. " \
+            "In that case the system needs to be registered as well. " \
+            "Relaunch is required to use systemd.</p>")
       end
 
     private
