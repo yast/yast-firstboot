@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Sep 06 07:14:32 UTC 2024 - Ladislav Slezák <lslezak@suse.com>
+
+- Branch package for SP7 (bsc#1230201)
+
+-------------------------------------------------------------------
 Thu Dec 14 20:38:43 UTC 2023 - Josef Reidinger <jreidinger@suse.com>
 
 - Allow selecting WSL systemd pattern (jsc#PED-5644, jsc#PED-5099)
