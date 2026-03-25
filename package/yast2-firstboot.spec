@@ -17,7 +17,7 @@
 
 
 Name:           yast2-firstboot
-Version:        5.0.1
+Version:        5.0.2
 Release:        0
 Summary:        YaST2 - Initial System Configuration
 License:        GPL-2.0-only
@@ -28,7 +28,6 @@ BuildRequires:  docbook-xsl-stylesheets
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libxslt
 BuildRequires:  ruby
-BuildRequires:  update-desktop-files
 BuildRequires:  yast2-devtools >= 4.2.2
 # UI::Wizards::Layout
 Requires:       yast2 >= 4.3.16
